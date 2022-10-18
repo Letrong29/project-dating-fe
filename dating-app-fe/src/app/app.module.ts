@@ -5,6 +5,11 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {AngularFireStorageModule} from '@angular/fire/storage';
 import {AngularFireModule} from '@angular/fire';
+import {environment} from "../environments/environment.prod";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {HttpClientModule} from "@angular/common/http";
+import {CommonModule} from "@angular/common";
+import {UserModule} from "./user/user.module";
 
 @NgModule({
   declarations: [
@@ -14,7 +19,11 @@ import {AngularFireModule} from '@angular/fire';
     BrowserModule,
     AppRoutingModule,
     AngularFireStorageModule,
-    AngularFireModule
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    UserModule
   ],
   providers: [],
   bootstrap: [AppComponent]
