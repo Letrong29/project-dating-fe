@@ -7,6 +7,7 @@ import {UserService} from "../../service/user.service";
   templateUrl: './list-user.component.html',
   styleUrls: ['./list-user.component.css']
 })
+
 export class ListUserComponent implements OnInit {
 
   keyword: string = "";
@@ -53,4 +54,6 @@ export class ListUserComponent implements OnInit {
       console.log(this.totalPage)
     })
   }
+
+
 }

@@ -7,10 +7,12 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {NgxPaginationModule} from "ngx-pagination";
 import {NgModule} from "@angular/core";
 import {BrowserModule} from "@angular/platform-browser";
+import {ListUserComponent} from "./user/component/list-user/list-user.component";
+import {UserModule} from "./user/user.module";
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
@@ -19,7 +21,8 @@ import {BrowserModule} from "@angular/platform-browser";
     FormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    UserModule
   ],
   providers: [],
   bootstrap: [AppComponent]

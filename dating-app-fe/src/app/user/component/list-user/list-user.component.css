@@ -1,0 +1,26 @@
+
+h4.text-center {
+  font-family: revert;
+  font-weight: 500;
+  color: #2c7272;
+}
+tr:hover{
+  cursor: pointer;
+}
+
+.modal-content {
+  border-radius: 15px;
+  background-color: #fffffd;
+}
+
+.name_member p {
+  font-size: 18px;
+  font-weight: bolder;
+}
+
+.scroller {
+  width: 495px;
+  height: 253px;
+  overflow-y: scroll;
+}
+
