@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { AccountRoutingModule } from './account-routing.module';
 import { ResetPasswordComponent } from './component/reset-password/reset-password.component';
+import {HttpClientModule} from "@angular/common/http";
 
 
 @NgModule({
@@ -12,7 +13,8 @@ import { ResetPasswordComponent } from './component/reset-password/reset-passwor
   ],
   imports: [
     CommonModule,
-    AccountRoutingModule
+    AccountRoutingModule,
+    HttpClientModule
   ]
 })
 export class AccountModule { }
