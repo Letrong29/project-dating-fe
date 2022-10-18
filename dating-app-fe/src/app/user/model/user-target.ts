@@ -1,9 +1,12 @@
 import {User} from './user';
 import {Target} from './target';
+import {UserTargetKey} from './user-target-key';
 
 export interface UserTarget {
 
-  idUser: User;
+  id?: UserTargetKey;
 
-  idTarget: Target;
+  user?: User;
+
+  target?: Target;
 }

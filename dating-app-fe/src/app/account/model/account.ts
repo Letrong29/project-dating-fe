@@ -1,5 +1,9 @@
+import {User} from '../../user/model/user';
+import {AccountRole} from './account-role';
+
 export interface Account {
-  id?: number;
+
+  idAccount?: number;
 
   email?: string;
 
@@ -9,5 +13,7 @@ export interface Account {
 
   status?: number;
 
-  idUser?: number;
+  idUser?: User;
+
+  accountRoles?: AccountRole[]
 }

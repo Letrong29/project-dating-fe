@@ -1,6 +1,11 @@
+import {User} from './user';
+
 export interface TypeUser {
 
-  id?: number;
+  idTypeUser?: number;
 
-  name?: string;
+  typeUserName?: string;
+
+  users?: User[];
+
 }

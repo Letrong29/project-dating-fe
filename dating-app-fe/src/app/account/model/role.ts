@@ -1,6 +1,10 @@
+import {AccountRole} from './account-role';
+
 export interface Role {
 
-  id?: number;
+  idRole?: number;
 
-  name?: number;
+  roleName?: string;
+
+  accountRoles?: AccountRole[]
 }

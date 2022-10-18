@@ -1,6 +1,10 @@
+import {UserTarget} from './user-target';
+
 export interface Target {
 
-  id?: number;
+  idTarget?: number;
 
-  name?: string;
+  targetName?: string;
+
+  userTargets?: UserTarget[];
 }

@@ -2,9 +2,9 @@ import {User} from '../../user/model/user';
 
 export interface FriendList {
 
-  id: number;
+  id?: number;
 
-  status: number;
+  status?: number;
 
   idUser1: User;
 

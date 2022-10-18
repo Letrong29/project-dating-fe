@@ -1,8 +1,11 @@
 import {Role} from './role';
+import {AccountRoleKey} from './account-role-key';
 
 export interface AccountRole {
 
-  idAccount: Account;
+  id?: AccountRoleKey;
 
-  idRole: Role;
+  account?: Account;
+
+  role?: Role;
 }

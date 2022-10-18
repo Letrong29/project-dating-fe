@@ -1,8 +1,12 @@
+import {GiftUser} from './gift-user';
+
 export interface Gift {
 
-  id?: number;
+  idGift?: number;
 
-  name?: string;
+  giftName?: string;
 
   price?: number;
+
+  giftUsers?: GiftUser[]
 }

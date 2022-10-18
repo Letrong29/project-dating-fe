@@ -1,6 +1,6 @@
 export interface Report {
 
-  id?: number;
+  idReport?: number;
 
-  name?: string;
+  nameReport?: string;
 }
