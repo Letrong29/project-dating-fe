@@ -57,12 +57,12 @@
         <td>{{(i + 1) + 5 * page}}</td>
         <td>{{item.name}}</td>
         <td>{{item.typeUser}}</td>
-        <td class="text-center">{{item.joinDate | date: 'dd-MM-yyyy'}}</td>
+        <td class="text-center">{{item.joinDay | date: 'dd-MM-yyyy'}}</td>
         <td class="text-center">{{item.coin}}</td>
         <td class="text-center">{{item.quantity}}</td>
         <td class="text-center">
           <button class="btn text-white" data-bs-toggle="modal" data-bs-target="#detail"
-                  style="background-color: #e78e0b;">Cảnh
+                  style="background-color: #e78e0b;" (click)="getReportDetail(item.idUser)">Cảnh
             cáo
           </button>
         </td>
@@ -97,31 +97,30 @@
                    style="background-color: rgb(237 94 83);box-shadow: 5px -5px 5px 0px #778178;">
               <thead>
               <tr class="text-center">
-                <th>Ngày</th>
-                <th>Vi phạm</th>
+                <th>Ngày vi phạm</th>
+                <th>Lỗi vi phạm</th>
                 <th>Thành viên báo cáo</th>
               </tr>
               </thead>
-              <tbody>
-              <tr>
-                <td class="text-center">09/10/2022</td>
-                <td class="text-center">Chửi tục</td>
-                <td class="text-center">Nhân</td>
-              </tr>
-
-              <tr>
-                <td class="text-center">02/12/2022</td>
-                <td class="text-center">Spam</td>
-                <td class="text-center">Vinh</td>
-              </tr>
-
-              <tr>
-                <td class="text-center">19/20/2022</td>
-                <td class="text-center">Đăng ảnh 18+</td>
-                <td class="text-center">Tài</td>
+              <tbody *ngIf="reportDetailList!=null">
+              <tr *ngFor="let rd of reportDetailList,index as i">
+                <td>{{rd.timeReport | date: 'dd-MM-yyyy'}}</td>
+                <td>{{rd.nameReport}}</td>
+                <td>{{rd.userName}}</td>
               </tr>
               </tbody>
             </table>
+
+            <div class="col-md-12 bg-danger">
+              <select class="form-select" aria-label="Default select example"
+                      style="background-color: rgb(219 211 214);">
+                <option selected>Hình thức cảnh cáo</option>
+                <option value="">Cảnh cáo</option>
+                <option value="">Khóa nick một tuần</option>
+                <option value="">Khóa nick một tháng</option>
+                <option value="">Khóa vĩnh viễn</option>
+              </select>
+            </div>
           </div>
 
         </div>

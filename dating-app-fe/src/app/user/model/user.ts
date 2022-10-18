@@ -24,7 +24,7 @@ export interface User {
 
   avatar?: string;
 
-  joinDate?: string;
+  joinDay?: string;
 
   coin?: number;
 

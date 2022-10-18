@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {User} from "../../model/user";
 import {UserService} from "../../service/user.service";
+import {ReportDetail} from "../../../website/model/report-detail";
 
 @Component({
   selector: 'app-list-user',
@@ -14,6 +15,7 @@ export class ListUserComponent implements OnInit {
   page: number = 0;
   totalPage: number;
   userList:User[] = [];
+  reportDetailList: any = null;
   selectedMember = "";
 
   constructor(private userService:UserService) { }
@@ -24,7 +26,7 @@ export class ListUserComponent implements OnInit {
 
   searchAndListUser() {
     this.page = 0;
-    return this.userService.findByName(this.keyword,this.selectedMember, this.page).subscribe(us => {
+    return this.userService.findByAllAndSearchNameUser(this.keyword,this.selectedMember, this.page).subscribe(us => {
       // @ts-ignore
       this.userList = us.content;
       // @ts-ignore
@@ -35,7 +37,7 @@ export class ListUserComponent implements OnInit {
 
   previous() {
     this.page = this.page - 1;
-    return this.userService.findByName(this.keyword,this.selectedMember, this.page).subscribe(us => {
+    return this.userService.findByAllAndSearchNameUser(this.keyword,this.selectedMember, this.page).subscribe(us => {
       // @ts-ignore
       this.userList = us.content;
       // @ts-ignore
@@ -46,7 +48,7 @@ export class ListUserComponent implements OnInit {
 
   next() {
     this.page = this.page + 1;
-    return this.userService.findByName(this.keyword,this.selectedMember, this.page).subscribe(us => {
+    return this.userService.findByAllAndSearchNameUser(this.keyword,this.selectedMember, this.page).subscribe(us => {
       // @ts-ignore
       this.userList = us.content;
       // @ts-ignore
@@ -55,5 +57,8 @@ export class ListUserComponent implements OnInit {
     })
   }
 
+  getReportDetail(id:number){
+    return this.userService.getAllReportDetail(id).subscribe(rd => this.reportDetailList = rd);
+  }
 
 }
