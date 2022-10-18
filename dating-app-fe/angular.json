@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "dating-app-project-demo": {
+    "fe-spring": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/dating-app-project-demo",
+            "outputPath": "dist/fe-spring",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -24,9 +24,15 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.css",
+              "node_modules/ngx-toastr/toastr.css",
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "node_modules/boxicons/css/boxicons.min.css"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/bootstrap/dist/js/bootstrap.min.js",
+              "node_modules/boxicons/dist/boxicons.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -62,18 +68,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "dating-app-project-demo:build"
+            "browserTarget": "fe-spring:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "dating-app-project-demo:build:production"
+              "browserTarget": "fe-spring:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "dating-app-project-demo:build"
+            "browserTarget": "fe-spring:build"
           }
         },
         "test": {
@@ -110,19 +116,19 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "dating-app-project-demo:serve"
+            "devServerTarget": "fe-spring:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "dating-app-project-demo:serve:production"
+              "devServerTarget": "fe-spring:serve:production"
             }
           }
         }
       }
     }
   },
-  "defaultProject": "dating-app-project-demo",
+  "defaultProject": "fe-spring",
   "cli": {
-    "analytics": "54b5633a-4c5c-4016-998d-8fbcfa6ae3e4"
+    "analytics": "723c90fa-0f0e-4654-9edb-43e7a66d8879"
   }
 }

@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Manager Member List</title>
+</head>
+<body>
+<div class="container-fluid" style="margin-top: 20px;">
+  <h4 class="text-center">QUẢN LÝ THÀNH VIÊN</h4>
+  <div class=" container-fluid mt-4">
+    <div class="row">
+      <div class="col-md-3">
+        <select class="form-select" [(ngModel)]="selectedMember" (change)="searchAndListUser()"
+                aria-label="Default select example"
+                style="background-color: rgb(219 211 214);">
+          <option selected>Điều kiện lọc</option>
+          <option value="">Tất cả thành viên</option>
+          <option value="vip">Thành viên VIP</option>
+          <option value="basic">Thành viên thông thường</option>
+        </select>
+      </div>
+      <div class="col-md-4">
+        <form class="mb-3">
+          <div class="row">
+            <div class="col-md-8">
+              <input class="form-control me-2" type="search" [(ngModel)]="keyword" placeholder="Tên thành viên"
+                     aria-label="Search"
+                     style="border-bottom-color: unset;background-color: rgb(219 211 214);">
+            </div>
+            <div class="col-md-4">
+              <button class="btn btn-outline-primary" type="submit" (click)="searchAndListUser()">Tìm kiếm</button>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="col-md-5"></div>
+    </div>
+
+    <table class="table table-striped table-bordered table-hover mt-2"
+           style="background-color: rgb(219 211 214);box-shadow: 5px -4px 3px 0px #556857;">
+      <thead>
+      <tr class="text-center">
+        <th>STT</th>
+        <th>Tên thành viên</th>
+        <th>VIP</th>
+        <th>Ngày tham gia</th>
+        <th>Số xu</th>
+        <th>Số lần vi phạm</th>
+        <th>Cảnh cáo thành viên</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let item of userList,index as i">
+        <td>{{i + 1}}</td>
+        <td>{{item.name}}</td>
+        <td>{{item.typeUser}}</td>
+        <td>{{item.joinDay}}</td>
+        <td>{{item.coin}}</td>
+        <td>{{item.quantity}}</td>
+        <td class="text-center">
+          <button class="btn text-white" data-bs-toggle="modal" data-bs-target="#detail"
+                  style="background-color: #e78e0b;">Cảnh
+            cáo
+          </button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+    <nav aria-label="...">
+      <ul class="pagination justify-content-center">
+        <li class="page-item disabled">
+          <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Sau</a>
+        </li>
+        <li class="page-item"><a class="page-link" href="#">1</a></li>
+        <li class="page-item active" aria-current="page">
+          <a class="page-link" href="#">2</a>
+        </li>
+        <li class="page-item"><a class="page-link" href="#">3</a></li>
+        <li class="page-item">
+          <a class="page-link" href="#">Trước</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+
+  <!--  Modal Detail-->
+  <div class="modal fade " id="detail" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content" style="border-radius: 10px;">
+        <div class="modal-header  text-center">
+          <h3 class="modal-title text-danger" id="exampleModalLabel1" style="margin: 0 auto;">Cảnh cáo thành
+            viên</h3>
+        </div>
+        <div class="modal-body scroller" style="background-color: #f7f4f4;">
+          <div class="mb-3 ">
+            <div class="name_member"><p style=" color: slateblue;">Thành viên : Nguyễn Cao Tuấn</p></div>
+            <table class="table table-striped table-bordered mt-4 "
+                   style="background-color: rgb(237 94 83);box-shadow: 5px -5px 5px 0px #778178;">
+              <thead>
+              <tr class="text-center">
+                <th>Ngày</th>
+                <th>Vi phạm</th>
+                <th>Thành viên báo cáo</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+                <td class="text-center">09/10/2022</td>
+                <td class="text-center">Chửi tục</td>
+                <td class="text-center">Nhân</td>
+              </tr>
+
+              <tr>
+                <td class="text-center">02/12/2022</td>
+                <td class="text-center">Spam</td>
+                <td class="text-center">Vinh</td>
+              </tr>
+
+              <tr>
+                <td class="text-center">19/20/2022</td>
+                <td class="text-center">Đăng ảnh 18+</td>
+                <td class="text-center">Tài</td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Đóng</button>
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Xác nhận</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
+
+
+

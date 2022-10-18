@@ -1,10 +1,12 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import {AngularFireStorageModule} from '@angular/fire/storage';
-import {AngularFireModule} from '@angular/fire';
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {HttpClientModule} from "@angular/common/http";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {NgxPaginationModule} from "ngx-pagination";
+import {NgModule} from "@angular/core";
+import {BrowserModule} from "@angular/platform-browser";
 
 @NgModule({
   declarations: [
@@ -12,9 +14,12 @@ import {AngularFireModule} from '@angular/fire';
   ],
   imports: [
     BrowserModule,
+    ReactiveFormsModule,
     AppRoutingModule,
-    AngularFireStorageModule,
-    AngularFireModule
+    FormsModule,
+    HttpClientModule,
+    BrowserAnimationsModule,
+    NgxPaginationModule
   ],
   providers: [],
   bootstrap: [AppComponent]
