@@ -11,4 +11,5 @@ import { FriendRoutingModule } from './friend-routing.module';
     FriendRoutingModule
   ]
 })
+//testttt
 export class FriendModule { }
