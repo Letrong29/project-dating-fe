@@ -1,0 +1,250 @@
+<div class="container-fluid section mt-5 mb-5">
+  <div class="row">
+    <div class="col-12 col-sm-12 col-md-4 col-lg-4 infor">
+      <div class="card-container ">
+        <span class="vip" style="font-size:1.3em;">VIP</span>
+        <img class="round avatar"
+             src="https://image.thanhnien.vn/w1024/Uploaded/2022/zxaijr/2022_02_07/jisookhonghatnhacphimsnowdrop2-4063.png"
+             alt="user"/>
+        <div class="mainInfo">
+          <h3 class="text-center ">{{user.name}}</h3>
+          <h6>{{user.address}}</h6>
+          <p>{{user.job}}</p>
+        </div>
+
+        <!--                Bạn bè-->
+        <div *ngIf="!isOwn" class="buttons">
+          <a *ngIf="relationship == 0" (click)="addRequest()" id="addBtn" class="addFrBtn btn btn-outline-success me-2 mt-1" >
+            THÊM BẠN
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                 class="bi bi-person-plus"
+                 viewBox="0 0 16 16">
+              <path
+                d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
+              <path fill-rule="evenodd"
+                    d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z"/>
+            </svg>
+          </a>
+
+          <a *ngIf="relationship == 6" href="#"  class="disabled addFrBtn btn btn-outline-success me-2 mt-1">
+            BẠN BÈ
+            <i class="fa-solid fa-check"></i>
+          </a>
+          <a *ngIf="relationship == 51" href="#" id="sendBtn" class="disabled addFrBtn btn btn-outline-success me-2 mt-1">
+            ĐÃ GỬI LỜI MỜI
+            <i class="fa-solid fa-check"></i>
+          </a>
+          <a *ngIf="relationship == 52" href="#"   class="disabled addFrBtn btn btn-outline-success me-2 mt-1">
+            PHẢN HỒI
+            <i class="fa-solid fa-check"></i>
+          </a>
+          <a href="#" class="addFrBtn btn btn-outline-primary me-2 mt-1">
+            NHẮN TIN
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                 class="bi bi-chat-right-heart" viewBox="0 0 16 16">
+              <path
+                d="M2 1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h9.586a2 2 0 0 1 1.414.586l2 2V2a1 1 0 0 0-1-1H2Zm12-1a2 2 0 0 1 2 2v12.793a.5.5 0 0 1-.854.353l-2.853-2.853a1 1 0 0 0-.707-.293H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h12Z"/>
+              <path d="M8 3.993c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132Z"/>
+            </svg>
+          </a>
+        </div>
+
+        <!--                Cá nhân-->
+        <div *ngIf="isOwn" class="buttons">
+          <a href="#" class="addFrBtn btn btn-outline-success me-2 mt-1">
+            NÂNG CẤP TÀI KHOẢN
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                 class="bi bi-gem" viewBox="0 0 16 16">
+              <path
+                d="M3.1.7a.5.5 0 0 1 .4-.2h9a.5.5 0 0 1 .4.2l2.976 3.974c.149.185.156.45.01.644L8.4 15.3a.5.5 0 0 1-.8 0L.1 5.3a.5.5 0 0 1 0-.6l3-4zm11.386 3.785-1.806-2.41-.776 2.413 2.582-.003zm-3.633.004.961-2.989H4.186l.963 2.995 5.704-.006zM5.47 5.495 8 13.366l2.532-7.876-5.062.005zm-1.371-.999-.78-2.422-1.818 2.425 2.598-.003zM1.499 5.5l5.113 6.817-2.192-6.82L1.5 5.5zm7.889 6.817 5.123-6.83-2.928.002-2.195 6.828z"/>
+            </svg>
+          </a>
+          <a href="#" class="addFrBtn btn btn-outline-secondary me-2 mt-1">
+            THAY ĐỔI THÔNG TIN
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                 class="bi bi-pencil-square" viewBox="0 0 16 16">
+              <path
+                d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+              <path fill-rule="evenodd"
+                    d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+            </svg>
+          </a>
+
+        </div>
+
+        <ul class="otherInfo mt-3 mb-3">
+          <li *ngIf="!user.gender">Giới tính: Nữ</li>
+          <li *ngIf="user.gender">Giới tính: Nam</li>
+          <li>Ngày sinh: {{user.dateOfBirth}}</li>
+          <li *ngIf="user.married">Tình trạng hôn nhân: Độc thân</li>
+          <li *ngIf="!user.married">Tình trạng hôn nhân: Đã có người yêu</li>
+        </ul>
+        <div class="skills text-white">
+          <h6>Sở thích</h6>
+          <ul>
+            <li *ngFor="let hobbit of hobbitList">{{hobbit.hobbitName}}</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-sm-12 col-md-8  col-lg-8 newsFeed ">
+      <div class="post row shadow-lg mt-3 mb-3 shadow-lg pt-3 pb-3"  *ngIf="isOwn">
+        <div class="d-flex col-lg-12">
+          <img class="avatar"
+               src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPkBLFfRRAqhvBXaTLKR_AYOZinWVoeabDtA&amp;usqp=CAU">
+          <div class="w-100">
+                        <textarea class="form-control text-capitalize" placeholder="Bạn đang nghĩ gì thế..."
+                                  style="border-radius: 22px"></textarea>
+          </div>
+        </div>
+        <div class="row mt-3">
+          <div class="mt-3 iconGroup col-lg-4 col-sm-6 text-center hoverCss">
+            <i class="fa-solid fa-video me-2 " style="font-size: 30px; color: hotpink"></i>
+            <span style="color: plum; font-weight: bolder">Video Trực Tiếp</span>
+          </div>
+          <div class="mt-3 iconGroup col-lg-4 col-sm-6 text-center hoverCss">
+            <i class="fa-solid fa-image me-2 " style="font-size: 30px ; color: #0b5ed7"></i>
+            <span class="m-0" style="color: plum; font-weight: bolder;">Ảnh/Video</span>
+          </div>
+          <div class="mt-3 iconGroup  col-lg-4 col-sm-12 text-center">
+            <button class="btn btn-success">Đăng<i class="fa-solid fa-check"></i></button>
+          </div>
+
+        </div>
+      </div>
+      <div class="news mt-5">
+        <!--        <div class="card mt-3" *ngFor="let post of postList">-->
+        <!--          <div class="card-header">-->
+        <!--            <div class="user">-->
+        <!--              <img src="https://image.thanhnien.vn/w1024/Uploaded/2022/zxaijr/2022_02_07/jisookhonghatnhacphimsnowdrop2-4063.png"-->
+        <!--                   alt="user__image" class="user__image ">-->
+        <!--              <div class="user__info">-->
+        <!--                <h5>{{user.name}}</h5>-->
+        <!--                <small>{{post.time}}</small>-->
+        <!--              </div>-->
+        <!--            </div>-->
+        <!--          </div>-->
+        <!--          <div class="card__body">-->
+        <!--            <h4>{{post.content}}</h4>-->
+        <!--            <p>{{post.content}}</p>-->
+        <!--          </div>-->
+        <!--          <div class="card-footer row">-->
+        <!--            <div class="col-md">-->
+        <!--              <img [src]="post.media">-->
+        <!--            </div>-->
+        <!--          </div>-->
+        <!--          <div class="comment row mt-3">-->
+        <!--            <div class="col-2 d-flex justify-content-center align-content-center">-->
+        <!--              <button class="likeBtn">Like <i class="fa-regular fa-thumbs-up"></i></button>-->
+        <!--            </div>-->
+        <!--            <div class="col-10">-->
+        <!--              <input type="text" class="form-control " placeholder="Nhập bình luận">-->
+        <!--            </div>-->
+        <!--          </div>-->
+        <!--        </div>-->
+
+      </div>
+      <div class="card mt-3">
+        <div class="card-header">
+          <div class="user">
+            <img
+              src="https://image.thanhnien.vn/w1024/Uploaded/2022/zxaijr/2022_02_07/jisookhonghatnhacphimsnowdrop2-4063.png"
+              alt="user__image" class="user__image ">
+            <div class="user__info">
+              <h5>JISOO</h5>
+              <small>23/11/2022</small>
+            </div>
+          </div>
+        </div>
+        <div class="card__body">
+          <p>“Được xem JISOO là vui nhất. JISOO là nhất đó!” - Lời note Inkigayo nhắn gửi tới con gái cưng
+            😭💜</p>
+        </div>
+        <div class="card-footer row">
+          <div class="card-footer row">
+            <div class="col-md">
+              <img
+                src="https://scontent.fsgn2-6.fna.fbcdn.net/v/t39.30808-6/309302695_3323505837930400_5873568096767781275_n.jpg?stp=cp6_dst-jpg&_nc_cat=110&ccb=1-7&_nc_sid=0debeb&_nc_ohc=c-aPBoL2Nx8AX-IUA8q&_nc_ht=scontent.fsgn2-6.fna&oh=00_AT-TVsNJRHIw-RbwIY1oeI0KVbrXLTgiGVzf4UTVvMWmTg&oe=634C589C"
+                alt="card__image"
+                class="card__image img-fluid">
+            </div>
+            <div class="col-md">
+              <img
+                src="https://scontent.fsgn2-1.fna.fbcdn.net/v/t39.30808-6/309969824_3323505844597066_5799065907254563117_n.jpg?stp=cp6_dst-jpg&_nc_cat=107&ccb=1-7&_nc_sid=0debeb&_nc_ohc=CTr5ieYZBDkAX-3y2d0&_nc_ht=scontent.fsgn2-1.fna&oh=00_AT-c92x5uOpG5wL68YhqvoiBqDALpSH5WjoAYC_MSu_zaw&oe=634BAE93"
+                alt="card__image"
+                class="card__image img-fluid">
+            </div>
+            <div class="col-md">
+              <img
+                src="https://scontent.fsgn2-7.fna.fbcdn.net/v/t39.30808-6/308716350_3323505927930391_2141627581329334785_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=0debeb&_nc_ohc=nWTnfmmxK5oAX_R16SB&_nc_ht=scontent.fsgn2-7.fna&oh=00_AT8clnVxTJemCcM55gCUAqpzWFvjtbM21HbGFKQwE5mrbQ&oe=634D1B07"
+                alt="card__image"
+                class="card__image img-fluid">
+            </div>
+            <div class="col-md">
+              <img
+                src="https://scontent.fsgn2-6.fna.fbcdn.net/v/t39.30808-6/309276785_3323506051263712_4300058385593064912_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=0debeb&_nc_ohc=kPWYwXdI5jAAX8fq8-l&_nc_ht=scontent.fsgn2-6.fna&oh=00_AT8Go7n0qnNZ7JWU6N9LRESyiuswOb-30rEuQ0RmIVxBFQ&oe=634C1645"
+                alt="card__image"
+                class="card__image img-fluid">
+            </div>
+          </div>
+          <div class="comment row mt-3">
+            <div class="col-2 d-flex justify-content-center align-content-center">
+              <button class="likeBtn">Like <i class="fa-regular fa-thumbs-up"></i></button>
+            </div>
+            <div class="col-10">
+              <input type="text" class="form-control " placeholder="Nhập bình luận">
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="card mt-3">
+        <div class="card-header">
+          <div class="user">
+            <img
+              src="https://image.thanhnien.vn/w1024/Uploaded/2022/zxaijr/2022_02_07/jisookhonghatnhacphimsnowdrop2-4063.png"
+              alt="user__image" class="user__image ">
+            <div class="user__info">
+              <h5>JISOO</h5>
+              <small>23/11/2022</small>
+            </div>
+          </div>
+        </div>
+        <div class="card__body">
+          <p>CỘNG ĐỒNG FANBOY CỦA JISOO HÔM NAY LẠI DẬY SÓNG RỒI 👦🏻✌️
+            ❤️‍🔥 2 topic ‘Jisoo vuốt má camera Inkigayo’ và ‘Jisoo tại sự kiện fansign’ đồng thời
+            trending trên website FmKorea - diễn đàn cộng đồng dành cho nam giới Hàn Quốc với lần lượt
+            270K và 190K lượt đọc. Những con số ấn tượng này được thu về chỉ trong vòng chưa đầy một
+            ngày.</p>
+        </div>
+        <div class="card-footer row">
+          <div class="card-footer row">
+            <div class="col-md">
+              <img
+                src="https://scontent.fsgn2-8.fna.fbcdn.net/v/t39.30808-6/306775027_3318739238407060_1375011374694264521_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=8bfeb9&_nc_ohc=lP-tDJdxAzYAX9YoN_L&_nc_oc=AQlamYZbh8dyTFe8xJPgqBnb2SKXt0obvFqnLwGTJ8I10LsBE4gvXGBf8FGmMiOJoqY&tn=FuI3pNuujuqqcaCg&_nc_ht=scontent.fsgn2-8.fna&oh=00_AT8F0f70u-Jt8K5Gqr16CfaJBWYJCJ7jeGHEN0TS-S5Jqg&oe=634C30E2"
+                alt="card__image"
+                class="card__image img-fluid">
+            </div>
+            <div class="col-md">
+              <img
+                src="https://scontent.fsgn2-4.fna.fbcdn.net/v/t39.30808-6/305773184_3318750711739246_6019435467615105384_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=8bfeb9&_nc_ohc=BPWQ1r-dsnoAX832GIu&_nc_ht=scontent.fsgn2-4.fna&oh=00_AT_83mbAAsnOckHsivLqShDnQiK3xoa-FVMWcz4CU6l4cA&oe=634C71DA"
+                alt="card__image"
+                class="card__image img-fluid">
+            </div>
+          </div>
+          <div class="comment row mt-3">
+            <div class="col-2 d-flex justify-content-center align-content-center">
+              <button class="likeBtn">Like <i class="fa-regular fa-thumbs-up"></i></button>
+            </div>
+            <div class="col-10">
+              <input type="text" class="form-control " placeholder="Nhập bình luận">
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+</div>
