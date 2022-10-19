@@ -4,7 +4,7 @@
       <div  *ngIf="user" class="card-container ">
         <span *ngIf="user.typeUser.idTypeUser >= 3" class="vip" style="font-size:1.3em;">VIP</span>
         <img class="round avatar"
-             src="https://image.thanhnien.vn/w1024/Uploaded/2022/zxaijr/2022_02_07/jisookhonghatnhacphimsnowdrop2-4063.png"
+             [src]="user.avatar"
              alt="user"/>
         <div class="mainInfo">
           <h3 class="text-center ">{{user.name}}</h3>
