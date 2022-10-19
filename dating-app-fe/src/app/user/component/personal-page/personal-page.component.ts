@@ -1,12 +1,14 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {User} from "../../model/user";
 import {Hobbit} from "../../model/hobbit";
-import {Post} from "../../model/post";
 import {UserService} from "../../service/user.service";
 import {HobbitService} from "../../service/hobbit.service";
 import {ActivatedRoute, ParamMap} from "@angular/router";
 import {SendRequestService} from "../../../service/friend-service/send-request.service";
-import {TypeUser} from "../../model/type-user";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {finalize} from "rxjs/operators";
+import {AngularFireStorage} from "@angular/fire/storage";
+import {PostService} from "../../service/post.service";
 
 @Component({
   selector: 'app-personal-page',
@@ -21,11 +23,17 @@ export class PersonalPageComponent implements OnInit {
   user: User;
   hobbitList: Hobbit[] = [];
   userAddressArr: string[] = [];
+  postCreate : FormGroup;
+  fileList: any = "";
+  links: any[] = [];
+  submitter = false;
 
   constructor(private userService: UserService,
               private hobbitService: HobbitService,
               private sendRequestService: SendRequestService,
-              private activatedRoute: ActivatedRoute) {
+              private activatedRoute: ActivatedRoute,
+              @Inject(AngularFireStorage) private storage: AngularFireStorage,
+              private postService: PostService) {
 
     this.activatedRoute.paramMap.subscribe((paraMap: ParamMap) => {
       this.idUser = +paraMap.get('id');
@@ -36,16 +44,22 @@ export class PersonalPageComponent implements OnInit {
       console.log('own: ' + this.isOwn)
     } else {
       this.sendRequestService.checkFriend(this.myIdUser, this.idUser).subscribe(result => {
-        console.log(result)
+        console.log('dfvfdv' +result)
         this.relationship = result;
       })
-
     }
 
+    this.postCreate = new FormGroup({
+      idPost : new FormControl(""),
+      content: new FormControl("",[Validators.required]),
+      media: new FormControl(""),
+      user: new FormGroup({
+        idUser: new FormControl(this.myIdUser)
+      })
+    })
   }
 
   ngOnInit(): void {
-
     this.userService.getUserById(this.idUser).subscribe((userDb) => {
       console.log(userDb)
       this.user = userDb;
@@ -76,6 +90,42 @@ export class PersonalPageComponent implements OnInit {
       this.relationship = "Chưa có quan hệ";
     }, err => {
       console.log(err)
+    })
+  }
+
+  show(event: any) {
+    this.links = event.target.files;
+    console.log(this.links)
+  }
+
+  uploadFile(img: any) {
+    return new Promise((resolve, reject) => {
+      const nameImg = Date.now() + img.name;
+      const fileRef = this.storage.ref(nameImg);
+      this.storage.upload(nameImg, img).snapshotChanges().pipe(
+        finalize(() => {
+          fileRef.getDownloadURL().subscribe((url) => {
+            this.postCreate.patchValue({img: url});
+            resolve(true)
+            this.fileList += url + ",";
+          });
+        })
+      ).subscribe()
+    });
+  }
+
+  async handleFiles(){
+    for (let i = 0 ; i < this.links.length ; i++)
+    {
+      await this.uploadFile(this.links[i])
+    }
+  }
+
+  savePost() {
+    this.submitter = true;
+    this.handleFiles().then(() => {
+      this.postCreate.value.media = this.fileList
+      this.postService.create(this.postCreate.value).subscribe();
     })
   }
 }

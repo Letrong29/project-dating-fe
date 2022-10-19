@@ -1,7 +1,7 @@
 <div class="container-fluid section mt-5 mb-5">
-  <div class="row" >
+  <div class="row">
     <div class="col-12 col-sm-12 col-md-4 col-lg-4 infor">
-      <div  *ngIf="user" class="card-container ">
+      <div *ngIf="user" class="card-container ">
         <span *ngIf="user.typeUser.idTypeUser >= 3" class="vip" style="font-size:1.3em;">VIP</span>
         <img class="round avatar"
              [src]="user.avatar"
@@ -14,19 +14,21 @@
 
         <!--                Bạn bè-->
         <div *ngIf="!isOwn" class="buttons">
-          <a *ngIf="relationship == 'Chưa có quan hệ'" (click)="addRequest()" id="addBtn" class="addFrBtn btn btn-outline-success me-2 mt-1" >
+          <a *ngIf="relationship == 'Chưa có quan hệ'" (click)="addRequest()" id="addBtn"
+             class="addFrBtn btn btn-outline-success me-2 mt-1">
             THÊM BẠN <i class="fa-solid fa-user-plus"></i>
           </a>
 
-          <a *ngIf="relationship == 'Bạn bè'" href="#"  class="disabled  btn btn-outline-success me-2 mt-1">
+          <a *ngIf="relationship == 'Bạn bè'" href="#" class="disabled  btn btn-outline-success me-2 mt-1">
             BẠN BÈ
             <i class="fa-solid fa-check"></i>
           </a>
-          <button *ngIf="relationship == 'Đã gửi lời mời kết bạn'" (click)="removeRequest()" id="sentBtn" class="btn btn-outline-danger me-2 mt-1">
+          <button *ngIf="relationship == 'Đã gửi lời mời kết bạn'" (click)="removeRequest()" id="sentBtn"
+                  class="btn btn-outline-danger me-2 mt-1">
             HỦY LỜI MỜI
             <i class="fa-solid fa-user-xmark"></i>
           </button>
-          <a *ngIf="relationship == 'Đã nhận lời mời'" href="#"   class="disabled  btn btn-outline-success me-2 mt-1">
+          <a *ngIf="relationship == 'Đã nhận lời mời'" href="#" class="disabled  btn btn-outline-success me-2 mt-1">
             PHẢN HỒI
             <i class="fa-solid fa-check"></i>
           </a>
@@ -38,7 +40,7 @@
 
         <!--                Cá nhân-->
         <div *ngIf="isOwn" class="buttons">
-          <a href="#" class="addFrBtn btn btn-outline-success me-2 mt-1">
+          <a [routerLink]="['/upgradeAccount']" class="addFrBtn btn btn-outline-success me-2 mt-1">
             NÂNG CẤP TÀI KHOẢN <i class="fa-regular fa-gem"></i>
           </a>
           <a href="#" class="addFrBtn btn btn-outline-secondary me-2 mt-1">
@@ -55,37 +57,47 @@
           <li *ngIf="!user.married">Tình trạng hôn nhân: Đã có người yêu</li>
         </ul>
         <div class="skills text-white">
-          <h6 >Sở thích</h6>
+          <h6>Sở thích</h6>
           <ul>
             <li *ngFor="let hobbit of hobbitList">{{hobbit.hobbitName}}</li>
           </ul>
         </div>
       </div>
     </div>
+
+
     <div class="col-12 col-sm-12 col-md-8  col-lg-8 newsFeed ">
       <div *ngIf="isOwn" class="post row shadow-lg mt-3 mb-3 shadow-lg pt-3 pb-3">
-        <div class="d-flex col-lg-12">
-          <img class="avatar"
-               src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPkBLFfRRAqhvBXaTLKR_AYOZinWVoeabDtA&amp;usqp=CAU">
-          <div class="w-100">
-                        <textarea class="form-control text-capitalize" placeholder="Bạn đang nghĩ gì thế..."
-                                  style="border-radius: 22px"></textarea>
+        <form [formGroup]="postCreate" (ngSubmit)="savePost()">
+          <div class="d-flex col-lg-12">
+            <img class="avatar"
+                 [src]="user.avatar">
+            <div class="w-100">
+            <textarea formControlName="content" class="form-control text-capitalize" placeholder="Bạn đang nghĩ gì thế..."
+                      style="border-radius: 22px"></textarea>
+            </div>
           </div>
-        </div>
-        <div class="row mt-3">
-          <div class="mt-3 iconGroup col-lg-4 col-sm-6 text-center hoverCss">
-            <i class="fa-solid fa-video me-2 " style="font-size: 30px; color: hotpink"></i>
-            <span style="color: plum; font-weight: bolder">Video Trực Tiếp</span>
+          <div style="color: red; margin: 20px" *ngIf="postCreate.controls.content.hasError('required') &&
+          submitter ">Vui Lòng nhập vào</div>
+          <div class="row mt-3">
+            <div class="mt-3 iconGroup col-lg-4 col-sm-6 text-center hoverCss">
+              <i class="fa-solid fa-video me-2 " style="font-size: 30px; color: hotpink"></i>
+              <span style="color: plum; font-weight: bolder">Video Trực Tiếp</span>
+            </div>
+            <div class="mt-3 iconGroup col-lg-4 col-sm-6 text-center hoverCss">
+              <label for="formFileMultiple" class="form-label">
+                <i class="fa-solid fa-image me-2 " style="font-size: 30px ; color: #0b5ed7"></i>
+              </label>
+              <span class="m-0" style="color: plum; font-weight: bolder;">Ảnh/Video</span>
+              <input style="visibility: hidden" class="form-control" type="file" id="formFileMultiple" (change)="show($event)"
+                     multiple/>
+            </div>
+            <div class="mt-3 iconGroup  col-lg-4 col-sm-12 text-center">
+              <button type="submit" class="btn btn-success">Đăng<i class="fa-solid fa-check"></i></button>
+            </div>
           </div>
-          <div class="mt-3 iconGroup col-lg-4 col-sm-6 text-center hoverCss">
-            <i class="fa-solid fa-image me-2 " style="font-size: 30px ; color: #0b5ed7"></i>
-            <span class="m-0" style="color: plum; font-weight: bolder;">Ảnh/Video</span>
-          </div>
-          <div class="mt-3 iconGroup  col-lg-4 col-sm-12 text-center">
-            <button class="btn btn-success">Đăng<i class="fa-solid fa-check"></i></button>
-          </div>
+        </form>
 
-        </div>
       </div>
       <div class="news">
         <div class="card mt-3">
