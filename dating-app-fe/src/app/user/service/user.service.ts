@@ -28,6 +28,10 @@ export class UserService {
   }
 
   updateStatusWarrningUser(request :any): Observable<any>{
-    return this.httpClient.patch<any>(`${SERVICE_URL}/api/admin/list/update/status`, request);
+    return this.httpClient.patch<any>(`${SERVICE_URL}/api/admin/update/status`, request);
+  }
+
+  findByIdUser(id:number): Observable<any>{
+    return this.httpClient.get(`${SERVICE_URL}/api/admin/findId/${id}`);
   }
 }
