@@ -65,8 +65,7 @@
     <div class="col-12 col-sm-12 col-md-8  col-lg-8 newsFeed ">
       <div *ngIf="isOwn" class="post row shadow-lg mt-3 mb-3 shadow-lg pt-3 pb-3">
         <div class="d-flex col-lg-12">
-          <img class="avatar"
-               src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPkBLFfRRAqhvBXaTLKR_AYOZinWVoeabDtA&amp;usqp=CAU">
+          <img class="avatar" [src]="user.avatar">
           <div class="w-100">
                         <textarea class="form-control text-capitalize" placeholder="Bạn đang nghĩ gì thế..."
                                   style="border-radius: 22px"></textarea>
