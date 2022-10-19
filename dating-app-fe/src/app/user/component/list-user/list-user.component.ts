@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {User} from "../../model/user";
 import {UserService} from "../../service/user.service";
 import {ReportDetail} from "../../../website/model/report-detail";
+import {FormControl, FormGroup} from "@angular/forms";
 
 @Component({
   selector: 'app-list-user',
@@ -16,12 +17,15 @@ export class ListUserComponent implements OnInit {
   totalPage: number;
   userList:User[] = [];
   reportDetailList: any = null;
+  accountUpdateStatusForm: FormGroup;
   selectedMember = "";
+  selectWarning: "";
 
   constructor(private userService:UserService) { }
 
   ngOnInit(): void {
     this.searchAndListUser();
+    this.updateStatus();
   }
 
   searchAndListUser() {
@@ -59,6 +63,15 @@ export class ListUserComponent implements OnInit {
 
   getReportDetail(id:number){
     return this.userService.getAllReportDetail(id).subscribe(rd => this.reportDetailList = rd);
+  }
+
+
+  updateStatus(){
+    const request = {
+      idUser: this.reportDetailList[0].idUser,
+      status: this.selectWarning
+    }
+    this.userService.updateStatusWarrningUser(request).subscribe(() => {});
   }
 
 }

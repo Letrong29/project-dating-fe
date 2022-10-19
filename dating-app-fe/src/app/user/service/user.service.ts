@@ -26,4 +26,8 @@ export class UserService {
   getAllReportDetail(id: number): Observable<ReportDetail[]> {
     return this.httpClient.get<ReportDetail[]>(`${SERVICE_URL}/api/admin/list/warning/${id}`);
   }
+
+  updateStatusWarrningUser(request :any): Observable<any>{
+    return this.httpClient.patch<any>(`${SERVICE_URL}/api/admin/list/update/status`, request);
+  }
 }

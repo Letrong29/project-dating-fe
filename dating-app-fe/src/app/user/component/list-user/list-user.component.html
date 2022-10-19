@@ -62,9 +62,7 @@
         <td class="text-center">{{item.quantity}}</td>
         <td class="text-center">
           <button class="btn text-white" data-bs-toggle="modal" data-bs-target="#detail"
-                  style="background-color: #e78e0b;" (click)="getReportDetail(item.idUser)">Cảnh
-            cáo
-          </button>
+                  style="background-color: #e78e0b;" (click)="getReportDetail(item.idUser)">Cảnh cáo</button>
         </td>
       </tr>
       </tbody>
@@ -72,14 +70,16 @@
     <div class="row text-center mb-3">
       <div class="col-lg-12">
         <a *ngIf="page" class="text-decoration-none" (click)="previous()">
-          <span class="fa fa-angle-left" style="font-size: 18px">Previous</span>
+          <span class="fa fa-angle-left" style="font-size: 18px">Sau</span>
         </a>
         <span class="text-info" style="font-size: 18px">{{page + 1}}/{{totalPage}}</span>
         <a *ngIf="page != totalPage - 1" (click)="next()" class="text-decoration-none">
-          <span class="fa fa-angle-right" style="font-size: 18px">Next</span>
+          <span class="fa fa-angle-right" style="font-size: 18px">Trước</span>
         </a>
       </div>
     </div>
+
+
   </div>
 
   <!--  Modal Detail-->
@@ -106,19 +106,19 @@
               <tr *ngFor="let rd of reportDetailList,index as i">
                 <td>{{rd.timeReport | date: 'dd-MM-yyyy'}}</td>
                 <td>{{rd.nameReport}}</td>
-                <td>{{rd.userName}}</td>
+                <td>{{rd.username}}</td>
               </tr>
               </tbody>
             </table>
 
             <div class="col-md-12 bg-danger">
-              <select class="form-select" aria-label="Default select example"
+              <select class="form-select"  [(ngModel)]="selectWarning" (change) = "updateStatus()" aria-label="Default select example"
                       style="background-color: rgb(219 211 214);">
                 <option selected>Hình thức cảnh cáo</option>
-                <option value="">Cảnh cáo</option>
-                <option value="">Khóa nick một tuần</option>
-                <option value="">Khóa nick một tháng</option>
-                <option value="">Khóa vĩnh viễn</option>
+                <option value="13">Cảnh cáo</option>
+                <option value="14">Khóa nick một tuần</option>
+                <option value="15">Khóa nick một tháng</option>
+                <option value="16">Khóa vĩnh viễn</option>
               </select>
             </div>
           </div>
@@ -126,7 +126,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Đóng</button>
-          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Xác nhận</button>
+          <button type="submit" class="btn btn-danger" data-bs-dismiss="modal">Xác nhận</button>
         </div>
       </div>
     </div>
