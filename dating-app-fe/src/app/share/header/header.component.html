@@ -1,0 +1,50 @@
+<div *ngFor="let u of user"></div>
+<nav class="navbar navbar-expand-lg navbar-light bg-light" style="background-color: #b30217!important;">
+  <div class="container-fluid">
+    <a class="navbar-brandb " style="margin-left: 30px" href="#"><img src="assets\video\Untitled-1.png"
+                                                                      height="60px" width="180px"></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link  text-white " style="font-size: 30px;margin-left: 100px"
+             href="#"><i class="fa-solid fa-house"></i></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" href="#" style="font-size: 30px;margin-left: 100px"><i
+            class="fa-solid fa-users"></i></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white "style="font-size: 30px;margin-left: 100px" href="#">
+            <i class="fa-solid fa-comment"></i>
+          </a>
+        </li>
+      </ul>
+      <div class="d-flex ">
+        <input type="text" class="form-control searchInput  me-2" #name style=" border-radius: 10px;height: 45px;padding: 0 10px;width: 350px;border-color: coral;margin-left: 5px"
+               placeholder="Tìm kiếm tên">
+        <a id ="search"(click)="search(0,name.value)" style="font-size: 20px">
+          <i class="fa-solid fa-magnifying-glass"></i></a>
+      </div>
+      <div class="d-flex " style="padding-right: 65px" >
+        <div class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle " style="font-size: 25px" id="navbarDropdownMenuLink"
+             role="button"
+             data-bs-toggle="dropdown" aria-expanded="false">
+            <img
+              src="https://img.pingbook.com/picdb/news/091013minam/27.jpg"
+              style="border-radius: 50%; border: 1px solid #a1a1a1; height: 60px; width: 60px;" alt="">
+          </a>
+          <ul class="dropdown-menu bg-info" aria-labelledby="navbarDropdownMenuLink">
+            <li><a class="dropdown-item">Trang cá nhân</a></li>
+            <li><a class="dropdown-item">Thông tin phản hồi</a></li>
+            <li><a class="dropdown-item">Mật khẩu , thông tin</a></li>
+            <li><a class="dropdown-item" [routerLink]="['/share/error']">Đăng xuất</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
