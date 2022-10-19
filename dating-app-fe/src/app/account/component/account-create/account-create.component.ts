@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
-import {RegisterAccountService} from '../../service/register-account.service';
 import {Account} from '../../model/account';
+import {AccountService} from '../../../service/account.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-account-create',
@@ -16,7 +17,8 @@ export class AccountCreateComponent implements OnInit {
 
   errorList: any;
 
-  constructor(private registerAccountService: RegisterAccountService) {
+  constructor(private accountService: AccountService,
+              private router: Router) {
     this.registerAccount = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.pattern(/^[\w-\.]+@(gmail\.)+(com)$/)]),
 
@@ -38,7 +40,9 @@ export class AccountCreateComponent implements OnInit {
       let account: Account = this.registerAccount.value
       account.password = this.registerAccount.controls.passwordGroup.get('password').value;
       console.log(account);
-      this.registerAccountService.save(account).subscribe(next => {
+      this.accountService.save(account).subscribe(next => {
+        console.log(next);
+        // this.router.navigate(['register/user'], next)
       },error => {
         this.errorList = error.error
       })
