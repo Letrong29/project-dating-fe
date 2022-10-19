@@ -5,6 +5,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {AngularFireStorageModule} from '@angular/fire/storage';
 import {AngularFireModule} from '@angular/fire';
+import {FriendModule} from "./friend/friend.module";
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -14,7 +16,9 @@ import {AngularFireModule} from '@angular/fire';
     BrowserModule,
     AppRoutingModule,
     AngularFireStorageModule,
-    AngularFireModule
+    AngularFireModule,
+    HttpClientModule,
+    FriendModule
   ],
   providers: [],
   bootstrap: [AppComponent]
