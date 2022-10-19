@@ -9,11 +9,15 @@ export class SendRequestService {
 
   constructor(private http: HttpClient) { }
   public  checkFriend(idUser1, idUser2){
-    return this.http.get(`http://localhost:8080/api/users/friendList/check/${idUser1}/${idUser2}`);
-      // { responseType: 'text'});
+    return this.http.get(`http://localhost:8080/api/users/friendList/check/${idUser1}/${idUser2}`,
+      { responseType: 'text'});
   }
 
   public addRequest(idUser1, idUser2){
     return this.http.post(`http://localhost:8080/api/users/friendList/addRequest/${idUser1}/${idUser2}`,"")
+  }
+
+  public removeRequest(idUser1, idUser2){
+    return this.http.delete(`http://localhost:8080/api/users/friendList/removeRequest/${idUser1}/${idUser2}`)
   }
 }

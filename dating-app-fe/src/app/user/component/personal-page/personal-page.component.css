@@ -37,6 +37,9 @@ p {
   padding: 0 10px;
 }
 
+.newsFeed {
+  margin-top: -25px;
+}
 
 .iconGroup {
   padding: 0 5px;
