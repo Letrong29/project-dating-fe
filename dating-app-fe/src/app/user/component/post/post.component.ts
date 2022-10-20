@@ -3,6 +3,7 @@ import {UserService} from "../../service/user.service";
 import {NewFeed} from "../../model/new-feed";
 import {User} from "../../model/user";
 import {FriendService} from "../../service/friend-request/friend.service";
+import {SuggestService} from "../../../service/suggest-service/suggest.service";
 
 
 
@@ -16,10 +17,15 @@ export class PostComponent implements OnInit {
   listShow : NewFeed[]=[];
   id = 1;
   constructor(private service: UserService,
-              private friendService:FriendService) {
+              private friendService: FriendService,
+              private suggestService : SuggestService ) {
   }
 
   ngOnInit(): void {
+    this.suggestService.getSuggestRequest(2).subscribe(suggest=>{
+      this.suggestList = suggest;
+    })
+
     this.friendService.getSuggestRequest(2).subscribe(suggest=>{
       this.suggestList = suggest;
     })
@@ -38,4 +44,10 @@ export class PostComponent implements OnInit {
     })
   }
 
+  add(myId: any, idUser: number) {
+    alert(myId);
+    alert(idUser);
+    this.suggestService.addRequest(myId, idUser)
+
+  }
 }
