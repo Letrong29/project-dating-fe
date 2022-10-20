@@ -2,7 +2,7 @@ import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {LoginComponent} from "./account/component/login/login.component";
 import {TestComponent} from "./account/component/test/test.component";
-import {AuthGuardService} from "./account/service/auth-guard.service";
+import {AuthGuardService} from "./service/authentication/auth-guard.service";
 import {TestAdminComponent} from "./account/component/test-admin/test-admin.component";
 
 
