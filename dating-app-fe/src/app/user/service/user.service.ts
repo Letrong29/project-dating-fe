@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import {Observable} from "rxjs";
 import {HttpClient} from "@angular/common/http";
-import {Post} from "../model/post";
 import {NewFeed} from "../model/new-feed";
 
 @Injectable({
@@ -14,5 +13,11 @@ export class UserService {
 
    getListPost(id : number):Observable<any>{
      return this.httpClient.get<NewFeed[]>("http://localhost:8080/api/users/list/"+id);
+  }
+  getNewFeed(id: number):Observable<any>{
+    return this.httpClient.get<NewFeed>("http://localhost:8080/api/users/findPost/"+id);
+  }
+  updatePost(newFeed:NewFeed){
+    return this.httpClient.patch("http://localhost:8080/api/users/update/"+ newFeed.idUser,newFeed);
   }
 }

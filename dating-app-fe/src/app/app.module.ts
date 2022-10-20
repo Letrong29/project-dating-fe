@@ -10,6 +10,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
 import {CommonModule} from "@angular/common";
 import {UserModule} from "./user/user.module";
+import {DetailPostComponent} from "./user/component/detail-post/detail-post.component";
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import {UserModule} from "./user/user.module";
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    UserModule
+    UserModule,
+
   ],
   providers: [],
   bootstrap: [AppComponent]
