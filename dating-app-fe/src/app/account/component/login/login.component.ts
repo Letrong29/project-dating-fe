@@ -29,7 +29,6 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.tokenStorageService.getToken()) {
-      const user = this.tokenStorageService.getUser();
       this.authenticationService.isLoggedIn = true;
       this.checkLogin = true;
       this.roles = this.tokenStorageService.getUser().roles;
