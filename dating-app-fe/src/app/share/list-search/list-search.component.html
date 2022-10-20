@@ -14,15 +14,18 @@
               src="https://taimienphi.vn/tmp/cf/aut/anh-gai-xinh-1.jpg"
               alt="">
           </div>
-          <h4 class="text-black">{{item.name}}</h4>
-          <p class="text-black">{{item.address}}</p><br>
-          <div><a id="friend">Xem Thêm</a></div>
+         <div style="height: 150px">
+           <h4 class="text-black">{{item.name}}</h4>
+           <b class="text-black">{{item.job}}</b><br><br>
+           <p class="text-black">{{item.address}}</p><br>
+         </div>
+          <div><a id="friend">Chi Tiết</a></div>
         </div>
       </div>
     </div>
     <br>
     <div>
-      <div class="container-fluid mt-3 p-2 d-flex justify-content-center">
+      <div class="container-fluid mt-3 p-2 d-flex justify-content-end">
         <ul class="pagination float-end">
 
           <div *ngIf="page == 0">
