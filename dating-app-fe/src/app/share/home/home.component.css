@@ -36,7 +36,7 @@ a:focus {
   margin-bottom: 40px;
   padding: 60px 0 0 0;
   overflow: hidden;
-  background: linear-gradient(rgba(179, 2, 23, .95), rgba(108, 3, 15, 0.95));
+  background: linear-gradient(rgba(239, 2, 10, 0.95), rgba(239, 3, 15, 0.95));
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
