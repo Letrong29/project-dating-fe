@@ -11,6 +11,7 @@ import {finalize} from 'rxjs/operators';
 import {validatorAge} from '../../../utils/DateTimeUtil';
 import {User} from '../../model/user';
 import {templateJitUrl} from '@angular/compiler';
+import {ActivatedRoute, ParamMap} from '@angular/router';
 
 @Component({
   selector: 'app-create-user',
@@ -35,32 +36,36 @@ export class CreateUserComponent implements OnInit {
   constructor(private hobbitService: HobbitService,
               private targetService: TargetService,
               private userService: UserService,
+              private activatedRoute: ActivatedRoute,
               @Inject(AngularFireStorage) private storage: AngularFireStorage
   ) {
-    this.registerUser = new FormGroup({
-      idUser: new FormControl('21'),
+    activatedRoute.paramMap.subscribe((paramMap: ParamMap) => {
+      let idUser = +paramMap.get('idUser')
+      this.registerUser = new FormGroup({
+        idUser: new FormControl(idUser),
 
-      avatar: new FormControl(''),
+        avatar: new FormControl(''),
 
-      nameGroup: new FormGroup({
-        firstName: new FormControl('', [Validators.required]),
-        lastName: new FormControl('', [Validators.required]),
-      }),
+        nameGroup: new FormGroup({
+          firstName: new FormControl('', [Validators.required]),
+          lastName: new FormControl('', [Validators.required]),
+        }),
 
-      dateOfBirth: new FormControl('', [Validators.required, validatorAge]),
+        dateOfBirth: new FormControl('', [Validators.required, validatorAge]),
 
-      gender: new FormControl('', [Validators.required]),
+        gender: new FormControl('', [Validators.required]),
 
-      address: new FormControl('', [Validators.required]),
+        address: new FormControl('', [Validators.required]),
 
-      job: new FormControl('', [Validators.required]),
+        job: new FormControl('', [Validators.required]),
 
-      married: new FormControl('', [Validators.required]),
+        married: new FormControl('', [Validators.required]),
 
-      hobbits: new FormArray([]),
+        hobbits: new FormArray([]),
 
-      targets: new FormArray([])
-    });
+        targets: new FormArray([])
+      });
+    })
   }
 
 
