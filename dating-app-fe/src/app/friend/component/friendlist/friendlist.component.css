@@ -7,7 +7,7 @@
   --primary-color:  #f2726a;
 }
 .body{
-  height: 100vh;
+  min-height: 100vh;
   background-color:#F0F2ED;
   justify-content: center;
   align-items: center;
@@ -29,7 +29,7 @@
   border-radius: 18px;
   text-align: center;
   overflow: hidden;
-  margin: 0 auto;
+  margin: 40px auto;
 }
 .cart p{
   color:#f2726a ;

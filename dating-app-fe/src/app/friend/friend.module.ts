@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 
 import { FriendRoutingModule } from './friend-routing.module';
 import { FriendlistComponent } from './component/friendlist/friendlist.component';
+import {ReactiveFormsModule} from "@angular/forms";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 
 @NgModule({
@@ -12,7 +14,9 @@ import { FriendlistComponent } from './component/friendlist/friendlist.component
   ],
   imports: [
     CommonModule,
-    FriendRoutingModule
+    FriendRoutingModule,
+    ReactiveFormsModule,
+    BrowserAnimationsModule
   ]
 })
 export class FriendModule { }
