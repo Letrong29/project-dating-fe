@@ -70,7 +70,7 @@
 
         <form [formGroup]="postCreate" (ngSubmit)="savePost()">
           <div class="d-flex col-lg-12">
-            <img class="avatar"
+            <img class="minAvatar"
                  [src]="user.avatar">
             <div class="w-100">
             <textarea formControlName="content" class="form-control text-capitalize"
@@ -82,9 +82,9 @@
           <div style="color: red; margin: 20px" *ngIf="postCreate.controls.content.hasError('required') &&
           submitter " id="errDiv">Vui Lòng nhập vào
           </div>
-          <!--              <div style="color: red; margin: 20px" *ngIf="postCreate.controls.content.hasError('required') &&-->
-          <!--          postCreate.touched" id="errDiv">Vui Lòng nhập vào-->
-          <!--              </div>-->
+          <div class=" img-fluid">
+            <img width="25%" class=" m-1 hoverCss" *ngFor="let load of loadImage" src="{{load}}">
+          </div>
           <div class="row mt-3">
             <div class="mt-3 iconGroup col-lg-4 col-sm-6 text-center hoverCss">
               <i class="fa-solid fa-video me-2 " style="font-size: 30px; color: hotpink"></i>
@@ -95,9 +95,6 @@
                 <i class="fa-solid fa-image me-2 " style="font-size: 30px ; color: #0b5ed7"></i>
               </label>
               <span class="m-0" style="color: plum; font-weight: bolder;">Ảnh/Video</span>
-              <!--                  <input style="visibility: hidden" class="form-control" type="file" id="formFileMultiple"-->
-              <!--                         (change)="show($event)"-->
-              <!--                         multiple/>-->
               <input style="display: none" class="form-control" type="file" id="formFileMultiple"
                      (change)="show($event)"
                      multiple/>
@@ -110,7 +107,6 @@
 
       </div>
       <div class="news">
-
         <div class="row shadow-lg p-3 mt-4" *ngFor="let l of listShow" style="border-radius: 15px">
           <div class="col-lg-1">
             <img class="minAvatar" src="{{l.avatar}}">
@@ -137,6 +133,68 @@
           </div>
 
 
+
+
+          <div>
+            <p>{{l.content}}</p>
+          </div>
+          <div class="img-fluid d-inline-block m-auto" >
+            <div   *ngIf="l.mediaArr.length>1" >
+              <img  class=" m-1 cssImg hoverCss" *ngFor="let x of l.mediaArr" src="{{x}}"  >
+            </div>
+            <div class=" img-fluid" *ngIf="l.mediaArr.length==1"  >
+              <img width="100%" class=" m-1 hoverCss" *ngFor="let x of l.mediaArr" src="{{x}}"  >
+            </div>
+          </div>
+          <div class="text-end">
+            <span class="text-end p-2 m-0" style="font-size: 15px">2 bình luận</span>
+          </div>
+
+          <div class="row text-center">
+            <div><hr class="m-0 p-0"></div>
+            <div class="col-lg-4 p-2">
+              <i class="fa-sharp fa-solid fa-thumbs-up hoverCss" style="font-size: 20px; color:#0b5ed7"></i>
+              <span class="hoverCss" style="font-size: 15px">Thích</span></div>
+            <div class="col-lg-4 p-2">
+              <i class="fa-regular fa-message hoverIcon hoverCss" style="font-size: 20px" ></i>
+              <span style="font-size: 15px"  class="hoverCss" >Bình Luận</span></div>
+            <div class="col-lg-4 p-2">
+              <i class="fa-sharp fa-solid fa-arrow-up-right-from-square hoverCss"
+                 style="font-size: 20px"></i>
+              <span class="hoverCss" style="font-size: 15px">Gửi</span></div>
+            <div><hr class="m-0 p-0"></div>
+          </div>
+          <div class="row text-center bg-gradient">
+            <div class="col-lg-12 p-1"><p style="font-weight: bold; font-size: 20px; margin-top: 15px">Bình luận bị tắt cho bài viết này </p></div>
+          </div>
+
+        </div>
+
+        <div class="row shadow-lg p-3 mt-4" *ngFor="let l of listShow" style="border-radius: 15px">
+          <div class="col-lg-1">
+            <img class="minAvatar" src="{{l.avatar}}">
+
+
+          </div>
+          <div class="col-lg-11">
+            <div class="ms-2">
+              <div class="row m-0">
+                <div class="col-lg-6 m-0">
+                  <p class="m-0">{{l.userName}}</p>
+                </div>
+                <div class="col-lg-3"></div>
+                <div class="col-lg-3 text-end">
+                  <a [routerLink]="['details', l.idPost,l.idPost]" class="m-0 p-0"
+                     style="font-size: 25px; text-decoration: none">...</a>
+                </div>
+              </div>
+              <div class="row  m-0">
+                <div class="col-lg-12 m-0 mb-3">
+                  <p class="hoverCss">{{l.time| date:"dd/MM/yyyy"}}</p>
+                </div>
+              </div>
+            </div>
+          </div>
           <div>
             <p>{{l.content}}</p>
           </div>
@@ -171,11 +229,7 @@
             <div class="col-lg-12 p-1"><p style="font-weight: bold; font-size: 20px; margin-top: 15px">Bình luận bị tắt
               cho bài viết này </p></div>
           </div>
-
-
         </div>
-
-
       </div>
     </div>
   </div>

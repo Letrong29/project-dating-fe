@@ -167,7 +167,7 @@ avatar:hover {
   border: 3px rgba(239, 35, 60, .95) solid;
 }
 
-.post img {
+.minAvatar {
   vertical-align: middle;
   width: 50px;
   height: 50px;
@@ -292,3 +292,19 @@ body{
   font-size: 25px;
   font-weight: bolder;
 }
+
+.imgPost{
+  width: 100px;
+  height: 100px;
+}
+
+.cssImg{
+  margin: 10px;
+  width: 48%;
+}
+.cssImg:hover{
+  transform: scale(1.1);
+  transition-duration: 0.5s;
+  transition-timing-function: linear;
+}
+

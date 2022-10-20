@@ -31,6 +31,7 @@ export class PersonalPageComponent implements OnInit {
   links: any[] = [];
   submitter = false;
   listShow: NewFeed[] = [];
+  loadImage: any[] = [];
 
   constructor(private userService: UserService,
               private hobbitService: HobbitService,
@@ -111,7 +112,19 @@ export class PersonalPageComponent implements OnInit {
 
   show(event: any) {
     this.links = event.target.files;
-    console.log(this.links)
+    if(event.target.files.length>0) {
+      for (let i =0; i<event.target.files.length; i++) {
+        if (event.target.files && event.target.files[i]) {
+          var reader = new FileReader();
+          reader.onload = (event: any) => {
+            this.loadImage.push(event.target.result);
+          }
+          reader.readAsDataURL(event.target.files[i]);
+        }
+      }
+    }
+
+
   }
 
   uploadFile(img: any) {
@@ -137,12 +150,6 @@ export class PersonalPageComponent implements OnInit {
   }
 
   savePost() {
-    // this.submitter = true;
-    // this.handleFiles().then(() => {
-    //   this.postCreate.value.media = this.fileList
-    //   this.postService.create(this.postCreate.value).subscribe();
-    // })
-
     this.submitter = true;
     this.handleFiles().then(() => {
       this.postCreate.value.media = this.fileList
@@ -153,7 +160,6 @@ export class PersonalPageComponent implements OnInit {
       });
     }).finally(()=> {
       window.location.reload();
-      // this.router.navigateByUrl("users/" + this.myIdUser)
     })
   }
 }
