@@ -25,9 +25,10 @@ const routes: Routes = [
     path: 'friend',
     loadChildren: () => import('../app/friend/friend.module').then(module => module.FriendModule)
   },{
-    path: 'search',
+    path: 'user',
     loadChildren: () => import('../app/user/user.module').then(module => module.UserModule)
   },
+
 
 ]
 
