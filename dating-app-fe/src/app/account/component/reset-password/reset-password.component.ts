@@ -11,7 +11,9 @@ import {ActivatedRoute, Router} from "@angular/router";
   styleUrls: ['./reset-password.component.css']
 })
 export class ResetPasswordComponent implements OnInit {
+
   jwtRequestForm: FormGroup;
+
   constructor(private route: ActivatedRoute,
               private resetPasswordService: ResetPasswordService,
               private toastr: ToastrService,
@@ -25,7 +27,6 @@ export class ResetPasswordComponent implements OnInit {
     })
   }
 
-
   validationMessages = {
     password: [
       {type: 'required', message: 'Trường này không được để trống!'},
@@ -34,39 +35,9 @@ export class ResetPasswordComponent implements OnInit {
     ]
   };
 
-
   ngOnInit(): void {
-    // this.jwtRequestForm = this.formBuilder.group({
-    //   newPassword: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(32)]],
-    //   repeatNewPassword: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(32)]],
-    // });
-    // this.route.queryParams.subscribe(params => {
-    //   const password = params.password;
-    //   if (password == null) {
-    //     this.isSuccessful = false;
-    //   }
-    // });
-  }
 
-  // onSubmit() {
-  //   if (this.formGroup.value.newPassword !== '' && this.formGroup.value.repeatNewPassword !== '') {
-  //     if (this.formGroup.value.newPassword === this.formGroup.value.repeatNewPassword) {
-  //       this.activatedRoute.paramMap.subscribe((paramMap: ParamMap) => {
-  //         this.idAccount = paramMap.get('idAccount');
-  //       });
-  //       this.resetPasswordService.doResetPassword(this.formGroup.value.newPassword, this.idAccount).subscribe(data => {
-  //         this.toastr.success('Mật khẩu đã được thay đổi!', 'Thành công');
-  //         this.router.navigateByUrl('/login');
-  //       });
-  //     } else {
-  //       this.toastr.error('Trường nhập lại mật khẩu và mật khẩu không giống nhau!', 'Lỗi: ', {
-  //         timeOut: 3500,
-  //         extendedTimeOut: 1500
-  //       });
-  //       this.isSubmited = false;
-  //     }
-  //   }
-  // }
+  }
 
   onSubmit() {
     const a = this.jwtRequestForm.value;
