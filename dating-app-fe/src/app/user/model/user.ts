@@ -7,7 +7,6 @@ import {UserTarget} from './user-target';
 import {GiftUser} from '../../friend/model/gift-user';
 
 export interface User {
-
   idUser?: number;
 
   name?: string;
