@@ -23,7 +23,7 @@ export class TestAdminComponent implements OnInit {
     this.testService.getAllAdmin().subscribe(next => {
       console.log(next)
     }, error => {
-      console.log(error)
+      console.log("Không có quyền")
     })
   }
 }

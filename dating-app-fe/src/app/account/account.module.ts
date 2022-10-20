@@ -7,6 +7,9 @@ import {HttpClientModule} from "@angular/common/http";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { TestComponent } from './component/test/test.component';
 import { TestAdminComponent } from './component/test-admin/test-admin.component';
+import {AuthenticationService} from "./service/authentication.service";
+import {AuthGuardService} from "./service/auth-guard.service";
+import {TokenStorageService} from "./service/token-storage.service";
 
 
 @NgModule({
@@ -17,6 +20,11 @@ import { TestAdminComponent } from './component/test-admin/test-admin.component'
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule
+  ],
+  exports: [
+    AuthenticationService,
+    AuthGuardService,
+    TokenStorageService
   ]
 })
 export class AccountModule { }
