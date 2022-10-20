@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {UserService} from "../../service/user.service";
 import {NewFeed} from "../../model/new-feed";
+import {User} from "../../model/user";
+import {FriendService} from "../../service/friend-request/friend.service";
 
 
 
@@ -10,12 +12,17 @@ import {NewFeed} from "../../model/new-feed";
   styleUrls: ['./post.component.css']
 })
 export class PostComponent implements OnInit {
+  suggestList : User[];
   listShow : NewFeed[]=[];
   id = 1;
-  constructor(private service: UserService) {
+  constructor(private service: UserService,
+              private friendService:FriendService) {
   }
 
   ngOnInit(): void {
+    this.friendService.getSuggestRequest(2).subscribe(suggest=>{
+      this.suggestList = suggest;
+    })
     this.service.getListPost(this.id).subscribe(data=>{
       console.log(data)
       this.listShow = data;

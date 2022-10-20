@@ -122,6 +122,15 @@ img{
 
 }
 
+.cssImg{
+  margin: 10px;
+  width: 48%;
+}
+.cssImg:hover{
+  transform: scale(1.2);
+ transition-duration: 0.5s;
+  transition-timing-function: linear;
+}
 
 h1{
   padding-top: 30px;

@@ -155,9 +155,9 @@
       <div>
         <p>{{l.content}}</p>
       </div>
-      <div class="img-fluid d-inline-block" >
-        <div class=" img-fluid"  *ngIf="l.mediaArr.length>1" >
-          <img width="45%" class=" m-1 hoverCss" *ngFor="let x of l.mediaArr" src="{{x}}"  >
+      <div class="img-fluid d-inline-block m-auto" >
+        <div   *ngIf="l.mediaArr.length>1" >
+          <img  class=" m-1 cssImg hoverCss" *ngFor="let x of l.mediaArr" src="{{x}}"  >
         </div>
         <div class=" img-fluid" *ngIf="l.mediaArr.length==1"  >
           <img width="100%" class=" m-1 hoverCss" *ngFor="let x of l.mediaArr" src="{{x}}"  >

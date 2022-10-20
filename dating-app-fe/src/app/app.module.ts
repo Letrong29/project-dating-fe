@@ -26,6 +26,7 @@ import {DetailPostComponent} from "./user/component/detail-post/detail-post.comp
     HttpClientModule,
     UserModule,
 
+
   ],
   providers: [],
   bootstrap: [AppComponent]
