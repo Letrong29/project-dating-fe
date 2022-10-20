@@ -1,0 +1,236 @@
+<div class="container-fluid section mt-5 mb-5">
+  <div class="row" *ngIf="user">
+    <div class="col-12 col-sm-12 col-md-4 col-lg-4 infor">
+      <div class="card-container ">
+        <span *ngIf="user.typeUser.idTypeUser >= 3" class="vip" style="font-size:1.3em;">VIP</span>
+        <img class="round avatar"
+             [src]="user.avatar"
+             alt="user"/>
+        <div class="mainInfo">
+          <h3 class="text-center ">{{user.name}}</h3>
+          <h6>{{user.address}}</h6>
+          <p>{{user.job}}</p>
+        </div>
+
+        <!--                Bạn bè-->
+        <div *ngIf="!isOwn" class="buttons">
+          <a *ngIf="relationship == 'Chưa có quan hệ'" (click)="addRequest()" id="addBtn"
+             class="addFrBtn btn btn-outline-success me-2 mt-1">
+            THÊM BẠN <i class="fa-solid fa-user-plus"></i>
+          </a>
+
+          <a *ngIf="relationship == 'Bạn bè'" href="#" class="disabled  btn btn-outline-success me-2 mt-1">
+            BẠN BÈ
+            <i class="fa-solid fa-check"></i>
+          </a>
+          <button *ngIf="relationship == 'Đã gửi lời mời kết bạn'" (click)="removeRequest()" id="sentBtn"
+                  class="btn btn-outline-danger me-2 mt-1">
+            HỦY LỜI MỜI
+            <i class="fa-solid fa-user-xmark"></i>
+          </button>
+          <a *ngIf="relationship == 'Đã nhận lời mời'" href="#" class="disabled  btn btn-outline-success me-2 mt-1">
+            PHẢN HỒI
+            <i class="fa-solid fa-check"></i>
+          </a>
+          <a href="#" class="addFrBtn btn btn-outline-primary me-2 mt-1">
+            NHẮN TIN
+            <i class="fa-brands fa-facebook-messenger"></i>
+          </a>
+        </div>
+
+        <!--                Cá nhân-->
+        <div *ngIf="isOwn" class="buttons">
+          <a [routerLink]="['/upgradeAccount']" class="addFrBtn btn btn-outline-success me-2 mt-1">
+            NÂNG CẤP TÀI KHOẢN <i class="fa-regular fa-gem"></i>
+          </a>
+          <a href="#" class="addFrBtn btn btn-outline-secondary me-2 mt-1">
+            THAY ĐỔI THÔNG TIN <i class="fa-regular fa-pen-to-square"></i>
+          </a>
+
+        </div>
+
+        <ul class="otherInfo mt-3 mb-3">
+          <li *ngIf="!user.gender">Giới tính: Nữ</li>
+          <li *ngIf="user.gender">Giới tính: Nam</li>
+          <li>Ngày sinh: {{user.dateOfBirth|date:'dd/MM/yyyy'}}</li>
+          <li *ngIf="user.married">Tình trạng hôn nhân: Độc thân</li>
+          <li *ngIf="!user.married">Tình trạng hôn nhân: Đã có người yêu</li>
+        </ul>
+        <div class="skills text-white">
+          <h6>Sở thích</h6>
+          <ul>
+            <li *ngFor="let hobbit of hobbitList">{{hobbit.hobbitName}}</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 col-sm-12 col-md-8  col-lg-8 newsFeed ">
+      <div *ngIf="isOwn" class="post row shadow-lg mt-3 mb-3 shadow-lg pt-3 pb-3">
+
+        <form [formGroup]="postCreate" (ngSubmit)="savePost()">
+          <div class="d-flex col-lg-12">
+            <img class="minAvatar"
+                 [src]="user.avatar">
+            <div class="w-100">
+            <textarea formControlName="content" class="form-control text-capitalize"
+                      placeholder="Bạn đang nghĩ gì thế..."
+                      style="border-radius: 22px"></textarea>
+            </div>
+
+          </div>
+          <div style="color: red; margin: 20px" *ngIf="postCreate.controls.content.hasError('required') &&
+          submitter " id="errDiv">Vui Lòng nhập vào
+          </div>
+          <div class=" img-fluid">
+            <img width="25%" class=" m-1 hoverCss" *ngFor="let load of loadImage" src="{{load}}">
+          </div>
+          <div class="row mt-3">
+            <div class="mt-3 iconGroup col-lg-4 col-sm-6 text-center hoverCss">
+              <i class="fa-solid fa-video me-2 " style="font-size: 30px; color: hotpink"></i>
+              <span style="color: plum; font-weight: bolder">Video Trực Tiếp</span>
+            </div>
+            <div class="mt-3 iconGroup col-lg-4 col-sm-6 text-center hoverCss">
+              <label for="formFileMultiple" class="form-label">
+                <i class="fa-solid fa-image me-2 " style="font-size: 30px ; color: #0b5ed7"></i>
+              </label>
+              <span class="m-0" style="color: plum; font-weight: bolder;">Ảnh/Video</span>
+              <input style="display: none" class="form-control" type="file" id="formFileMultiple"
+                     (change)="show($event)"
+                     multiple/>
+            </div>
+            <div class="mt-3 iconGroup  col-lg-4 col-sm-12 text-center">
+              <button type="submit" class="btn btn-success">Đăng<i class="fa-solid fa-check"></i></button>
+            </div>
+          </div>
+        </form>
+
+      </div>
+      <div class="news">
+        <div class="row shadow-lg p-3 mt-4" *ngFor="let l of listShow" style="border-radius: 15px">
+          <div class="col-lg-1">
+            <img class="minAvatar" src="{{l.avatar}}">
+
+          </div>
+          <div class="col-lg-11">
+            <div class="ms-2">
+              <div class="row m-0">
+                <div class="col-lg-6 m-0">
+                  <p class="m-0">{{l.userName}}</p>
+                </div>
+                <div class="col-lg-3"></div>
+                <div class="col-lg-3 text-end">
+                  <a [routerLink]="['details', l.idPost,l.idPost]" class="m-0 p-0"
+                     style="font-size: 25px; text-decoration: none">...</a>
+                </div>
+              </div>
+              <div class="row  m-0">
+                <div class="col-lg-12 m-0 mb-3">
+                  <p class="hoverCss">{{l.time| date:"dd/MM/yyyy"}}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+
+
+          <div>
+            <p>{{l.content}}</p>
+          </div>
+          <div class="img-fluid d-inline-block m-auto" >
+            <div   *ngIf="l.mediaArr.length>1" >
+              <img  class=" m-1 cssImg hoverCss" *ngFor="let x of l.mediaArr" src="{{x}}"  >
+            </div>
+            <div class=" img-fluid" *ngIf="l.mediaArr.length==1"  >
+              <img width="100%" class=" m-1 hoverCss" *ngFor="let x of l.mediaArr" src="{{x}}"  >
+            </div>
+          </div>
+          <div class="text-end">
+            <span class="text-end p-2 m-0" style="font-size: 15px">2 bình luận</span>
+          </div>
+
+          <div class="row text-center">
+            <div><hr class="m-0 p-0"></div>
+            <div class="col-lg-4 p-2">
+              <i class="fa-sharp fa-solid fa-thumbs-up hoverCss" style="font-size: 20px; color:#0b5ed7"></i>
+              <span class="hoverCss" style="font-size: 15px">Thích</span></div>
+            <div class="col-lg-4 p-2">
+              <i class="fa-regular fa-message hoverIcon hoverCss" style="font-size: 20px" ></i>
+              <span style="font-size: 15px"  class="hoverCss" >Bình Luận</span></div>
+            <div class="col-lg-4 p-2">
+              <i class="fa-sharp fa-solid fa-arrow-up-right-from-square hoverCss"
+                 style="font-size: 20px"></i>
+              <span class="hoverCss" style="font-size: 15px">Gửi</span></div>
+            <div><hr class="m-0 p-0"></div>
+          </div>
+          <div class="row text-center bg-gradient">
+            <div class="col-lg-12 p-1"><p style="font-weight: bold; font-size: 20px; margin-top: 15px">Bình luận bị tắt cho bài viết này </p></div>
+          </div>
+
+        </div>
+
+        <div class="row shadow-lg p-3 mt-4" *ngFor="let l of listShow" style="border-radius: 15px">
+          <div class="col-lg-1">
+            <img class="minAvatar" src="{{l.avatar}}">
+
+
+          </div>
+          <div class="col-lg-11">
+            <div class="ms-2">
+              <div class="row m-0">
+                <div class="col-lg-6 m-0">
+                  <p class="m-0">{{l.userName}}</p>
+                </div>
+                <div class="col-lg-3"></div>
+                <div class="col-lg-3 text-end">
+                  <a [routerLink]="['details', l.idPost,l.idPost]" class="m-0 p-0"
+                     style="font-size: 25px; text-decoration: none">...</a>
+                </div>
+              </div>
+              <div class="row  m-0">
+                <div class="col-lg-12 m-0 mb-3">
+                  <p class="hoverCss">{{l.time| date:"dd/MM/yyyy"}}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <p>{{l.content}}</p>
+          </div>
+          <div class="img-fluid d-inline-block">
+            <div class=" img-fluid">
+              <img width="45%" class=" m-1 hoverCss" *ngFor="let x of l.mediaArr" src="{{x}}">
+            </div>
+          </div>
+          <div class="text-end">
+            <span class="text-end p-2 m-0" style="font-size: 15px">2 bình luận</span>
+          </div>
+
+          <div class="row text-center">
+            <div>
+              <hr class="m-0 p-0">
+            </div>
+            <div class="col-lg-4 p-2">
+              <i class="fa-sharp fa-solid fa-thumbs-up hoverCss" style="font-size: 20px; color:#0b5ed7"></i>
+              <span class="hoverCss" style="font-size: 15px">Thích</span></div>
+            <div class="col-lg-4 p-2">
+              <i class="fa-regular fa-message hoverIcon hoverCss" style="font-size: 20px"></i>
+              <span style="font-size: 15px" class="hoverCss">Bình Luận</span></div>
+            <div class="col-lg-4 p-2">
+              <i class="fa-sharp fa-solid fa-arrow-up-right-from-square hoverCss"
+                 style="font-size: 20px"></i>
+              <span class="hoverCss" style="font-size: 15px">Gửi</span></div>
+            <div>
+              <hr class="m-0 p-0">
+            </div>
+          </div>
+          <div class="row text-center bg-gradient">
+            <div class="col-lg-12 p-1"><p style="font-weight: bold; font-size: 20px; margin-top: 15px">Bình luận bị tắt
+              cho bài viết này </p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

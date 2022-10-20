@@ -5,6 +5,10 @@ import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {AngularFireStorageModule} from '@angular/fire/storage';
 import {AngularFireModule} from '@angular/fire';
+import {FriendModule} from "./friend/friend.module";
+import {UserModule} from "./user/user.module";
+import {HttpClientModule} from "@angular/common/http";
+import {environment} from "../environments/environment.prod";
 
 import {FriendModule} from "./friend/friend.module";
 import {APP_BASE_HREF} from "@angular/common";
@@ -28,6 +32,11 @@ import {AccountModule} from "./account/account.module";
     BrowserModule,
     AppRoutingModule,
     AngularFireStorageModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    FriendModule,
+    UserModule,
+    HttpClientModule,
+
     AngularFireModule,
     HttpClientModule,
     BrowserAnimationsModule,
@@ -44,6 +53,7 @@ import {AccountModule} from "./account/account.module";
     FormsModule,
     ReactiveFormsModule,
     AccountModule
+
   ],
   providers: [],
   bootstrap: [AppComponent]
