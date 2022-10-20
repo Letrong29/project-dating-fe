@@ -8,6 +8,9 @@ import {AngularFireModule} from '@angular/fire';
 import {HttpClientModule} from "@angular/common/http";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {AccountModule} from "./account/account.module";
+import {AuthenticationService} from "./account/service/authentication.service";
+import {AuthGuardService} from "./account/service/auth-guard.service";
+import {TokenStorageService} from "./account/service/token-storage.service";
 
 @NgModule({
   declarations: [

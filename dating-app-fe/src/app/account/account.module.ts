@@ -21,10 +21,5 @@ import {TokenStorageService} from "./service/token-storage.service";
     FormsModule,
     ReactiveFormsModule
   ],
-  exports: [
-    AuthenticationService,
-    AuthGuardService,
-    TokenStorageService
-  ]
 })
 export class AccountModule { }
