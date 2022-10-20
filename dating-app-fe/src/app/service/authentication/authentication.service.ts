@@ -32,12 +32,13 @@ export class AuthenticationService {
 
   public isAuthenticated(): boolean {
     // const jwtToken = this.tokenStorageService.getToken();
-    const token = sessionStorage.getItem('auth-token');
+    const tokenSession = sessionStorage.getItem('auth-token');
+    const tokenLocal = localStorage.getItem('auth-token');
     // Check whether the token is expired and return
     // true or false
-    if(token == null) {
-      return false;
+    if(tokenSession != null || tokenLocal != null) {
+      return true;
     }
-    return true;
+    return false;
   }
 }
