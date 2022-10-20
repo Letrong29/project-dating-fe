@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {User} from "../../model/user";
 import {UserService} from "../../service/user.service";
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-list-user',
@@ -34,6 +35,7 @@ export class ListUserComponent implements OnInit {
       this.userList = us.content;
       // @ts-ignore
       this.totalPage = us.totalPages;
+
     })
   }
 
@@ -73,6 +75,7 @@ export class ListUserComponent implements OnInit {
       status: this.selectWarning
     }
     this.userService.updateStatusWarrningUser(request).subscribe(() => {
+      Swal.fire('Thông báo', 'Gửi cảnh báo thành công!', 'success');
     });
   }
 
