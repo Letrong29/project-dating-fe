@@ -10,7 +10,7 @@ import {ReportDetailService} from "../../service_report/report-detail.service";
   styleUrls: ['./report-detail.component.css']
 })
 export class ReportDetailComponent implements OnInit {
-  reportDetailList: ReportDetail[];
+  reportDetailList: any = null;
   p:1;
   idModal: number;
   nameModal: string;

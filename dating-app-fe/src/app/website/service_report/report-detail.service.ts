@@ -9,30 +9,30 @@ import {Report} from "../model/report";
   providedIn: 'root'
 })
 export class ReportDetailService {
-  private URL_CONNECT = 'http://localhost:8080/api/admin/';
+  private URL_CONNECT = 'http://localhost:8080/api';
   constructor(private httpClient:HttpClient,private reportServiceService: ReportServiceService){
   }
 
   getAllReportDetail(page: number):Observable<ReportDetail[]>{
-    return this.httpClient.get<ReportDetail[]>(this.URL_CONNECT + 'report-detail' + '?page=' +page);
+    return this.httpClient.get<ReportDetail[]>(this.URL_CONNECT + '/admin/report-detail' + '?page=' +page);
   }
 
   getAllReport():Observable<Report[]>{
-    return this.httpClient.get<Report[]>(this.URL_CONNECT + 'report-list')
+    return this.httpClient.get<Report[]>(this.URL_CONNECT + '/report-list')
   }
 
   findReportDetailById(id: number): Observable<ReportDetail> {
-    return this.httpClient.get<ReportDetail>(this.URL_CONNECT + 'detail/' + id);
+    return this.httpClient.get<ReportDetail>(this.URL_CONNECT + '/admin/detail/' + id);
   }
 
   confirmReportDetail(id: number): Observable<ReportDetail> {
     // @ts-ignore
-    return this.httpClient.patch<ReportDetail>(this.URL_CONNECT + 'confirm/' + id);
+    return this.httpClient.patch<ReportDetail>(this.URL_CONNECT + '/admin/confirm/' + id);
   }
 
   deleteReportDetail(id: number): Observable<ReportDetail> {
     // @ts-ignore
-    return this.httpClient.patch<ReportDetail>(this.URL_CONNECT + 'delete/' + id);
+    return this.httpClient.patch<ReportDetail>(this.URL_CONNECT + '/admin/delete/' + id);
   }
 
 
@@ -40,7 +40,11 @@ export class ReportDetailService {
     if(keyWord==null) {
       keyWord =""
     }
-    return this.httpClient.get<ReportDetail[]>(this.URL_CONNECT + 'report-detail'+'?keyWord=' + keyWord + '&page='+page);
+    return this.httpClient.get<ReportDetail[]>(this.URL_CONNECT + '/admin/report-detail'+'?keyWord=' + keyWord + '&page='+page);
+  }
+
+  save(reportDetail: ReportDetail) {
+    return  this.httpClient.post(this.URL_CONNECT + '/public/report', reportDetail);
   }
 
 }

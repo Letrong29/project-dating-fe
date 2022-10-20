@@ -4,25 +4,16 @@ import {Report} from './report';
 
 export interface ReportDetail {
 
-  idReportDetails?: number;
+  id?: number;
 
-  idPost?: number;
+  post?: Post;
 
-  reporter?: string;
+  reporter?: User;
 
-  idReport?: number;
+  report?: Report;
 
   status?: number;
 
-  timeReport?: Date;
-
-  userPost?: string;
-
-  postContent?: string;
-
-  reportContent?: string;
-
-
-
+  timeReport?: string;
 
 }

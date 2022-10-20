@@ -23,15 +23,15 @@
           <tbody style="text-align: left">
           <tr *ngFor="let temp of reportDetailList;index as i">
             <td>{{i + 1 + (3 * pageCurrent)}}</td>
-            <td>{{temp.reporter}}</td>
+            <td>{{temp.userReport}}</td>
             <td>{{temp.reportContent}}</td>
             <td>{{temp.postContent}}</td>
             <td>{{temp.userPost}}</td>
-            <td>{{temp.timeReport}}</td>
+            <td>{{temp.timeReport| date: 'dd/MM/yyyy'}}</td>
             <td>
 
               <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                      data-bs-target="#modelConfirm" (click)="elementConfirm(temp.idReportDetails, temp.userPost)">
+                      data-bs-target="#modelConfirm" (click)="elementConfirm(temp.id, temp.userPost)">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                      class="bi bi-check-circle-fill" viewBox="0 0 16 16">
                   <path
@@ -41,7 +41,7 @@
             </td>
             <td>
               <button type="button" class="btn btn-outline-danger " data-bs-toggle="modal"
-                      data-bs-target="#modelDelete" (click)="elementDelete(temp.idReportDetails, temp.userPost)">
+                      data-bs-target="#modelDelete" (click)="elementDelete(temp.id, temp.userPost)">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                      class="bi bi-trash3" viewBox="0 0 16 16">
                   <path
@@ -67,7 +67,7 @@
               </div>
               <div class="modal-body">
                 <div>
-                  Bạn có đồng ý xoá người dùng <strong style="color: red">{{nameModal}}</strong> khỏi bảng hay không?
+                  Bạn có đồng ý xoá người dùng <strong style="color: red">{{nameModal}}</strong> khỏi danh sách hay không?
                 </div>
               </div>
               <div class="modal-footer">
