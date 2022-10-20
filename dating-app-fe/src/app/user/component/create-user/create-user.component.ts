@@ -42,7 +42,8 @@ export class CreateUserComponent implements OnInit {
     activatedRoute.paramMap.subscribe((paramMap: ParamMap) => {
       let idUser = +paramMap.get('idUser')
       this.registerUser = new FormGroup({
-        idUser: new FormControl(idUser),
+        // idUser: new FormControl(idUser),
+        idUser: new FormControl(''),
 
         avatar: new FormControl(''),
 
