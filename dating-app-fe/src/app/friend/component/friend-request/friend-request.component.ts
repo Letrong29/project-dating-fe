@@ -9,7 +9,7 @@ import {FriendService} from "../../../service/friend-service/friend-service.serv
   styleUrls: ['./friend-request.component.css']
 })
 export class FriendRequestComponent implements OnInit {
-  myId: number = 1;
+  myId: number = 3;
   requestList: User[];
 
   constructor(private friendService: FriendService,
