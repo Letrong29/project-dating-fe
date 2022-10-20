@@ -19,9 +19,14 @@ export class PostComponent implements OnInit {
     this.service.getListPost(this.id).subscribe(data=>{
       console.log(data)
       this.listShow = data;
-      for (let i = 0; i <this.listShow.length ; i++) {
+
+      for (let i = 0; i <this.listShow.length-1 ; i++) {
         this.listShow[i].mediaArr= this.listShow[i].media.split(",")
+        if(this.listShow[i].mediaArr.length>1){
+          this.listShow[i].mediaArr.pop()
+        }
       }
+      console.log(this.listShow)
 
     })
   }
