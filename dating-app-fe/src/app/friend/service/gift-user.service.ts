@@ -17,16 +17,16 @@ export class GiftUserService {
 
   }
 
+  GiveAGiftUser(idGift: number, idUserReceiver:number, idUserSender:number, quantity:number): Observable<GiftUser> {
+    return this.http.get<GiftUser>(`${API_URL}/api/user/gift/saveGiftUser?idGift=${idGift}&idUserReceiver=${idUserReceiver}&idUserSender=${idUserSender}&quantity=${quantity}`);
+  }
+
   findByIdUser(idUser: number): Observable<User> {
-    return this.http.get<User>(`${API_URL}/api/user/gift/user/${idUser}`)
+    return this.http.get<User>(`${API_URL}/api/user/gift/user/${idUser}`);
   }
 
   findByIdGift(idGift: number): Observable<Gift> {
-    return this.http.get<Gift>(`${API_URL}/api/user/gift/gift/${idGift}`)
-  }
-
-  updateGiftUser(idUser: number, giftUser: GiftUser): Observable<GiftUser> {
-    return this.http.patch<GiftUser>(`${API_URL}/api/user/gift/saveGiftUser${idUser}`, giftUser);
+    return this.http.get<Gift>(`${API_URL}/api/user/gift/gift/${idGift}`);
   }
 
 }

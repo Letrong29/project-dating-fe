@@ -33,7 +33,7 @@
       <ul>
         <li><i class="fab fa-wpforms icon"></i>Quà tặng
           <ul >
-            <li *ngFor="let i of gifList"><i class="fas fa-pencil-alt icon"></i>{{i.giftName}}-{{i.price}}</li>
+            <li *ngFor="let i of gifList" (click)="GiveAGiftUser(i.idGift)"><i class="fas fa-pencil-alt icon"></i>{{i.giftName}}-{{i.price}}</li>
           </ul>
         </li>
         <li><i class="fas fa-chart-pie icon"></i> Xem thông tin</li>
