@@ -2,7 +2,6 @@
   <div class="form-container sign-up-container">
     <form [formGroup]="registerAccount" (ngSubmit)="save()">
       <h1>Đăng ký</h1>
-
       <div class="text-danger">
         <span *ngIf="registerAccount.controls.email.hasError('pattern') || registerAccount.controls.phone.hasError('pattern') ">
           Địa chỉ email hoặc số điện thoại không hợp lệ !
@@ -15,7 +14,6 @@
           Mật khẩu không trùng khớp !
         </span>
       </div>
-
       <!--email-->
       <input formControlName="email" type="email" placeholder="Email"/>
 
@@ -29,6 +27,7 @@
         <!--password confirm-->
         <input formControlName="passwordConfirm" type="password" placeholder="Nhập lại khẩu"/>
       </fieldset>
+
       <button type="submit">Đăng ký</button>
     </form>
   </div>

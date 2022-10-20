@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Account} from '../../model/account';
-import {AccountService} from '../../../service/account.service';
+import {AccountService} from '../../service/account.service';
 import {Router} from '@angular/router';
 
 @Component({
@@ -39,10 +39,8 @@ export class AccountCreateComponent implements OnInit {
     if (this.registerAccount.valid){
       let account: Account = this.registerAccount.value
       account.password = this.registerAccount.controls.passwordGroup.get('password').value;
-      console.log(account);
       this.accountService.save(account).subscribe(next => {
-        console.log(next);
-        // this.router.navigate(['register/user'], next)
+        // this.router.navigateByUrl('')
       },error => {
         this.errorList = error.error
       })
