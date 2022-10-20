@@ -7,6 +7,8 @@ import {AngularFireStorageModule} from '@angular/fire/storage';
 import {AngularFireModule} from '@angular/fire';
 import {FriendModule} from "./friend/friend.module";
 import {UserModule} from "./user/user.module";
+import {HttpClientModule} from "@angular/common/http";
+import {environment} from "../environments/environment.prod";
 
 @NgModule({
   declarations: [
@@ -16,9 +18,12 @@ import {UserModule} from "./user/user.module";
     BrowserModule,
     AppRoutingModule,
     AngularFireStorageModule,
-    AngularFireModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
     FriendModule,
-    UserModule
+    UserModule,
+    HttpClientModule,
+
+
   ],
   providers: [],
   bootstrap: [AppComponent]

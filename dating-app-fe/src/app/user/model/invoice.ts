@@ -8,5 +8,5 @@ export interface Invoice {
 
   time?: string;
 
-  idUser?: User;
+  user?: User;
 }
