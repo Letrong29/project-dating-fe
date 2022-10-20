@@ -10,7 +10,7 @@
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
           <a class="nav-link  text-white " style="font-size: 30px;margin-left: 100px"
-             href="#"><i class="fa-solid fa-house"></i></a>
+             ><i class="fa-solid fa-house"></i></a>
         </li>
         <li class="nav-item">
           <a class="nav-link text-white" href="#" style="font-size: 30px;margin-left: 100px"><i
@@ -41,7 +41,7 @@
             <li><a class="dropdown-item">Trang cá nhân</a></li>
             <li><a class="dropdown-item">Thông tin phản hồi</a></li>
             <li><a class="dropdown-item">Mật khẩu , thông tin</a></li>
-            <li><a class="dropdown-item" [routerLink]="['/share/error']">Đăng xuất</a></li>
+            <li><a class="dropdown-item" (click)="logOut()">Đăng xuất</a></li>
           </ul>
         </div>
       </div>
