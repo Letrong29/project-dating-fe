@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {UserService} from "../../service/user.service";
-import {User} from "../../model/user";
+import {UserServiceService} from "../../service/user-service.service";
 
 @Component({
   selector: 'app-search',
@@ -18,10 +17,11 @@ export class SearchComponent implements OnInit {
   flag: boolean = false;
   checkSearchRequired: boolean= false ;
 
-  constructor(private userService: UserService) {
+  constructor(private userService: UserServiceService) {
   }
 
   ngOnInit(): void {
+    console.log("dsadsd")
     this.getAllUser();
   }
 

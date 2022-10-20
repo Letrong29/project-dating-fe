@@ -2,16 +2,20 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 
 import {UserRoutingModule} from './user-routing.module';
-import { CreateUserComponent } from './component/create-user/create-user.component';
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {SearchComponent} from "./component/search/search.component";
 
 
 @NgModule({
-  declarations: [CreateUserComponent],
+  declarations: [SearchComponent],
   imports: [
     CommonModule,
-    UserRoutingModule
+    UserRoutingModule,
+    ReactiveFormsModule,
+    FormsModule,
   ],
 
   exports: []
 })
-export class UserModule { }
+export class UserModule {
+}

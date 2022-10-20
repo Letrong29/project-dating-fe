@@ -1,8 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {FriendListService} from "../../../service/friend-service/friend-list.service";
+import {FriendListService} from "../../friend-service/friend-list.service";
 import {User} from "../../../user/model/user";
 import {ToastrService} from "ngx-toastr";
 import {FormControl, FormGroup} from "@angular/forms";
+import {TokenStorageService} from "../../../service/authentication/token-storage.service";
 
 @Component({
   selector: 'app-friendlist',
@@ -10,7 +11,7 @@ import {FormControl, FormGroup} from "@angular/forms";
   styleUrls: ['./friendlist.component.css']
 })
 export class FriendlistComponent implements OnInit {
-  listFriend: User[] = [];
+  listFriend: any;
   page: number = 0;
   idArr: number [] = [];
   check: any[] = [];
@@ -18,12 +19,14 @@ export class FriendlistComponent implements OnInit {
   informationDelete: User[] = [];
   friendDeleted: User;
   name='';
+
   searchForm =new FormGroup({
     name:new FormControl('')
   });
 
 
-  constructor(private friendListService: FriendListService,private toast:ToastrService) {
+  constructor(private friendListService: FriendListService,private toast:ToastrService,
+              private tokens: TokenStorageService) {
   }
 
   ngOnInit(): void {
@@ -31,6 +34,7 @@ export class FriendlistComponent implements OnInit {
   }
 
   getAll(size: number){
+
     return this.friendListService.getFriendList(1, this.page, this.name, size).subscribe(n => {
       if (n=== null){
         this.listFriend = [];

@@ -1,9 +1,9 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 
-import { FriendRoutingModule } from './friend-routing.module';
-import { FriendlistComponent } from './component/friendlist/friendlist.component';
-import {ReactiveFormsModule} from "@angular/forms";
+import {FriendRoutingModule} from './friend-routing.module';
+import {FriendlistComponent} from './component/friendlist/friendlist.component';
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 
@@ -16,7 +16,9 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
     CommonModule,
     FriendRoutingModule,
     ReactiveFormsModule,
-    BrowserAnimationsModule
+    FormsModule,
+
   ]
 })
-export class FriendModule { }
+export class FriendModule {
+}
