@@ -24,6 +24,10 @@ export interface User {
 
   avatar?: string;
 
+  hobbits?: number[];
+
+  targets?: number[];
+
   joinDay?: string;
 
   coin?: number;

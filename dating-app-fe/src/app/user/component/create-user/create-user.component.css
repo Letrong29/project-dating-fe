@@ -1,5 +1,5 @@
 .avt {
-  width: auto;
+  width: 150px;
   height: 150px;
   border-radius: 75px;
 
@@ -15,4 +15,8 @@
 
 .text-pink {
   color: #FF445C;
+}
+
+.btn-avt {
+  pointer-events: none;
 }

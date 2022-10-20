@@ -1,5 +1,5 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {FormArray, FormControl, FormGroup} from '@angular/forms';
+import {FormArray, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Hobbit} from '../../model/hobbit';
 import {HobbitService} from '../../../service/hobbit.service';
 import {TargetService} from '../../../service/target.service';
@@ -8,6 +8,9 @@ import {formatDate} from '@angular/common';
 import {UserService} from '../../../service/user.service';
 import {AngularFireStorage} from '@angular/fire/storage';
 import {finalize} from 'rxjs/operators';
+import {validatorAge} from '../../../utils/DateTimeUtil';
+import {User} from '../../model/user';
+import {templateJitUrl} from '@angular/compiler';
 
 @Component({
   selector: 'app-create-user',
@@ -15,73 +18,133 @@ import {finalize} from 'rxjs/operators';
   styleUrls: ['./create-user.component.css']
 })
 export class CreateUserComponent implements OnInit {
-  img: any = "";
+  imgLoad: any = '';
+
+  imgs: any = '';
   registerUser: FormGroup;
 
   hobbitList: Hobbit[] = [];
 
   targetList: Target[] = [];
+
+  avatarUrl: any = '';
+
+  user: User;
+
+
   constructor(private hobbitService: HobbitService,
               private targetService: TargetService,
               private userService: UserService,
               @Inject(AngularFireStorage) private storage: AngularFireStorage
   ) {
     this.registerUser = new FormGroup({
-      idUser: new  FormControl('22'),
+      idUser: new FormControl('21'),
 
       avatar: new FormControl(''),
 
       nameGroup: new FormGroup({
-        firstName: new FormControl(''),
-        lastName: new FormControl(''),
+        firstName: new FormControl('', [Validators.required]),
+        lastName: new FormControl('', [Validators.required]),
       }),
 
-      dateOfBirth: new FormControl(''),
+      dateOfBirth: new FormControl('', [Validators.required, validatorAge]),
 
-      gender: new FormControl(''),
+      gender: new FormControl('', [Validators.required]),
 
-      address: new FormControl(''),
+      address: new FormControl('', [Validators.required]),
 
-      job: new FormControl(''),
+      job: new FormControl('', [Validators.required]),
 
-      married: new FormControl('')
-    })
+      married: new FormControl('', [Validators.required]),
+
+      hobbits: new FormArray([]),
+
+      targets: new FormArray([])
+    });
   }
 
 
   ngOnInit(): void {
     this.hobbitService.get().subscribe(next => {
       this.hobbitList = next;
-    })
+    });
 
     this.targetService.get().subscribe(next => {
       this.targetList = next;
-    })
+    });
 
   }
 
   save() {
-    const nameImg = Date.now() + this.img.name;
-    const fileRef = this.storage.ref(nameImg);
-    this.storage.upload(nameImg, this.img).snapshotChanges().pipe(
-      finalize(() => {
-        fileRef.getDownloadURL().subscribe((url) => {
-          this.registerUser.patchValue({img: url});
-          let user = this.registerUser.value;
-          let firstName = this.registerUser.controls.nameGroup.get('firstName').value;
-          let lastName = this.registerUser.controls.nameGroup.get('lastName').value;
-          user.name = firstName + " " + lastName;
-          user.avatar = url;
-          this.userService.update(user).subscribe(() => {
-          })
-        })
-      })
-    ).subscribe()
+    this.uploadFile().then(() => {
+      this.user = this.registerUser.value;
+      let firstName = this.registerUser.controls.nameGroup.get('firstName').value;
+      let lastName = this.registerUser.controls.nameGroup.get('lastName').value;
+      this.user.name = firstName + ' ' + lastName;
+      this.user.avatar = this.avatarUrl;
+      this.userService.update(this.registerUser.value).subscribe(() => {
+      });
+    });
+  }
 
+  uploadFile() {
+    return new Promise((resolve, reject) => {
+        const nameImg = Date.now() + this.imgs.name;
+        const fileRef = this.storage.ref(nameImg);
+        this.storage.upload(nameImg, this.imgs).snapshotChanges().pipe(
+          finalize(() => {
+            fileRef.getDownloadURL().subscribe((url) => {
+              this.registerUser.patchValue({img: url});
+              resolve(true);
+              this.avatarUrl = url;
+            });
+          })
+        ).subscribe();
+      }
+    );
   }
 
   showAvatar($event: any) {
-      this.img = $event.target.files[0]
-      console.log(this.img);
+    this.imgs = $event.target.files[0];
+    if ($event.target.files && $event.target.files[0]) {
+      this.imgLoad = $event.target.files[0];
+      console.log(2);
+      console.log(this.imgLoad);
+      const reader = new FileReader();
+      reader.onload = e => this.imgLoad = reader.result;
+      reader.readAsDataURL(this.imgLoad);
+    }
+  }
+
+  onCheckBoxChange($event: any) {
+    const checkArray: FormArray = this.registerUser.get('hobbits') as FormArray;
+    if ($event.target.checked) {
+      checkArray.push(new FormControl($event.target.value));
+    } else {
+      let i: number = 0;
+      checkArray.controls.forEach((item: FormControl) => {
+        if (item.value == $event.target.value) {
+          checkArray.removeAt(i);
+          return;
+        }
+        i++;
+      });
+    }
+  }
+
+  onCheckBoxTarget($event: any) {
+    const checkArray: FormArray = this.registerUser.get('targets') as FormArray;
+    if ($event.target.checked) {
+      checkArray.push(new FormControl($event.target.value));
+    } else {
+      let i: number = 0;
+      checkArray.controls.forEach((item: FormControl) => {
+        if (item.value == $event.target.value) {
+          checkArray.removeAt(i);
+          return;
+        }
+        i++;
+      });
+    }
   }
 }
