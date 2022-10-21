@@ -114,8 +114,6 @@ export class CreateUserComponent implements OnInit {
     this.imgs = $event.target.files[0];
     if ($event.target.files && $event.target.files[0]) {
       this.imgLoad = $event.target.files[0];
-      console.log(2);
-      console.log(this.imgLoad);
       const reader = new FileReader();
       reader.onload = e => this.imgLoad = reader.result;
       reader.readAsDataURL(this.imgLoad);
@@ -152,9 +150,5 @@ export class CreateUserComponent implements OnInit {
         i++;
       });
     }
-  }
-
-  reset() {
-    this.registerUser.reset();
   }
 }
