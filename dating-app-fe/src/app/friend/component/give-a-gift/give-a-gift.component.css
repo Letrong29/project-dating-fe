@@ -34,7 +34,7 @@ h3{
 }
 
 .body li{
-  transition: 1s all;
+  transition: 0s all;
   font-family: 'Roboto', sans-serif;
   font-size: 12px;
   padding: 20px;

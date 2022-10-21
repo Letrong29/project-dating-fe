@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {environment} from "../../../environments/environment";
 import {Observable} from "rxjs";
 import {Gift} from "../model/gift";
@@ -11,10 +11,11 @@ const API_URL = `${environment.apiUrl}`;
 })
 export class GiftService {
 
-  constructor(private http : HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
 
-  getAllGift() : Observable<Gift[]>{
-   return this.http.get<Gift[]>(API_URL + '/api/user/gift/listGift')
+  getAllGift(): Observable<Gift[]> {
+    return this.http.get<Gift[]>(API_URL + '/api/user/gift/listGift')
   }
 
 }

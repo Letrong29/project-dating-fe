@@ -14,8 +14,8 @@ export class GiveAGiftComponent implements OnInit {
 
   gifList: Gift[] = [];
   idGift: number;
-  idUserReceiver=6;
-  idUserSender=6;
+  idUserReceiver = 6;
+  idUserSender = 6;
   quantity = 1;
 
   user: User;
@@ -41,13 +41,13 @@ export class GiveAGiftComponent implements OnInit {
   GiveAGiftUser(id: number) {
 
 
-    this.giftUserService.findByIdGift(id).subscribe((gift:any)=>{
+    this.giftUserService.findByIdGift(id).subscribe((gift: any) => {
       this.price = gift.price;
-      this.giftUserService.findByIdUser(this.idUserSender).subscribe((user:any)=>{
+      this.giftUserService.findByIdUser(this.idUserSender).subscribe((user: any) => {
         this.coin = user.coin;
-        if(this.coin < this.price){
+        if (this.coin < this.price) {
           this.toast.error("Số tiền không đủ ! Bạn cần nạp thêm !", "Thông báo !")
-        }else {
+        } else {
           this.giftUserService.GiveAGiftUser(id, this.idUserReceiver, this.idUserSender, this.quantity).subscribe(() => {
             this.toast.success("Tặng quà thành công", "Thông báo !")
           })
@@ -56,10 +56,7 @@ export class GiveAGiftComponent implements OnInit {
     });
 
 
-
-
   }
-
 
 
 }
