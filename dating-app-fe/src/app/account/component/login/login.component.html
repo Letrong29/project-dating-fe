@@ -2,7 +2,7 @@
 
 </div>
 <section *ngIf="checkLogin==false">
-  <h2>Hãy thử hẹn hò: Line Social</h2>
+<!--  <h2>Hãy thử hẹn hò: Line Social</h2>-->
   <div class="container" id="container">
     <div class="form-container sign-in-container">
       <form *ngIf="loginForm" [formGroup]="loginForm" (ngSubmit)="loginAccount()">
@@ -50,7 +50,7 @@
         <div class="overlay-panel overlay-right">
           <h1>Chào bạn!</h1>
           <p>Nếu bạn chưa có tài khoản, hãy đăng kí và cùng kết nối với mọi người</p>
-          <button class="ghost" id="signUp">Đăng kí</button>
+          <button class="ghost" routerLink="/account/register" id="signUp">Đăng kí</button>
         </div>
       </div>
     </div>

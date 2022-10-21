@@ -24,8 +24,8 @@ export class PersonalPageComponent implements OnInit {
 
   relationship: any;
   isOwn: boolean;
-  myIdUser: 1;
-  idUser: number;
+  myIdUser;
+  idUser;
   user: User;
   hobbitList: Hobbit[] = [];
   userAddressArr: string[] = [];
@@ -43,6 +43,7 @@ export class PersonalPageComponent implements OnInit {
               @Inject(AngularFireStorage) private storage: AngularFireStorage,
               private postService: PostService,
               private router: Router, private token: TokenStorageService) {
+    this.myIdUser = this.token.getUser().idAccount;
 
     this.activatedRoute.paramMap.subscribe((paraMap: ParamMap) => {
       this.idUser = +paraMap.get('id');
@@ -70,7 +71,6 @@ export class PersonalPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.myIdUser = this.token.getUser().idAccount;
     this.userService.getUserById(this.idUser).subscribe((userDb) => {
       console.log(userDb)
       this.user = userDb;
@@ -85,6 +85,7 @@ export class PersonalPageComponent implements OnInit {
       console.log(this.hobbitList)
     })
     this.getListPost();
+    console.log(this.myIdUser)
 
   }
 
@@ -116,8 +117,8 @@ export class PersonalPageComponent implements OnInit {
 
   show(event: any) {
     this.links = event.target.files;
-    if(event.target.files.length>0) {
-      for (let i =0; i<event.target.files.length; i++) {
+    if (event.target.files.length > 0) {
+      for (let i = 0; i < event.target.files.length; i++) {
         if (event.target.files && event.target.files[i]) {
           var reader = new FileReader();
           reader.onload = (event: any) => {
@@ -162,8 +163,10 @@ export class PersonalPageComponent implements OnInit {
         this.getListPost();
         document.getElementById("errDiv").hidden;
       });
-    }).finally(()=> {
-      window.location.reload();
+    }).finally(() => {
+      // window.location.reload();
     })
   }
+
+
 }

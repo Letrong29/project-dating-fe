@@ -18,7 +18,7 @@ export class ReportDetailService {
   }
 
   getAllReport():Observable<any>{
-    return this.httpClient.get<Report[]>(this.URL_CONNECT + '/report-list', this.auth.getToken())
+    return this.httpClient.get<Report[]>(this.URL_CONNECT + '/users/report-list', this.auth.getToken())
   }
 
   findReportDetailById(id: number): Observable<any> {
@@ -44,7 +44,6 @@ export class ReportDetailService {
   }
 
   save(reportDetail: ReportDetail) {
-    return  this.httpClient.post(this.URL_CONNECT + '/public/report', reportDetail, this.auth.getToken());
+    return  this.httpClient.post(this.URL_CONNECT + '/users/report', reportDetail, this.auth.getToken());
   }
-
 }

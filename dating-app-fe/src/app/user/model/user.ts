@@ -47,4 +47,6 @@ export interface User {
   giftSenders?: GiftUser[];
 
   giftReceiver?: GiftUser[];
+
+  quantity?:number;
 }

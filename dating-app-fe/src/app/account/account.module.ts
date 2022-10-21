@@ -5,12 +5,12 @@ import {AccountRoutingModule} from './account-routing.module';
 import {LoginComponent} from './component/login/login.component';
 import {HttpClientModule} from "@angular/common/http";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {TestComponent} from './component/test/test.component';
-import {TestAdminComponent} from './component/test-admin/test-admin.component';
+import {AccountCreateComponent} from './component/account-create/account-create.component';
+import {ResetPasswordComponent} from './component/reset-password/reset-password.component';
 
 
 @NgModule({
-  declarations: [LoginComponent, TestComponent, TestAdminComponent],
+  declarations: [LoginComponent,  AccountCreateComponent, ResetPasswordComponent],
   imports: [
     CommonModule,
     AccountRoutingModule,

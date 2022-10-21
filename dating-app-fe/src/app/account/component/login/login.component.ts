@@ -23,8 +23,6 @@ export class LoginComponent implements OnInit {
   constructor(private authenticationService: AuthenticationService,
               private tokenStorageService: TokenStorageService,
               private router: Router) {
-
-
   }
 
   ngOnInit(): void {
@@ -35,7 +33,7 @@ export class LoginComponent implements OnInit {
       this.username = this.tokenStorageService.getUser().username;
     }
     if(this.checkLogin) {
-      this.router.navigateByUrl('/share/list')
+      this.router.navigateByUrl('/user/newFeed')
     }
   }
 
@@ -57,7 +55,7 @@ export class LoginComponent implements OnInit {
         this.username = this.tokenStorageService.getUser().username;
         this.roles = this.tokenStorageService.getUser().roles;
         this.loginForm.reset();
-        this.router.navigateByUrl('/share/list');
+        this.router.navigateByUrl('/user/newFeed')
       }, error => {
         this.authenticationService.isLoggedIn = false;
         this.messageError = 'Tên đăng nhập không tồn tại hoặc sai mật khẩu. Vui lòng nhập lại!!!'

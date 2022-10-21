@@ -6,6 +6,7 @@ import {FriendRequestComponent} from "./component/friend-request/friend-request.
 
 import {FriendlistComponent} from "./component/friendlist/friendlist.component";
 import {AuthGuardService} from "../service/authentication/auth-guard.service";
+import {GiveAGiftComponent} from "./component/give-a-gift/give-a-gift.component";
 
 
 const routes: Routes = [
@@ -14,7 +15,16 @@ const routes: Routes = [
     component: FriendlistComponent,
     canActivate: [AuthGuardService]
   },
-  {path: 'request', component: FriendRequestComponent, canActivate: [AuthGuardService]}
+  {
+    path: 'request/:id',
+    component: FriendRequestComponent,
+    canActivate: [AuthGuardService]
+  },
+  {
+    path:'gift',
+    component:GiveAGiftComponent
+  },
+
 ];
 
 @NgModule({

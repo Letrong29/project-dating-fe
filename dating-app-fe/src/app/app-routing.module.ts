@@ -1,9 +1,5 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {HomeComponent} from "./share/home/home.component";
-import {FriendlistComponent} from "./friend/component/friendlist/friendlist.component";
-import {AuthGuardService} from "./service/authentication/auth-guard.service";
-import {SearchComponent} from "./user/component/search/search.component";
 
 
 const routes: Routes = [
@@ -12,10 +8,7 @@ const routes: Routes = [
     loadChildren: () => import('../app/account/account.module').then(module => module.AccountModule)
   },
 
-  {
-    path: "",
-    component: HomeComponent
-  },
+
   {
     path: 'share',
     loadChildren: () => import('../app/share/share.module').then(module => module.ShareModule)
@@ -29,9 +22,10 @@ const routes: Routes = [
     path: 'user',
     loadChildren: () => import('../app/user/user.module').then(module => module.UserModule)
   },
-
-
-
+  {
+    path: 'website',
+    loadChildren: () => import('../app/website/website.module').then(module => module.WebsiteModule)
+  }
 ]
 
 @NgModule({

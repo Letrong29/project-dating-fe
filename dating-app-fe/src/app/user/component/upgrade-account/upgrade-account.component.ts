@@ -1,4 +1,4 @@
- import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {UpgradeAccountService} from "../../service/upgrade-account.service";
 import {User} from "../../model/user";
 import {render} from "creditcardpayments/creditCardPayments";
@@ -19,12 +19,13 @@ export class UpgradeAccountComponent implements OnInit {
   prices: any;
   checkPrice = new FormControl("", [Validators.required])
 
-  getErrorMessageCheckPrice(){
-    if (this.checkPrice.hasError('required')){
+  getErrorMessageCheckPrice() {
+    if (this.checkPrice.hasError('required')) {
       return "Không để trống"
     }
     return
   }
+
   //
   // checkRequiredPrice : any = false;
   //
@@ -44,11 +45,14 @@ export class UpgradeAccountComponent implements OnInit {
 
   findUserById() {
     this.upgradeAccountService.findByUserById(this.idAccount).subscribe(n => {
-      this.user = n;
-    })
+        this.user = n;
+      },
+      error => {
+        this.router.navigateByUrl("/share/error404")
+      })
   }
 
-  invoice(){
+  invoice() {
     this.invoiceCreate = new FormGroup({
       id: new FormControl(""),
       price: new FormControl(this.prices),
@@ -60,8 +64,8 @@ export class UpgradeAccountComponent implements OnInit {
     })
   }
 
-  paypal(pricePaypal:any){
-    if(this.flag){
+  paypal(pricePaypal: any) {
+    if (this.flag) {
       document.getElementById('myPaypal').innerHTML = "";
       render(
         {
@@ -73,11 +77,14 @@ export class UpgradeAccountComponent implements OnInit {
             this.upgradeAccountService.saveInvoice(this.invoiceCreate.value).subscribe(n => {
               this.findUserById();
               this.hideModal();
+            }, error => {
+              this.router.navigateByUrl("/share/error404")
             })
           }
         }
       );
-    } this.flag = false
+    }
+    this.flag = false
 
   }
 
