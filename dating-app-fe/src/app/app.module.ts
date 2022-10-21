@@ -13,11 +13,11 @@ import {ToastrModule} from "ngx-toastr";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {AccountModule} from "./account/account.module";
-
+import {WebcamModule} from "ngx-webcam";
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
@@ -27,7 +27,7 @@ import {AccountModule} from "./account/account.module";
     FriendModule,
     UserModule,
     HttpClientModule,
-
+    WebcamModule,
     AngularFireModule,
     HttpClientModule,
     BrowserAnimationsModule,

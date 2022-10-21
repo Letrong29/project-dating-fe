@@ -8,7 +8,7 @@
 }
 .body{
   min-height: 100vh;
-  background-color:#F0F2ED;
+  background-color: #FFFFFF;
   justify-content: center;
   align-items: center;
   font-family: "Poppin";
@@ -23,7 +23,7 @@
 /*  margin: 0 auto;*/
 /*}*/
 .cart{
-  background-color: #FEF5F3;
+  background-color: #f1f1f1;
   width: 210px;
   height: 350px;
   border-radius: 18px;
@@ -39,8 +39,8 @@
   color: black;
 }
 .cart_img{
-  width: 100px;
-  height: 100px;
+  width: 150px;
+  height: 150px;
   border: 4px solid #f2726a;
   border-radius: 50%;
   overflow: hidden;

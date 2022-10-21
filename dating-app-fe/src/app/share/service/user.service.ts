@@ -12,13 +12,8 @@ export class UserService {
   constructor(private http: HttpClient, private auth: AuthenticationService) {
   }
 
-  public getUserById(id: number): Observable<any> {
-    return this.http.get("http://localhost:8080/api/users/users/" + id, this.auth.getToken());
-  }
-
   getAllSearchPage(page: number, search: string): Observable<any> {
-    return this.http.get(`http://localhost:8080/api/public/searchPage?page=${page}` + `&name=${search}`,
-      this.auth.getToken())
+    return this.http.get(`http://localhost:8080/api/public/searchPage?page=${page}` + `&name=${search}`,this.auth.getToken());
   }
 
 }

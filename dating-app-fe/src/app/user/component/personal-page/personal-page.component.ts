@@ -8,9 +8,10 @@ import {finalize} from "rxjs/operators";
 import {AngularFireStorage} from "@angular/fire/storage";
 import {PostService} from "../../service/post.service";
 import {NewFeed} from "../../model/new-feed";
-import {UserService} from "../../../share/service/user.service";
 import {SendRequestService} from "../../../friend/friend-service/send-request.service";
 import {TokenStorageService} from "../../../service/authentication/token-storage.service";
+import {UserServiceService} from "../../service/user-service.service";
+
 
 @Component({
   selector: 'app-personal-page',
@@ -35,7 +36,7 @@ export class PersonalPageComponent implements OnInit {
   listShow: NewFeed[] = [];
   loadImage: any[] = [];
 
-  constructor(private userService: UserService,
+  constructor(private userService: UserServiceService,
               private hobbitService: HobbitService,
               private sendRequestService: SendRequestService,
               private activatedRoute: ActivatedRoute,

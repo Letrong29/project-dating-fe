@@ -1,0 +1,107 @@
+<div class="container-fluid mt-4">
+  <div class="row ">
+    <div class="col"></div>
+    <div class="col-lg-8" style="background: WhiteSmoke ;box-shadow: rgba(239,35,60,95) 0px -50px 36px -28px inset;">
+      <div class="row"
+           style="padding: 10px 0 10px 0 ;text-align: center; border-radius: 5px 5px 0 0; color: aliceblue ; background: rgba(239,35,60,95);">
+        <h1>Quản lí trang cá nhân</h1>
+      </div>
+      <div class="row" style="border-radius: 0 0 5px 5px">
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button class="nav-link active" style="font-size: 27px" id="home-tab" data-bs-toggle="tab"
+                    data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Cập nhật
+              ảnh đại diện
+            </button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="profile-tab" (click)="cancelAvatarUpload()" style="font-size: 27px"
+                    data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile"
+                    aria-selected="false">Trạng thái hoạt động
+            </button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="contact-tab" (click)="cancelAvatarUpload()" style="font-size: 27px"
+                    data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact"
+                    aria-selected="false">Đổi mật khẩu
+            </button>
+          </li>
+        </ul>
+        <div class="tab-content" id="myTabContent">
+          <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+            <div class="card mb-3 mt-5 w-100" style=";height: 100% ;background: WhiteSmoke;border: none">
+              <form [formGroup]="createForm " (ngSubmit)="createAvatar()">
+                <div class="row g-0">
+                  <div class="col-md-7">
+                    <div class="mb-2 m-auto"
+                         style=" background: WhiteSmoke;display: flex;justify-content: center ;height: 400px; width: 100% ;overflow: hidden ; border: none">
+                      <img *ngIf="!stream"
+                           [src]="imageSrc || previewImage || 'https://znews-photo.zingcdn.me/w660/Uploaded/qhj_yvobvhfwbv/2018_07_18/Nguyen_Huy_Binh1.jpg' "
+                           id="blah" class="img-fluid rounded-start" alt="..." style="width: 100%">
+                      <webcam (click)="capture()" *ngIf="stream" [trigger]="$trigger" (imageCapture)="snapshot($event)"
+                              style="cursor: pointer"></webcam>
+                      <webcam *ngIf="!stream" [trigger]="$trigger" style="display: none"></webcam>
+                    </div>
+                  </div>
+                  <div class="col-md-5">
+                    <div class="wrapper" style="text-align: center">
+                      <div class="card-body">
+                        <div class="row m-auto">
+                          <label for="file"
+                                 style="cursor: pointer;width: 100% ; background: #1E90FF;height: 180px; display: flex;align-items: center;justify-content: center">
+                            <i class="fa-sharp fa-solid fa-circle-up" style="font-size: 75px;color: white"></i>
+                            <input *ngIf="!stream && !selectFile" style="display:none;" type="file" class="form-control"
+                                   id="file" aria-describedby="emailHelp"
+                                   (change)="updateAvatar($event)">
+                          </label>
+                        </div>
+                        <div class="row m-auto mt-2">
+                          <button *ngIf="!stream && !selectFile " (click)="checkWebcam()" class="btn "
+                                  style=";color: aliceblue ;background: steelblue; width: 100%;height: 180px ;">
+                            <i style="font-size: 75px" class="fa-sharp fa-solid fa-camera"></i>
+                          </button>
+                          <!--                          <button *ngIf="!stream && selectFile " style="display: none"></button>-->
+                          <button class="btn" *ngIf="stream" style=";color: aliceblue ;background: rgba(239,35,60,95); width: 100%;height: 180px ;"
+                                  (click)="cancelAvatarUpload()">
+                            <i class="fa-solid fa-camera-slash"></i>
+                          </button>
+                        </div>
+                        <div class="row">
+                          <div class="col-6 m-auto">
+                            <button *ngIf="!selectFile" style="display: none" type="submit" class="btn btn-primary">Lưu
+                            </button>
+                            <button *ngIf="selectFile" type="submit" style="padding: 10px 0;width: 100%"
+                                    class="btn btn-primary mt-3 ">
+                              <!--                              <i style="font-size: 27px" class="fa-sharp fa-solid fa-file"></i>-->
+                              Lưu
+                            </button>
+                          </div>
+                          <div class="col-6">
+                            <button *ngIf="!selectFile" style="display: none" type="reset"
+                                    (click)="cancelAvatarUpload()"
+                                    class="btn btn-danger">Huỷ
+                            </button>
+                            <button *ngIf="selectFile" style="padding: 10px 0;width: 100%" type="reset"
+                                    (click)="cancelAvatarUpload()"
+                                    class="btn btn-danger mt-3">
+                              huỷ
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+            <app-update-status-active></app-update-status-active>
+          </div>
+          <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
+        </div>
+      </div>
+    </div>
+    <div class="col"></div>
+  </div>
+</div>

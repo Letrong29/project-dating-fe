@@ -19,6 +19,7 @@ export class HomeComponent implements OnInit {
     console.log(this.checkLogin)
     this.isLogin()
   }
+
   search(page:number,name: string) {
     this.userService.getAllSearchPage(0,name).subscribe(data => {
       this.user = data;

@@ -60,7 +60,7 @@ export class ListSearchComponent implements OnInit {
       this.toastrService.success("Không được nhập ký tự đặc biệt")
     } else {
       this.userService.getAllSearchPage(this.page, $event).subscribe(data => {
-        this.user = data.content
+        this.user = data.content;
       })
     }
 

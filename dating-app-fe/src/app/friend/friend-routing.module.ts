@@ -13,7 +13,8 @@ const routes: Routes = [
     path: 'listFriend',
     component: FriendlistComponent,
     canActivate: [AuthGuardService]
-  }, {path: 'request', component: FriendRequestComponent, canActivate: [AuthGuardService]}
+  },
+  {path: 'request', component: FriendRequestComponent, canActivate: [AuthGuardService]}
 ];
 
 @NgModule({

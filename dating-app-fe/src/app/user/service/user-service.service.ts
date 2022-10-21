@@ -22,6 +22,10 @@ export class UserServiceService {
   getIdAccount(){
 
   }
+  public getUserById(id: number): Observable<any> {
+    return this.httpClient.get("http://localhost:8080/api/users/users/" + id, this.auth.getToken());
+  }
+
   getSearch(name: string,
             dateOfBirth: string,
             address: string,

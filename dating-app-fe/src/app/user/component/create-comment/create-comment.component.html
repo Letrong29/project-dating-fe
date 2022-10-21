@@ -1,0 +1,11 @@
+<!--<div *ngFor="let p of post">-->
+<!--  <div style="border: 1px solid #666666 ; color: red" >-->
+<!--    <div>{{p.content}}</div>-->
+<!--    <div>{{p.user.name}}</div>-->
+<!--    <div>{{p.user.avatar}}</div>-->
+    <form [formGroup]="createForm"  (ngSubmit)="createComment()" >
+      <input  type="text" formControlName="content"  (click)="addComment(1)">
+      <button  type="submit" >đăng</button>
+    </form>
+<!--  </div>-->
+<!--</div>-->
