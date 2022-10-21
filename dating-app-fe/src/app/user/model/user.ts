@@ -28,6 +28,8 @@ export interface User {
 
   coin?: number;
 
+  quantity?:number;
+
   statusActive?: StatusActive;
 
   account?: Account;
