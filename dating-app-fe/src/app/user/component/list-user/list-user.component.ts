@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {User} from "../../model/user";
 import {UserService} from "../../service/user.service";
-import Swal from 'sweetalert2';
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-list-user',
@@ -20,7 +20,7 @@ export class ListUserComponent implements OnInit {
   selectWarning: "";
   user: User = null;
 
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService,private toast:ToastrService) {
   }
 
   ngOnInit(): void {
@@ -75,7 +75,7 @@ export class ListUserComponent implements OnInit {
       status: this.selectWarning
     }
     this.userService.updateStatusWarrningUser(request).subscribe(() => {
-      Swal.fire('Thông báo', 'Gửi cảnh báo thành công!', 'success');
+      this.toast.success("Gửi cảnh cáo thành công!","Thông báo");
     });
   }
 

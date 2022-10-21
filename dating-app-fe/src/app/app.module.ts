@@ -7,8 +7,8 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {NgxPaginationModule} from "ngx-pagination";
 import {NgModule} from "@angular/core";
 import {BrowserModule} from "@angular/platform-browser";
-import {ListUserComponent} from "./user/component/list-user/list-user.component";
 import {UserModule} from "./user/user.module";
+import {ToastrModule} from "ngx-toastr";
 
 @NgModule({
   declarations: [
@@ -22,7 +22,12 @@ import {UserModule} from "./user/user.module";
     HttpClientModule,
     BrowserAnimationsModule,
     NgxPaginationModule,
-    UserModule
+    UserModule,
+    ToastrModule.forRoot({
+      timeOut: 2500,
+      progressBar: true,
+      preventDuplicates: true
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent]
