@@ -81,7 +81,7 @@
             </span>
             <span class="text-danger fw-light" *ngIf="registerUser.controls.dateOfBirth.hasError('checkAge')
               && registerUser.controls.dateOfBirth.touched">
-                bạn chưa đủ 18 tuổi!
+                bạn chưa đủ tuổi hẹn hò!
             </span>
             <input formControlName="dateOfBirth" type="date" class="form-control" id="dateOfBirth">
           </div>
@@ -90,6 +90,10 @@
         <!--Job-->
         <div class="mb-3 p-2">
           <label for="job" class="form-label fw-bold">Công việc <span class="text-danger fw-light">(*)</span>:</label>
+          <span class="text-danger fw-light" *ngIf="registerUser.controls.job.hasError('required')
+              && registerUser.controls.job.touched">
+              Công việc hiện tại của bạn là gì ?
+          </span>
           <input formControlName="job" type="text" class="form-control" id="job">
         </div>
 
@@ -97,6 +101,10 @@
         <div class="mb-3 d-flex">
           <div class="w-100 p-2">
             <label for="address" class="form-label fw-bold">Đại chỉ<span class="text-danger fw-light">(*)</span>:</label>
+            <span class="text-danger fw-light" *ngIf="registerUser.controls.address.hasError('required')
+              && registerUser.controls.address.touched">
+              Hiện tại bạn đang sinh sống ở đâu ?
+            </span>
             <input formControlName="address" type="text" class="form-control" id="address">
           </div>
         </div>
@@ -105,6 +113,10 @@
         <div class="mb-3 p-2">
           <div>
             <label for="maritalStatus" class="form-label fw-bold">Trạng thái hôn nhân <span class="text-danger fw-light">(*)</span>:</label>
+            <span class="text-danger fw-light" *ngIf="registerUser.controls.married.hasError('required')
+              && registerUser.controls.married.touched">
+              Tình trạng hôn nhân hiệ tại của bạn thế nào ?
+            </span>
           </div>
           <div id="maritalStatus">
             <div class="form-check form-check-inline">

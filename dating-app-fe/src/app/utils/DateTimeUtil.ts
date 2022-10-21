@@ -8,7 +8,7 @@ export function validatorAge(control: AbstractControl): ValidationErrors | null 
 
   const dateOfBirth = Math.floor(dateValue.getFullYear());
 
-  if (((dateNow - dateOfBirth) < 18) || ((dateNow - dateOfBirth) > 100)) {
+  if (((dateNow - dateOfBirth) < 16) || ((dateNow - dateOfBirth) > 100)) {
     return {"checkAge": true};
   }
   return null;
