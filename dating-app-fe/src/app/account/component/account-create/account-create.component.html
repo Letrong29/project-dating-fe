@@ -1,43 +1,55 @@
-<div class="container mt-5" id="container">
-  <div class="form-container sign-up-container">
-    <form [formGroup]="registerAccount" (ngSubmit)="save()">
-      <h1>Đăng ký</h1>
-      <div class="text-danger">
-        <span *ngIf="registerAccount.controls.email.hasError('pattern') || registerAccount.controls.phone.hasError('pattern') ">
-          Địa chỉ email hoặc số điện thoại không hợp lệ !
-        </span>
-        <span *ngIf="registerAccount.controls.passwordGroup.get('password').hasError('minlength')">
-          Mật khẩu yếu !
-        </span>
-        <span *ngIf="registerAccount.controls.passwordGroup.hasError('checkPasswordConfirm')
+<div class=" align-items-center h-100 mt-5 pt-5">
+  <div class="container mt-5" id="container">
+    <div class="form-container sign-up-container">
+      <form [formGroup]="registerAccount" (ngSubmit)="save()">
+        <h1>Đăng ký</h1>
+        <div class="text-danger">
+          <span *ngIf="registerAccount.controls.email.hasError('pattern')">
+            Địa chỉ email không hợp lệ !
+          </span>
+          <span *ngIf="registerAccount.controls.phone.hasError('pattern')">
+            Số điện thoại gồm 10 số <br> và bắt đầu bằng 090, 093 hoặc 097
+          </span>
+
+          <span *ngIf="registerAccount.controls.passwordGroup.get('password').hasError('minlength')">
+            Mật khẩu yếu !
+          </span>
+
+          <span *ngIf="registerAccount.controls.passwordGroup.get('password').hasError('maxlength')">
+            Mật khẩu không được quá 50 ký tự !
+          </span>
+
+          <span *ngIf="registerAccount.controls.passwordGroup.hasError('checkPasswordConfirm')
         && registerAccount.controls.passwordGroup.get('passwordConfirm').dirty">
           Mật khẩu không trùng khớp !
         </span>
-      </div>
-      <!--email-->
-      <input formControlName="email" type="email" placeholder="Email"/>
+        </div>
+        <!--email-->
+        <input formControlName="email" type="email" placeholder="Email"/>
 
-      <!--phone-->
-      <input formControlName="phone" type="text" placeholder="Số điện thoại"/>
+        <!--phone-->
+        <input formControlName="phone" type="text" placeholder="Số điện thoại"/>
 
-      <fieldset formGroupName="passwordGroup">
-        <!--password-->
-        <input formControlName="password" type="password" placeholder="Mật khẩu"/>
+        <fieldset formGroupName="passwordGroup">
+          <!--password-->
+          <input formControlName="password" type="password" placeholder="Mật khẩu"/>
 
-        <!--password confirm-->
-        <input formControlName="passwordConfirm" type="password" placeholder="Nhập lại khẩu"/>
-      </fieldset>
+          <!--password confirm-->
+          <input formControlName="passwordConfirm" type="password" placeholder="Nhập lại khẩu"/>
+        </fieldset>
 
-      <button type="submit">Đăng ký</button>
-    </form>
-  </div>
-  <div class="overlay-container">
-    <div class="overlay">
-      <div class="overlay-panel overlay-left overlay-right">
-        <h1>Line Social</h1>
-        <p>Đăng nhập bằng tài khoản của bạn</p>
-        <button class="ghost" id="signIn">Đăng nhập</button>
+        <button type="submit">Đăng ký</button>
+      </form>
+    </div>
+    <div class="overlay-container">
+      <div class="overlay">
+        <div class="overlay-panel overlay-left overlay-right">
+          <h1>Line Social</h1>
+          <p>Đăng nhập bằng tài khoản của bạn</p>
+          <button class="ghost" id="signIn">Đăng nhập</button>
+        </div>
       </div>
     </div>
   </div>
 </div>
+

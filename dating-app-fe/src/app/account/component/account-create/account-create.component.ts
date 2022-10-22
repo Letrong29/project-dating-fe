@@ -25,7 +25,7 @@ export class AccountCreateComponent implements OnInit {
       phone: new FormControl('', [Validators.required, Validators.pattern(/^(090|093|097)\d{7}$/)]),
 
       passwordGroup: new FormGroup({
-        password: new FormControl('', [Validators.required, Validators.minLength(6)]),
+        password: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(50)]),
 
         passwordConfirm: new FormControl()
       }, [this.checkPassword]),
