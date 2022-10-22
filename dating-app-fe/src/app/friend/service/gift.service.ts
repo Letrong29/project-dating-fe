@@ -15,7 +15,7 @@ export class GiftService {
   }
 
   getAllGift(): Observable<Gift[]> {
-    return this.http.get<Gift[]>(API_URL + '/api/user/gift/listGift')
+    return this.http.get<Gift[]>(API_URL + '/api/users/gift/listGift')
   }
 
 }
