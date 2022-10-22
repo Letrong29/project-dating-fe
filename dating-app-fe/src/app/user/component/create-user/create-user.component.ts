@@ -4,13 +4,11 @@ import {Hobbit} from '../../model/hobbit';
 import {HobbitService} from '../../service/hobbit.service';
 import {TargetService} from '../../service/target.service';
 import {Target} from '../../model/target';
-import {formatDate} from '@angular/common';
 import {UserService} from '../../service/user.service';
 import {AngularFireStorage} from '@angular/fire/storage';
 import {finalize} from 'rxjs/operators';
 import {validatorAge} from '../../../utils/DateTimeUtil';
 import {User} from '../../model/user';
-import {templateJitUrl} from '@angular/compiler';
 import {ActivatedRoute, ParamMap} from '@angular/router';
 
 @Component({
