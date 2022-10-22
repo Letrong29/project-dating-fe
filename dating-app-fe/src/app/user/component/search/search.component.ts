@@ -21,7 +21,6 @@ export class SearchComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log("dsadsd")
     this.getAllUser();
   }
 

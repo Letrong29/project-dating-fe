@@ -1,7 +1,7 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {UserService} from "../service/user.service";
 import {User} from "../../user/model/user";
 import {TokenStorageService} from "../../service/authentication/token-storage.service";
+import {UserServiceService} from "../../user/service/user-service.service";
 
 @Component({
   selector: 'app-header',
@@ -10,13 +10,18 @@ import {TokenStorageService} from "../../service/authentication/token-storage.se
 })
 export class HeaderComponent implements OnInit {
   @Output()keySearch = new EventEmitter();
-  user :User[] =[];
-  constructor(private userService : UserService,private tokenStorageService: TokenStorageService) { }
+  user :User;
+  myIdUser;
+
+  constructor(private userService : UserServiceService,
+              private tokenStorageService: TokenStorageService) {
+    this.myIdUser = tokenStorageService.getUser().idAccount;
+    this.userService.findByIdUser(this.myIdUser).subscribe(user=>{
+      this.user = user;
+    })
+  }
 
   ngOnInit(): void {
-    this.userService.getAllSearchPage(0,"").subscribe(data=>{
-      this.user =data.content;
-    })
   }
   search(page:number,name: string) {
     this.keySearch.emit(name) ;

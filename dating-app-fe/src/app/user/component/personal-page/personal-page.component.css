@@ -6,7 +6,14 @@
   bs-font-sans-serif: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
-
+/*.btn {*/
+/*  border-radius: 10px !important;*/
+/*  opacity: 0.8 !important;*/
+/*}*/
+/*.btn {*/
+/*  opacity: 1!important;*/
+/*  animation: 0.3s!important;*/
+/*}*/
 h3 {
   margin: 10px 0;
 }

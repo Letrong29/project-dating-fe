@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {User} from "../../user/model/user";
 import {UserService} from "../service/user.service";
 import {ToastrService} from "ngx-toastr";
+import {ActivatedRoute, ParamMap} from "@angular/router";
 
 
 @Component({
@@ -14,44 +15,66 @@ export class ListSearchComponent implements OnInit {
   page: number = 0;
   totalPages: number;
   countTotalPages: number[];
+  name:any;
 
-  constructor(private userService: UserService, private toastrService: ToastrService) {
-
+  constructor(private userService: UserService,
+              private toastrService: ToastrService,
+              private activatedRoute :ActivatedRoute) {
+    this.activatedRoute.paramMap.subscribe((paramMap : ParamMap)=>{
+      this.name = paramMap.get('search')
+      console.log(this.name)
+    })
   }
 
   ngOnInit() {
-    this.getAllPageSearch(this.page, '');
+    this.getAllPageSearch();
 
   }
 
-  getAllPageSearch(page: number, name: string) {
-    this.userService.getAllSearchPage(page, name).subscribe(data => {
+
+  getAllPageSearch() {
+    this.userService.getAllSearchPage(this.page, '').subscribe(data => {
       this.user = data.content;
       this.countTotalPages = new Array(data.totalPages)
       this.totalPages = data.totalPages;
-
     })
+    // if (this.name == "") {
+    //   this.getAllPageSearch();
+    // }
+    // if (this.name.length > 30) {
+    //   this.toastrService.success("Bạn đã nhập quá nhiều ký tự")
+    // }
+    // if (this.name.match("^\\W+$")) {
+    //   this.toastrService.success("Không được nhập ký tự đặc biệt")
+    // } else {
+    //   this.userService.getAllSearchPage(this.page, this.name).subscribe(data => {
+    //     this.user = data.content;
+    //     this.countTotalPages = new Array(data.totalPages)
+    //     this.totalPages = data.totalPages;
+    //   })
+    //
+    // }
 
   }
+
 
   nextPage() {
     if (this.page < this.totalPages) {
       this.page++;
-      console.log(this.page)
     }
-    this.getAllPageSearch(this.page, "");
+    this.getAllPageSearch();
   }
 
   previousPage() {
     if (this.page > 0) {
       this.page--;
     }
-    this.getAllPageSearch(this.page, "");
+    this.getAllPageSearch();
   }
 
   searchName($event: string) {
     if ($event == "") {
-      this.getAllPageSearch(this.page, "");
+      this.getAllPageSearch();
     }
     if ($event.length > 30) {
       this.toastrService.success("Bạn đã nhập quá nhiều ký tự")

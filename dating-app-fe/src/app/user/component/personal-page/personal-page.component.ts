@@ -44,7 +44,6 @@ export class PersonalPageComponent implements OnInit {
               private postService: PostService,
               private router: Router, private token: TokenStorageService) {
     this.myIdUser = this.token.getUser().idAccount;
-
     this.activatedRoute.paramMap.subscribe((paraMap: ParamMap) => {
       this.idUser = +paraMap.get('id');
     })
@@ -55,7 +54,6 @@ export class PersonalPageComponent implements OnInit {
       console.log('own: ' + this.isOwn)
     } else {
       this.sendRequestService.checkFriend(this.myIdUser, this.idUser).subscribe(result => {
-        console.log('dfvfdv' + result)
         this.relationship = result;
       })
     }
@@ -82,16 +80,12 @@ export class PersonalPageComponent implements OnInit {
     })
     this.hobbitService.getHobbitByIdUser(this.idUser).subscribe(hobbits => {
       this.hobbitList = hobbits;
-      console.log(this.hobbitList)
     })
     this.getListPost();
-    console.log(this.myIdUser)
-
   }
 
   getListPost() {
     this.postService.getListPost(this.idUser).subscribe(data => {
-      console.log(data);
       this.listShow = data;
       for (let i = 0; i < this.listShow.length; i++) {
         this.listShow[i].mediaArr = this.listShow[i].media.split(',');

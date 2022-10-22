@@ -62,7 +62,7 @@ export class CreateReportDetailComponent implements OnInit {
       this.reportDetailService.save(reportDetail).subscribe(() => {
         this.toastr.success("Tó cáo thành công","Thông báo")
       }, e => {
-        this.router.navigateByUrl("/share/error404")
+        this.router.navigateByUrl("/share/error")
       });
     }else {
       this.toastr.warning("Bạn chưa chọn nội dung tố cáo", "Thông báo");

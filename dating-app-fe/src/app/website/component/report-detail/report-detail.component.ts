@@ -40,7 +40,7 @@ export class ReportDetailComponent implements OnInit {
       // @ts-ignore
       this.pageTotal = data.totalPages;
     }, error => {
-      this.router.navigateByUrl("/share/error404")
+      this.router.navigateByUrl("/share/error")
     });
   }
 
@@ -60,7 +60,7 @@ export class ReportDetailComponent implements OnInit {
     this.reportDetailService.deleteReportDetail(this.idModal).subscribe(() => {
       this.toast.success("Xoá thành công", "Thông báo")
     }, error => {
-      this.router.navigateByUrl("/share/error404")
+      this.router.navigateByUrl("/share/error")
     });
   }
 
@@ -68,7 +68,7 @@ export class ReportDetailComponent implements OnInit {
     this.reportDetailService.confirmReportDetail(this.idModal).subscribe(() => {
       this.toast.success("Xác nhận thành công", "Thông báo")
     }, error => {
-      this.router.navigateByUrl("/share/error404")
+      this.router.navigateByUrl("/share/error")
     });
   }
 
@@ -83,7 +83,7 @@ export class ReportDetailComponent implements OnInit {
       this.reportDetailList = data.content;
       this.pageTotal = data.totalPages;
     }, error => {
-      this.router.navigateByUrl("/share/error404")
+      this.router.navigateByUrl("/share/error")
     });
   }
 
@@ -95,7 +95,7 @@ export class ReportDetailComponent implements OnInit {
     this.reportDetailService.getAllReportDetail(this.page).subscribe(data => {
       this.reportDetailList = data.content;
     }, error => {
-      this.router.navigateByUrl("/share/error404")
+      this.router.navigateByUrl("/share/error")
     });
     this.nameSearch();
   }
@@ -108,7 +108,7 @@ export class ReportDetailComponent implements OnInit {
     this.reportDetailService.getAllReportDetail(this.page).subscribe(data => {
       this.reportDetailList = data.content;
     }, error => {
-      this.router.navigateByUrl("/share/error404")
+      this.router.navigateByUrl("/share/error")
     });
     this.nameSearch();
   }

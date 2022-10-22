@@ -8,6 +8,7 @@ import { FooterComponent } from './footer/footer.component';
 import { ListSearchComponent } from './list-search/list-search.component';
 import {HttpClientModule} from "@angular/common/http";
 import { Error404Component } from './error404/error404.component';
+import {FormsModule} from "@angular/forms";
 
 
 
@@ -16,10 +17,11 @@ import { Error404Component } from './error404/error404.component';
   exports: [
     HeaderComponent
   ],
-  imports: [
-    CommonModule,
-    ShareRoutingModule,
-    HttpClientModule,
-  ]
+    imports: [
+        CommonModule,
+        ShareRoutingModule,
+        HttpClientModule,
+        FormsModule,
+    ]
 })
 export class ShareModule { }

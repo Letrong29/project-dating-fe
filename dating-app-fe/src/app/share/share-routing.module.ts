@@ -11,9 +11,10 @@ const routes: Routes = [
     component: HomeComponent
   },
   {
-    path: "list",
+    path: "listSearch",
     component: ListSearchComponent
   },
+
   {
     path: "error",
     component: Error404Component

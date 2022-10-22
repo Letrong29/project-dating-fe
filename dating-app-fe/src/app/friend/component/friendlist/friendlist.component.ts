@@ -16,6 +16,7 @@ export class FriendlistComponent implements OnInit {
   idArr: number [] = [];
   check: any[] = [];
   size = 4;
+  myIdUser;
   informationDelete: User[] = [];
   friendDeleted: User;
   name='';
@@ -27,6 +28,8 @@ export class FriendlistComponent implements OnInit {
 
   constructor(private friendListService: FriendListService,private toast:ToastrService,
               private tokens: TokenStorageService) {
+    this.myIdUser = this.tokens.getUser().idAccount;
+
   }
 
   ngOnInit(): void {
@@ -35,7 +38,7 @@ export class FriendlistComponent implements OnInit {
 
   getAll(size: number){
 
-    return this.friendListService.getFriendList(1, this.page, this.name, size).subscribe(n => {
+    return this.friendListService.getFriendList(this.myIdUser, this.page, this.name, size).subscribe(n => {
       if (n=== null){
         this.listFriend = [];
         this.toast.warning("Không có bạn bè","Chú ý")

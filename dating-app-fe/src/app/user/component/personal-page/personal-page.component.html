@@ -15,11 +15,11 @@
         <!--                Bạn bè-->
         <div *ngIf="!isOwn" class="buttons">
           <a *ngIf="relationship == 0" (click)="addRequest()" id="addBtn"
-             class="addFrBtn btn btn-outline-success me-2 mt-1">
+             class="addFrBtn btn btn-success me-2 mt-1">
             THÊM BẠN <i class="fa-solid fa-user-plus"></i>
           </a>
 
-          <a *ngIf="relationship == 6" href="#" class="disabled  btn btn-outline-success me-2 mt-1">
+          <a *ngIf="relationship == 6" href="#" class="disabled  btn btn-success me-2 mt-1">
             BẠN BÈ
             <i class="fa-solid fa-check"></i>
           </a>
