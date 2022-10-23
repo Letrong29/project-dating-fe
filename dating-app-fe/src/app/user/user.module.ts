@@ -10,17 +10,24 @@ import { UpgradeAccountComponent } from './component/upgrade-account/upgrade-acc
 import { UpdateAvatarComponent } from './component/update-avatar/update-avatar.component';
 import {WebcamModule} from "ngx-webcam";
 import { UpdateStatusActiveComponent } from './component/update-status-active/update-status-active.component';
-import { CreateCommentComponent } from './component/create-comment/create-comment.component';
+import {ShareModule} from "../share/share.module";
+import {CreateUserComponent} from "./component/create-user/create-user.component";
+import {DetailPostComponent} from "./component/detail-post/detail-post.component";
+import {ListUserComponent} from "./component/list-user/list-user.component";
+import {PostComponent} from "./component/post/post.component";
 
 
 @NgModule({
-  declarations: [SearchComponent,PersonalPageComponent,UpgradeAccountComponent, UpdateAvatarComponent, UpdateStatusActiveComponent, CreateCommentComponent],
+  declarations: [SearchComponent,PersonalPageComponent,UpgradeAccountComponent,
+    UpdateAvatarComponent, UpdateStatusActiveComponent,
+  CreateUserComponent,DetailPostComponent,ListUserComponent,PostComponent],
   imports: [
     CommonModule,
     UserRoutingModule,
     ReactiveFormsModule,
     FormsModule,
     WebcamModule,
+    ShareModule,
 
   ],
 

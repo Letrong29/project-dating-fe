@@ -1,4 +1,6 @@
-<div class="container-fluid section mt-5 mb-5">
+<div ><app-header></app-header></div>
+<div style="margin-top:100px"></div>
+<div class="container-fluid section mt-5 mb-5" >
   <div class="row" *ngIf="user">
     <div class="col-12 col-sm-12 col-md-4 col-lg-4 infor">
       <div class="card-container ">
@@ -43,7 +45,7 @@
           <a [routerLink]="['/upgradeAccount']" class="addFrBtn btn btn-outline-success me-2 mt-1">
             NÂNG CẤP TÀI KHOẢN <i class="fa-regular fa-gem"></i>
           </a>
-          <a href="#" class="addFrBtn btn btn-outline-secondary me-2 mt-1">
+          <a routerLink="user/updateAvatar" class="addFrBtn btn btn-outline-secondary me-2 mt-1">
             THAY ĐỔI THÔNG TIN <i class="fa-regular fa-pen-to-square"></i>
           </a>
 

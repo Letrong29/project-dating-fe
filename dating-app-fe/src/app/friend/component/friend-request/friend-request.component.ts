@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
 import {User} from "../../../user/model/user";
 import {FriendService} from "../../friend-service/friend-service.service";
+import {TokenStorageService} from "../../../service/authentication/token-storage.service";
 
 @Component({
   selector: 'app-friend-request',
@@ -9,15 +10,18 @@ import {FriendService} from "../../friend-service/friend-service.service";
   styleUrls: ['./friend-request.component.css']
 })
 export class FriendRequestComponent implements OnInit {
-  myId: number = 3;
+  myId: number ;
   requestList: User[];
 
   constructor(private friendService: FriendService,
-              private router: Router) {
+              private router: Router,
+              private token: TokenStorageService) {
+    this.myId = this.token.getUser().idAccount;
+
   }
 
   ngOnInit(): void {
-    this.friendService.getRequest(1).subscribe(data => {
+    this.friendService.getRequest(this.myId).subscribe(data => {
       this.requestList = data;
       console.log(typeof this.requestList[5].gender);
     })
@@ -27,7 +31,7 @@ export class FriendRequestComponent implements OnInit {
   accept(myId: number, idFriend: number) {
     this.friendService.accept(myId, idFriend).subscribe(n => {
 
-      this.friendService.getRequest(1).subscribe(data => {
+      this.friendService.getRequest(this.myId).subscribe(data => {
         this.requestList = data;
       })
     })
@@ -36,7 +40,7 @@ export class FriendRequestComponent implements OnInit {
   denied(myId: number, idFriend: number) {
     this.friendService.denied(myId, idFriend).subscribe(n => {
 
-      this.friendService.getRequest(1).subscribe(data => {
+      this.friendService.getRequest(this.myId).subscribe(data => {
         this.requestList = data;
       })
     })

@@ -11,6 +11,7 @@ import {TokenStorageService} from "../../service/authentication/token-storage.se
 })
 export class HomeComponent implements OnInit {
   user: User[] = [];
+  name: string;
   @Output()keySearch = new EventEmitter();
   checkLogin: boolean = false;
   constructor(private userService: UserService,private router :Router, private token: TokenStorageService) { }
@@ -18,13 +19,6 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     console.log(this.checkLogin)
     this.isLogin()
-  }
-
-  search(page:number,name: string) {
-    this.userService.getAllSearchPage(0,name).subscribe(data => {
-      this.user = data;
-      this.router.navigateByUrl("/share/list")
-    })
   }
 
   isLogin() {

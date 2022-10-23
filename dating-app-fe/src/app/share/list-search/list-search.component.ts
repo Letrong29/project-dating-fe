@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {User} from "../../user/model/user";
 import {UserService} from "../service/user.service";
 import {ToastrService} from "ngx-toastr";
+import {ActivatedRoute, ParamMap} from "@angular/router";
 
 
 @Component({
@@ -14,13 +15,17 @@ export class ListSearchComponent implements OnInit {
   page: number = 0;
   totalPages: number;
   countTotalPages: number[];
+  searchValue: string;
 
-  constructor(private userService: UserService, private toastrService: ToastrService) {
+  constructor(private userService: UserService, private toastrService: ToastrService, private  activatedRoute: ActivatedRoute) {
+    this.activatedRoute.paramMap.subscribe((paramMap: ParamMap) => {
+      this.searchValue = paramMap.get("search");
+    })
 
   }
 
   ngOnInit() {
-    this.getAllPageSearch(this.page, '');
+    this.getAllPageSearch(this.page, this.searchValue);
 
   }
 

@@ -8,18 +8,21 @@ import { FooterComponent } from './footer/footer.component';
 import { ListSearchComponent } from './list-search/list-search.component';
 import {HttpClientModule} from "@angular/common/http";
 import { Error404Component } from './error404/error404.component';
+import {FormsModule} from "@angular/forms";
 
 
 
 @NgModule({
   declarations: [HomeComponent, HeaderComponent, FooterComponent, ListSearchComponent, Error404Component],
-  exports: [
-    HeaderComponent
-  ],
+    exports: [
+        HeaderComponent,
+        FooterComponent
+    ],
   imports: [
     CommonModule,
     ShareRoutingModule,
     HttpClientModule,
+    FormsModule,
   ]
 })
 export class ShareModule { }

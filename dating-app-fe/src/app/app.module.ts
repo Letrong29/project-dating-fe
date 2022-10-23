@@ -1,6 +1,5 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
-
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {AngularFireStorageModule} from '@angular/fire/storage';
@@ -45,9 +44,6 @@ import {WebcamModule} from "ngx-webcam";
     AccountModule,
     FriendModule,
     UserModule,
-    AccountModule
-
-
   ],
   providers: [],
   bootstrap: [AppComponent]
