@@ -20,6 +20,7 @@ export class CreateUserComponent implements OnInit {
   imgLoad: any = '';
 
   imgs: any = '';
+
   registerUser: FormGroup;
 
   hobbitList: Hobbit[] = [];
