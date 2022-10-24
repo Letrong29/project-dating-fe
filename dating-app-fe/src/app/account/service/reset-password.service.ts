@@ -12,7 +12,7 @@ export class ResetPasswordService {
   constructor(private http: HttpClient) {
   }
 
-  doResetPassword(authenticationRequest: JwtRequest, idAccount: number): Observable<JwtRequest> {
-    return this.http.post<JwtRequest>(`${AUTH_API}/changePassword/${idAccount}`, authenticationRequest);
+  doResetPassword(authenticationRequest: JwtRequest, email: string): Observable<JwtRequest> {
+    return this.http.post<JwtRequest>(`${AUTH_API}/changePassword/${email}`, authenticationRequest);
   }
 }

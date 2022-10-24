@@ -16,14 +16,10 @@ export class ResetPasswordComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private resetPasswordService: ResetPasswordService,
-              private toastr: ToastrService,
-              private router: Router,
-              private formBuilder: FormBuilder,
-              private activatedRoute: ActivatedRoute) {
+              private toastr: ToastrService) {
     this.jwtRequestForm = new FormGroup({
       newPassword: new FormControl(''),
       password: new FormControl(''),
-      // verificationCode: new FormControl(''),
     })
   }
 
@@ -41,7 +37,7 @@ export class ResetPasswordComponent implements OnInit {
 
   onSubmit() {
     const a = this.jwtRequestForm.value;
-    this.resetPasswordService.doResetPassword( a, 9).subscribe(() => {
+    this.resetPasswordService.doResetPassword(a, "nguyentuan.1004@gmail.com").subscribe(() => {
       this.jwtRequestForm.reset();
       this.toastr.success('Đổi mật khẩu thành công', 'Thông báo');
     }, () => {
