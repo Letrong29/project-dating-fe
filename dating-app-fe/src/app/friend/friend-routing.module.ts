@@ -16,7 +16,7 @@ const routes: Routes = [
     canActivate: [AuthGuardService]
   },
   {
-    path: 'request',
+    path: 'request/:id',
     component: FriendRequestComponent,
     canActivate: [AuthGuardService]
   },

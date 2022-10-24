@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Observable} from "rxjs";
 import {HttpClient} from "@angular/common/http";
-import {User} from "../model/user";
+import {User} from "../../user/model/user";
 import {AuthenticationService} from "../../service/authentication/authentication.service";
 
 
@@ -14,8 +14,8 @@ export class SuggestService {
   constructor(private httpClient: HttpClient, private auth: AuthenticationService) {
   }
 
-  getSuggestRequest(idSuggest: number): Observable<any> {
-    return this.httpClient.get<User[]>("http://localhost:8080/api/users/suggest/" + idSuggest,
+  getSuggestRequest(idSuggest: number, gender:boolean): Observable<any> {
+    return this.httpClient.get<User[]>(`http://localhost:8080/api/users/suggest/${idSuggest}/${gender}`,
       this.auth.getToken());
   }
 

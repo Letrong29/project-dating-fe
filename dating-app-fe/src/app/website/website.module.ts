@@ -6,13 +6,15 @@ import { CreateReportDetailComponent } from './component/create-report-detail/cr
 import { ReportComponent } from './component/report/report.component';
 import { ReportDetailComponent } from './component/report-detail/report-detail.component';
 import {ReactiveFormsModule} from "@angular/forms";
+import {ShareModule} from "../share/share.module";
 
 @NgModule({
   declarations: [CreateReportDetailComponent, ReportComponent, ReportDetailComponent],
-  imports: [
-    CommonModule,
-    WebsiteRoutingModule,
-    ReactiveFormsModule
-  ]
+    imports: [
+        CommonModule,
+        WebsiteRoutingModule,
+        ReactiveFormsModule,
+        ShareModule
+    ]
 })
 export class WebsiteModule { }

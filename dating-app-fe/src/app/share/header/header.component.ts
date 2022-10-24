@@ -3,7 +3,7 @@ import {UserService} from "../service/user.service";
 import {User} from "../../user/model/user";
 import {TokenStorageService} from "../../service/authentication/token-storage.service";
 import {UserServiceService} from "../../user/service/user-service.service";
-import {ActivatedRoute, ParamMap} from "@angular/router";
+import {AuthenticationService} from "../../service/authentication/authentication.service";
 
 @Component({
   selector: 'app-header',
@@ -19,20 +19,19 @@ export class HeaderComponent implements OnInit {
   constructor(private userService : UserService,
               private tokenStorageService: TokenStorageService
               , private userServiceService:UserServiceService,
+              private auth: AuthenticationService
               ) {
-    this.myIdUser = this.tokenStorageService.getUser().idAccount;
-    this.userServiceService.getUserById(this.myIdUser).subscribe(user=>{
-      this.myUser = user;
 
-    })
   }
-
   ngOnInit(): void {
-    this.userService.getAllSearchPage(0,"").subscribe(data=>{
-      this.user =data.content;
-    })
+    if (this.tokenStorageService.getUser()){
+      this.myIdUser = this.tokenStorageService.getUser().idAccount;
+      this.auth.getUserByAccount(this.myIdUser).subscribe(user=>{
+        this.myUser = user;
+        console.log(this.myUser.avatar)
+      })
+    }
   }
-
 
   logOut() {
     this.tokenStorageService.logOut();

@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {User} from "../../user/model/user";
-import {UserService} from "../service/user.service";
 import {ToastrService} from "ngx-toastr";
 import {ActivatedRoute, ParamMap} from "@angular/router";
+import {UserService} from "../service/user.service";
 
 
 @Component({
@@ -30,12 +30,28 @@ export class ListSearchComponent implements OnInit {
   }
 
   getAllPageSearch(page: number, name: string) {
-    this.userService.getAllSearchPage(page, name).subscribe(data => {
-      this.user = data.content;
-      this.countTotalPages = new Array(data.totalPages)
-      this.totalPages = data.totalPages;
+    if (name == "") {
+      this.getAllPageSearch(this.page, "");
+    }
+    if (name.length > 30) {
+      this.toastrService.success("Bạn đã nhập quá nhiều ký tự")
+    }
+    if (name.match("^\\W+$")) {
+      this.toastrService.success("Không được nhập ký tự đặc biệt")
+    }
+    else{
+      this.userService.getAllSearchPage(page, name).subscribe(data => {
+        if(data == null){
+          this.toastrService.success("Tên bận nhâp không có")
+        }else {
+          this.user = data.content;
+          console.log(this.user)
 
-    })
+          this.countTotalPages = new Array(data.totalPages)
+          this.totalPages = data.totalPages;
+        }
+        })
+    }
 
   }
 

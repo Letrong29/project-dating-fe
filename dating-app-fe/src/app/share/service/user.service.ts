@@ -16,4 +16,21 @@ export class UserService {
     return this.http.get(`http://localhost:8080/api/public/searchPage?page=${page}` + `&name=${search}`,this.auth.getToken());
   }
 
+  getAll(): Observable<any> {
+    return this.http.get<any>
+    (`http://localhost:8080/api/users/listAndSearch`, this.auth.getToken())
+  }
+
+
+  getSearch(name: string,
+            dateOfBirth: string,
+            address: string,
+            job: string,
+            gender: string,
+            hobbitName: string): Observable<any> {
+    return this.http.get<any>
+    (`http://localhost:8080/api/users/listAndSearch?name=${name}&address=${address}&job=${job}&dateOfBirth=${dateOfBirth}&gender=${gender}&hobbitName=${hobbitName}`
+      , this.auth.getToken())
+  }
+
 }

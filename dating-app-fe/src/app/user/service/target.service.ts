@@ -11,6 +11,6 @@ export class TargetService {
   constructor(private httpClient: HttpClient, private auth :AuthenticationService) { }
 
   get(): Observable<any>{
-    return this.httpClient.get('http://localhost:8080/api/public/user/get-all-target',this.auth.getToken());
+    return this.httpClient.get('http://localhost:8080/api/users/get-all-target',this.auth.getToken());
   }
 }

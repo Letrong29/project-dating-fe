@@ -1,96 +1,42 @@
 <app-header></app-header>
-<div style="margin-top: 80px"></div>
-<div class=" row container-fluid">
 
-  <div class="col-lg-3 mt-4">
-    <div style="text-align: left; position: fixed">
-      <div class="d-flex hoverCss p-2">
-                 <span href=""><img class="avatar"
-                                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPkBLFfRRAqhvBXaTLKR_AYOZinWVoeabDtA&usqp=CAU">
-                     </span> <h5 style="margin-top: 20px; margin-left: 20px; font-weight: bold; color: #0b5ed7">
-        Lisa</h5>
-      </div>
-      <div class="d-flex p-3 hoverCss">
-        <a href=""><img src="https://static.xx.fbcdn.net/rsrc.php/v3/y8/r/S0U5ECzYUSu.png" alt=""></a>
-        <h5 style="margin-top: 10px; margin-left: 20px; font-weight: bold; color: #0b5ed7">
-          Bạn bè</h5>
-      </div>
-      <div class="d-flex p-3 hoverCss">
-        <a href=""><img src="https://static.xx.fbcdn.net/rsrc.php/v3/y5/r/PrjLkDYpYbH.png" alt=""></a>
-        <h5 style="margin-top: 10px; margin-left: 20px; font-weight: bold; color: #0b5ed7">
-          Nhóm</h5>
-      </div>
-      <div class="d-flex p-3 hoverCss">
-        <a href=""><img src="https://static.xx.fbcdn.net/rsrc.php/v3/yU/r/D2y-jJ2C_hO.png" alt=""></a>
-        <h5 style="margin-top: 10px; margin-left: 20px; font-weight: bold; color: #0b5ed7">
-          Marketplace</h5>
-      </div>
-      <div class="d-flex p-3 hoverCss">
-        <a href=""><img src="https://static.xx.fbcdn.net/rsrc.php/v3/y5/r/duk32h44Y31.png" alt=""> </a>
-        <h5 style="margin-top: 10px; margin-left: 20px; font-weight: bold; color: #0b5ed7">
-          Watch</h5>
-      </div>
-      <div class="d-flex p-3 hoverCss">
-        <a href=""><img src="https://static.xx.fbcdn.net/rsrc.php/v3/y8/r/he-BkogidIc.png" alt=""></a>
-        <h5 style="margin-top: 10px; margin-left: 20px; font-weight: bold; color: #0b5ed7">Kỉ
-          Niệm</h5>
-      </div>
-      <div class="d-flex p-3 hoverCss">
-
-
-        <a href=""><img src="https://static.xx.fbcdn.net/rsrc.php/v3/yD/r/lVijPkTeN-r.png" alt=""></a>
-        <h5 style="margin-top: 10px; margin-left: 20px; font-weight: bold; color: #0b5ed7">Đã
-          lưu</h5>
-      </div>
-      <div class="d-flex p-3 hoverCss">
-        <a href=""><img src="https://static.xx.fbcdn.net/rsrc.php/v3/yH/r/kyCAf2jbZvF.png" alt=""></a>
-        <h5 style="margin-top: 10px; margin-left: 20px; font-weight: bold; color: #0b5ed7">
-          Trang</h5>
-      </div>
-      <div class="d-flex p-3 hoverCss">
-        <a href=""><img src="https://static.xx.fbcdn.net/rsrc.php/v3/yr/r/qfMB40PdgWb.png" alt=""></a>
-        <h5 style="margin-top: 10px; margin-left: 20px; font-weight: bold; color: #0b5ed7">Sự
-          kiện</h5>
-      </div>
-      <div class="d-flex hoverCss p-2">
-                <span>
-                     <i class="fa-solid fa-screwdriver-wrench"
-                        style="font-size: 25px; color: #0a58ca; width: 36px;height: 36px; margin-top: 20px; margin-left: 10px"></i>
-                </span>
-        <h5 style="margin-top: 20px; margin-left: 20px; font-weight: bold; color: #0b5ed7">Cài đặt chung</h5>
-      </div>
+<div style="margin-top: 100px" class="container-fluid">
+  <div class="row mt-3">
+    <!--menu-->
+    <div class="col-lg-3 sidenav">
+      <app-menu></app-menu>
     </div>
-  </div>
-  <div class="col-lg-9">
-    <div class="row container-fluid">
-      <div class="col-lg-3" *ngFor="let r of requestList">
-        <div class="cart1 shadow">
-          <div class="cart_img">
-            <img src="{{r.avatar}}"
-                 alt="">
-          </div>
-          <h6>{{r.name}}</h6>
-          <p *ngIf="r.gender==true">Nam</p>
-          <p *ngIf="r.gender==false">Nữ</p>
-          <div class="social">
 
-            <a href="#" class="twitter"><i class="fa-brands fa-twitter"></i></a>
-            <a href="#" class="facebook"><i class="fa-brands fa-facebook"></i></a>
-            <a href="#" class="instagram"><i class="fa-brands fa-instagram"></i></a>
-            <a href="#" class="tiktok"><i class="fa-brands fa-tiktok"></i></a>
-          </div>
-          <div>
-            <button class="accept btn btn-sm btn-outline-primary" (click)="accept(myId,r.idUser)" >Đồng ý <i class="fa-solid fa-check"></i></button>
-            <button class="denied btn btn-sm btn-outline-danger" (click)="denied(myId,r.idUser)">Từ chối <i class="fa-solid fa-x"></i></button>
+
+    <!--content-->
+    <div class="col-lg-9 p-2">
+      <div class="row container-fluid">
+        <div class="col-lg-3" *ngFor="let r of requestList">
+          <div class="cart1 shadow">
+            <div class="cart_img">
+              <img src="{{r.avatar}}"
+                   alt="">
+            </div>
+            <h6>{{r.name}}</h6>
+            <p *ngIf="r.gender==true">Nam</p>
+            <p *ngIf="r.gender==false">Nữ</p>
+            <div class="social">
+
+              <a href="#" class="twitter"><i class="fa-brands fa-twitter"></i></a>
+              <a href="#" class="facebook"><i class="fa-brands fa-facebook"></i></a>
+              <a href="#" class="instagram"><i class="fa-brands fa-instagram"></i></a>
+              <a href="#" class="tiktok"><i class="fa-brands fa-tiktok"></i></a>
+            </div>
+            <div>
+              <button class="accept btn btn-sm btn-outline-primary" (click)="accept(myId,r.idUser)" >Đồng ý <i class="fa-solid fa-check"></i></button>
+              <button class="denied btn btn-sm btn-outline-danger" (click)="denied(myId,r.idUser)">Từ chối <i class="fa-solid fa-x"></i></button>
+            </div>
+
           </div>
 
         </div>
-
       </div>
     </div>
-
   </div>
-
 </div>
-
 

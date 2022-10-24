@@ -126,3 +126,24 @@ img{
 #friend a {
   text-decoration: none;
 }
+
+.avt {
+  width: 50px;
+  border-radius: 25px;
+}
+
+.logo {
+  width: 120px;
+  height: auto;
+}
+
+.sidenav {
+  height: 100%;
+  width: 300px;
+  position: sticky;
+  z-index: 1;
+  top: 70px;
+  left: 0;
+  overflow-x: hidden;
+  padding-top: 20px;
+}

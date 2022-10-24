@@ -23,7 +23,7 @@ export class FriendRequestComponent implements OnInit {
   ngOnInit(): void {
     this.friendService.getRequest(this.myId).subscribe(data => {
       this.requestList = data;
-      console.log(typeof this.requestList[5].gender);
+
     })
   }
 

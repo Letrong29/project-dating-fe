@@ -1,7 +1,7 @@
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top " style="background-color: #b30217!important;">
   <div class="container-fluid">
-    <a class="navbar-brandb " style="margin-left: 30px" href="#"><img src="assets\video\Untitled-1.png"
+    <a class="navbar-brandb " style="margin-left: 30px" ><img src="assets\video\Untitled-1.png"
                                                                       height="60px" width="180px"></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -17,7 +17,7 @@
             class="fa-solid fa-users"></i></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-white "[routerLink]="['/chat']"style="font-size: 30px;margin-left: 100px" href="#">
+          <a class="nav-link text-white "[routerLink]="['/chat/message']"style="font-size: 30px;margin-left: 100px" href="#">
             <i class="fa-solid fa-comment"></i>
           </a>
         </li>
@@ -28,20 +28,19 @@
         <a id ="search" [routerLink]="['/share/list/',name]" style="font-size: 20px">
           <i class="fa-solid fa-magnifying-glass"></i></a>
       </div>
-      <div class="dropdown" style="float:right;">
+      <div class="dropdown" *ngIf="myUser"style="float:right;">
         <a class="nav-link dropdown-toggle"
            role="button"
            data-bs-toggle="dropdown" aria-expanded="false">
           <img
-            [src]="myUser.avatar"
+            src="{{myUser.avatar}}"
             style="border-radius: 50%; border: 1px solid #a1a1a1; height: 65px; width: 65px;" alt="">
         </a>
         <div class="dropdown-content">
-
           <a class="dropdown-item" [routerLink]="['/user/users',myIdUser]"><i class="fa-solid fa-user me-1"></i>Trang cá nhân</a>
           <a class="dropdown-item" routerLink="/"><i class="fa-solid fa-circle-info"></i>Thông tin phản hồi</a>
           <a class="dropdown-item"  routerLink="/user/upgradeAccount"><i class="fa-sharp fa-solid fa-barcode m-1"></i>Thông tin tài khoản</a>
-          <a class="dropdown-item" routerLink="/user/detailPost"><i class="fa-solid fa-list me-1"></i>Danh sách thành viên</a>
+          <a class="dropdown-item" routerLink="/listUser"><i class="fa-solid fa-list me-1"></i>Danh sách thành viên</a>
           <a class="dropdown-item" routerLink="/user/searchFriend"><i class="fa-brands fa-searchengin me-1"></i>Tìm kiếm nâng cao</a>
           <a class="dropdown-item" (click)="logOut()"><i class="fa-solid fa-right-from-bracket me-1"></i>Đăng xuất</a>
 

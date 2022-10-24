@@ -16,7 +16,7 @@
            <b class="text-black">{{item.job}}</b><br><br>
            <p class="text-black">{{item.address}}</p><br>
          </div>
-          <div><a id="friend">Chi Tiết</a></div>
+          <div><a id="friend" [routerLink]="['/user/users/', item.idUser]" >Chi Tiết</a></div>
         </div>
       </div>
     </div>

@@ -7,6 +7,9 @@ import {Router} from "@angular/router";
 import {FormControl, FormGroup} from "@angular/forms";
 import {Observable, Subject} from "rxjs";
 import {TokenStorageService} from "../../../service/authentication/token-storage.service";
+import {AuthenticationService} from "../../../service/authentication/authentication.service";
+import {NgxUiLoaderService} from "ngx-ui-loader";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-update-avatar',
@@ -23,18 +26,26 @@ export class UpdateAvatarComponent implements OnInit {
   status: string;
   trigger: Subject<void> = new Subject<void>();
   previewImage: string = '';
-
+  avatar: string;
 
   get $trigger(): Observable<void> {
     return this.trigger.asObservable();
   }
 
   constructor(private updateAvatarService: UpdateAvatarService, @Inject(AngularFireStorage) private storage: AngularFireStorage,
-              private router: Router,private tokenStorageService:TokenStorageService) {
-    this.createForm = new FormGroup({
-      idUser: new FormControl(''),
-      avatar: new FormControl('')
-    });
+              private router: Router,
+              private toats: ToastrService,
+              private token: TokenStorageService,
+              private auth: AuthenticationService, private ngxUiLoaderService: NgxUiLoaderService) {
+    this.auth.getUserByAccount(this.token.getUser().idAccount).subscribe(data => {
+      this.createForm = new FormGroup({
+        idUser: new FormControl(data.idUser),
+        avatar: new FormControl('')
+      });
+      this.avatar = data.avatar;
+    })
+
+
   }
 
   ngOnInit(): void {
@@ -63,13 +74,14 @@ export class UpdateAvatarComponent implements OnInit {
   createAvatar() {
     const nameFile = Date.now() + this.selectFile.name;
     const fileRef = this.storage.ref(nameFile);
+    this.ngxUiLoaderService.start();
     this.storage.upload(nameFile, this.selectFile).snapshotChanges().pipe(
       finalize(() => {
         fileRef.getDownloadURL().subscribe((url) => {
           console.log(url);
           this.createForm.patchValue(({avatar: url}));
           this.updateAvatarService.getUpdateAvatar(this.createForm.value).subscribe(next => {
-
+            this.ngxUiLoaderService.stop();
             }, error => {
             }, () => {
               this.cancelAvatarUpload()
@@ -77,7 +89,10 @@ export class UpdateAvatarComponent implements OnInit {
           );
         });
       })
-    ).subscribe();
+    ).subscribe(() => {
+      this.toats.success("Cập nhật thành công", "Thông báo")
+      this.ngOnInit();
+    });
   }
 
   checkWebcam() {

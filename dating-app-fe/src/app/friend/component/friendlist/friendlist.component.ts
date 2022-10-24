@@ -4,6 +4,8 @@ import {User} from "../../../user/model/user";
 import {ToastrService} from "ngx-toastr";
 import {FormControl, FormGroup} from "@angular/forms";
 import {TokenStorageService} from "../../../service/authentication/token-storage.service";
+import {AuthenticationService} from "../../../service/authentication/authentication.service";
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-friendlist',
@@ -19,30 +21,35 @@ export class FriendlistComponent implements OnInit {
   myIdUser;
   informationDelete: User[] = [];
   friendDeleted: User;
-  name='';
-
-  searchForm =new FormGroup({
-    name:new FormControl('')
+  name = '';
+  account: any;
+  searchForm = new FormGroup({
+    name: new FormControl('')
   });
 
 
-  constructor(private friendListService: FriendListService,private toast:ToastrService,
-              private tokens: TokenStorageService) {
-    this.myIdUser = this.tokens.getUser().idAccount;
+  constructor(private friendListService: FriendListService, private toast: ToastrService,
+              private tokens: TokenStorageService, private auth: AuthenticationService) {
+
 
   }
 
   ngOnInit(): void {
-    this.getAll(this.size);
+    this.auth.getUserByAccount(this.tokens.getUser().idAccount).subscribe(data => {
+      this.myIdUser = data.idUser;
+      console.log(this.myIdUser)
+      this.getAll(this.size);
+    })
+
   }
 
-  getAll(size: number){
+  getAll(size: number) {
 
     return this.friendListService.getFriendList(this.myIdUser, this.page, this.name, size).subscribe(n => {
-      if (n=== null){
+      if (n === null) {
         this.listFriend = [];
-        this.toast.warning("Không có bạn bè","Chú ý")
-      }else {
+        this.toast.warning("Không có bạn bè", "Chú ý")
+      } else {
         this.listFriend = n.content;
       }
       console.log(n)
@@ -50,41 +57,77 @@ export class FriendlistComponent implements OnInit {
   }
 
   deleteFriendList() {
-    const id: number[] = [];
-    for (const argument of this.informationDelete){
-      id.push(argument.idUser);
-      console.log(id)
-    }
-    if (id.length > 0){
-      this.friendListService.deleteFriendList(1,id).subscribe(value => {
-        this.name='';
-        this.getAll(this.size);
-        // alert("xoa thanh cong")
-        this.toast.success("Đã xóa khỏi danh sách bạn bè","Xóa thành công")
-      },error => {
-        // alert("xoa that bai")
-        this.toast.error("Xóa bạn bè khỏi danh sách không thành công","Xóa thất bại")
-      })
-    }
+
+    Swal.fire({
+      title: 'Bạn có muốn xoá không?',
+      text: "Tiến trình không thể hoàn tác!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Đồng ý!',
+      cancelButtonText: 'Từ chối'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const id: number[] = [];
+        for (const argument of this.informationDelete) {
+          id.push(argument.idUser);
+          console.log(id)
+        }
+        if (id.length > 0) {
+          this.friendListService.deleteFriendList(this.myIdUser, id).subscribe(value => {
+            this.name = '';
+            this.getAll(this.size);
+            Swal.fire(
+              'Đã xoá!',
+              'Đã xoá thành công.',
+              'success'
+            )
+          }, error => {
+            this.toast.error("Xóa bạn bè khỏi danh sách không thành công", "Xóa thất bại")
+          })
+        }
+
+      }
+    })
+
   }
 
-  blockFriendList(){
-    const id: number[] = [];
-    for (const argument of this.informationDelete){
-      id.push(argument.idUser);
-      console.log(id)
-    }
-    if (id.length > 0){
-      this.friendListService.blockFriendList(1,id).subscribe(value => {
-        this.name = '';
-        this.getAll(this.size);
-        // alert("chan thanh cong")
-        this.toast.success("Đã chặn bài đăng của bạn bè","Chặn thành công")
-      },error => {
-        // alert("chan thanh cong")
-        this.toast.error("Chặn bạn bè thất bại rồi","Chặn thất bại")
-      })
-    }
+  blockFriendList() {
+    Swal.fire({
+      title: 'Bạn có chặn tài khoản đã chọn không?',
+      text: "Tiến trình không thể hoàn tác!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Đồng ý!',
+      cancelButtonText: 'Từ chối'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const id: number[] = [];
+        for (const argument of this.informationDelete) {
+          id.push(argument.idUser);
+          console.log(id)
+        }
+        if (id.length > 0) {
+          this.friendListService.blockFriendList(1, id).subscribe(value => {
+            this.name = '';
+            this.getAll(this.size);
+            Swal.fire(
+              'Đã chặn!',
+              'Đă chặn xem bài đăng thành công.',
+              'success'
+            )
+          }, error => {
+            // alert("chan thanh cong")
+            this.toast.error("Chặn bạn bè thất bại rồi", "Chặn thất bại")
+          })
+        }
+
+      }
+    })
+
   }
 
 
@@ -107,14 +150,14 @@ export class FriendlistComponent implements OnInit {
   }
 
   more() {
-    this.size +=4;
+    this.size += 4;
     this.getAll(this.size);
   }
 
 
   search() {
     this.size = 4;
-    this.name=this.searchForm.value.name.trim();
+    this.name = this.searchForm.value.name.trim();
     this.getAll(this.size)
   }
 }

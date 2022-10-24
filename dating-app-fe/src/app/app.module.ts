@@ -7,12 +7,17 @@ import {AngularFireModule} from '@angular/fire';
 import {FriendModule} from "./friend/friend.module";
 import {UserModule} from "./user/user.module";
 import {HttpClientModule} from "@angular/common/http";
-import {environment} from "../environments/environment.prod";
+
 import {ToastrModule} from "ngx-toastr";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {AccountModule} from "./account/account.module";
 import {WebcamModule} from "ngx-webcam";
+import {AngularFireDatabaseModule} from "@angular/fire/database";
+import {ChatModule} from "./chat/chat.module";
+import {environment} from "../environments/environment";
+import {ShareModule} from "./share/share.module";
+import {NgxUiLoaderHttpModule, NgxUiLoaderModule} from "ngx-ui-loader";
 
 @NgModule({
   declarations: [
@@ -28,6 +33,7 @@ import {WebcamModule} from "ngx-webcam";
     HttpClientModule,
     WebcamModule,
     AngularFireModule,
+    NgxUiLoaderModule,
     HttpClientModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot(
@@ -44,6 +50,12 @@ import {WebcamModule} from "ngx-webcam";
     AccountModule,
     FriendModule,
     UserModule,
+    AngularFireDatabaseModule,
+    ChatModule,
+    ShareModule,
+    NgxUiLoaderHttpModule.forRoot({
+      showForeground: true
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent]

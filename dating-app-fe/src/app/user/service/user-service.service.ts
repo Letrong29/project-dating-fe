@@ -8,6 +8,8 @@ import {environment} from "../../../environments/environment";
 import {User} from "../model/user";
 import {TypeUser} from "../model/type-user";
 import {ReportDetail} from "../../website/model/report-detail";
+import {CommentPost} from "../model/comment-post";
+
 const SERVICE_URL = `${environment.apiUrl}`;
 
 @Injectable({
@@ -44,6 +46,7 @@ export class UserServiceService {
   }
 
   getListPost(id: number): Observable<any> {
+    console.log(id)
     return this.httpClient.get<NewFeed[]>("http://localhost:8080/api/users/list/" + id, this.auth.getToken());
   }
 
@@ -55,11 +58,11 @@ export class UserServiceService {
     return this.httpClient.patch("http://localhost:8080/api/users/update/" + newFeed.idUser, newFeed, this.auth.getToken());
   }
 
-  findByAllAndSearchNameUser(name: string, typeUser:string, page: number): Observable<any> {
-    return this.httpClient.get<User[]>(SERVICE_URL + "/api/admin/list/user?name="+name+"&typeUser="+typeUser+"&page="+page, this.auth.getToken());
+  findByAllAndSearchNameUser(name: string, typeUser: string, page: number): Observable<any> {
+    return this.httpClient.get<User[]>(SERVICE_URL + "/api/admin/list/user?name=" + name + "&typeUser=" + typeUser + "&page=" + page, this.auth.getToken());
   }
 
-  getAllTypeUser() : Observable<any>{
+  getAllTypeUser(): Observable<any> {
     return this.httpClient.get<TypeUser[]>(SERVICE_URL + "/api/admin/list/typeUser", this.auth.getToken());
   }
 
@@ -67,15 +70,23 @@ export class UserServiceService {
     return this.httpClient.get<ReportDetail[]>(`${SERVICE_URL}/api/admin/list/warning/${id}`, this.auth.getToken());
   }
 
-  updateStatusWarrningUser(request :any): Observable<any>{
+  updateStatusWarrningUser(request: any): Observable<any> {
     return this.httpClient.patch<any>(`${SERVICE_URL}/api/admin/update/status`, request, this.auth.getToken());
   }
 
-  findByIdUser(id:number): Observable<any>{
+  findByIdUser(id: number): Observable<any> {
     return this.httpClient.get(`${SERVICE_URL}/api/admin/findId/${id}`, this.auth.getToken());
   }
-  update(user: User) {
-    return this.httpClient.patch('http://localhost:8080/api/public/user/update', user,this.auth.getToken());
+
+  update(id: number, user: User) {
+    return this.httpClient.patch(`http://localhost:8080/api/users/update-account/${id}`, user, this.auth.getToken());
+  }
+  getComment(id:number):Observable<any>{
+    return this.httpClient.get<CommentPost[]>('http://localhost:8080/api/users/display_comment/'+id,this.auth.getToken() )
   }
 
+  addComment(comment : Comment){
+    console.log(comment)
+    return this.httpClient.post('http://localhost:8080/api/users/add_comment',comment,this.auth.getToken())
+  }
 }

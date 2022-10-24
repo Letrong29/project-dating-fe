@@ -9,8 +9,15 @@
   <div class="container-fluid mt-5 ">
     <div class="row function">
       <div class="col-lg-8">
-        <button class="btn btn-outline-danger xoa " style="border-radius: 10px" (click)="deleteFriendList()"><b>Xóa bạn</b></button>
-        <button class="btn btn-outline-primary chan" style="border-radius: 10px" (click)="blockFriendList()"><b>Chặn</b></button>
+<!--        <button class="btn btn-outline-danger xoa " style="border-radius: 10px" (click)="deleteFriendList()"><b>Xóa bạn</b></button>-->
+
+        <button type="button" class="btn btn-danger" (click)="deleteFriendList()">
+          Xoá bạn
+        </button>
+<!--        <button class="btn btn-outline-primary chan" style="border-radius: 10px" (click)="blockFriendList()"><b>Chặn</b></button>-->
+        <button type="button" class="btn btn-danger" (click)="blockFriendList()">
+         Chặn
+        </button>
       </div>
       <div class="col-lg-4">
         <form class="d-flex" [formGroup]="searchForm" (submit)="search()">
@@ -52,3 +59,4 @@
   </div></div>
 </div>
 <app-footer></app-footer>
+

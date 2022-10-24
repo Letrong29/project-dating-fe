@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {UserServiceService} from "../../service/user-service.service";
 
+
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
@@ -21,13 +22,14 @@ export class SearchComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log("dsadsd")
     this.getAllUser();
   }
 
   getAllUser() {
+    this.flag= true
     this.userService.getAll().subscribe(data => {
         this.users = data.content;
+      console.log(this.users)
       }
     )
   }

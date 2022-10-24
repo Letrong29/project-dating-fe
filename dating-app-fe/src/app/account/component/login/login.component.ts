@@ -3,6 +3,8 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {AuthenticationService} from "../../../service/authentication/authentication.service";
 import {Router} from "@angular/router";
 import {TokenStorageService} from "../../../service/authentication/token-storage.service";
+import {User} from "../../../user/model/user";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-login',
@@ -18,11 +20,12 @@ export class LoginComponent implements OnInit {
   username: string;
   roles: string[] = [];
   messageError: string;
-  checkLogin: boolean = false ;
+  checkLogin: boolean = false;
 
   constructor(private authenticationService: AuthenticationService,
               private tokenStorageService: TokenStorageService,
-              private router: Router) {
+              private router: Router,
+              private toast: ToastrService) {
 
 
   }
@@ -34,7 +37,7 @@ export class LoginComponent implements OnInit {
       this.roles = this.tokenStorageService.getUser().roles;
       this.username = this.tokenStorageService.getUser().username;
     }
-    if(this.checkLogin) {
+    if (this.checkLogin) {
       this.router.navigateByUrl('/user/newFeed')
     }
   }
@@ -44,7 +47,7 @@ export class LoginComponent implements OnInit {
       let username = this.loginForm.value.username;
       let password = this.loginForm.value.password;
       this.authenticationService.login(username, password).subscribe(next => {
-        if(this.loginForm.value.remember) {
+        if (this.loginForm.value.remember) {
           this.tokenStorageService.saveTokenLocal(next.accessToken);
           this.tokenStorageService.saveUserLocal(next);
         } else {
@@ -56,8 +59,26 @@ export class LoginComponent implements OnInit {
         this.checkLogin = true;
         this.username = this.tokenStorageService.getUser().username;
         this.roles = this.tokenStorageService.getUser().roles;
-        this.loginForm.reset();
-        this.router.navigateByUrl('');
+        this.authenticationService.getUserByEmail(this.tokenStorageService.getUser().email).subscribe(data => {
+          console.log(data)
+          if(data.status == 0) {
+            this.router.navigate(['/user/create-user', data.user.idUser]);
+          } else if(data.status == 14) {
+            this.router.navigateByUrl('/share/error')
+            this.toast.error("Tài khoản của bạn bị khoá 1 tuần", "Thông báo")
+          } else if(data.status == 15) {
+            this.router.navigateByUrl('/share/error')
+            this.toast.error("Tài khoản của bạn bị khoá 1 tháng", "Thông báo")
+          } else if(data.status == 16) {
+            this.router.navigateByUrl('/share/error')
+            this.toast.error("Tài khoản của bạn bị khoá 1000 năm", "Thông báo")
+          } else {
+            this.loginForm.reset();
+            this.router.navigateByUrl('');
+          }
+
+        });
+
       }, error => {
         this.authenticationService.isLoggedIn = false;
         this.messageError = 'Tên đăng nhập không tồn tại hoặc sai mật khẩu. Vui lòng nhập lại!!!'

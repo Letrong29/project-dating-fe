@@ -15,6 +15,6 @@ export class HobbitService {
     return this.http.get("http://localhost:8080/api/users/hobbits/" + id, this.auth.getToken());
   }
   get(): Observable<any>{
-    return this.http.get('http://localhost:8080/api/public/user/get-all-hobbit', this.auth.getToken());
+    return this.http.get('http://localhost:8080/api/users/get-all-hobbit', this.auth.getToken());
   }
 }

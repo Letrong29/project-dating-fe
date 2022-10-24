@@ -7,9 +7,10 @@ import {Target} from '../../model/target';
 import {AngularFireStorage} from '@angular/fire/storage';
 import {finalize} from 'rxjs/operators';
 import {User} from '../../model/user';
-import {ActivatedRoute, ParamMap} from '@angular/router';
+import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import {UserServiceService} from "../../service/user-service.service";
 import {validatorAge} from "../../../utils/DateTimeUtil";
+import {NgxUiLoaderService} from "ngx-ui-loader";
 
 @Component({
   selector: 'app-create-user',
@@ -29,20 +30,21 @@ export class CreateUserComponent implements OnInit {
   avatarUrl: any = '';
 
   user: User;
-
+  idUser: number;
 
   constructor(private hobbitService: HobbitService,
               private targetService: TargetService,
               private userService: UserServiceService,
               private activatedRoute: ActivatedRoute,
-              @Inject(AngularFireStorage) private storage: AngularFireStorage
+              private router: Router,
+              @Inject(AngularFireStorage) private storage: AngularFireStorage,
+              private ngxService: NgxUiLoaderService
   ) {
     activatedRoute.paramMap.subscribe((paramMap: ParamMap) => {
-      let idUser = +paramMap.get('idUser')
+      this.idUser = +paramMap.get('id')
+      // console.log(this.idUser)
       this.registerUser = new FormGroup({
-        // idUser: new FormControl(idUser),
-        idUser: new FormControl(''),
-
+        idUser: new FormControl(this.idUser),
         avatar: new FormControl(''),
 
         nameGroup: new FormGroup({
@@ -79,16 +81,20 @@ export class CreateUserComponent implements OnInit {
 
   }
 
-  save() {
-    this.uploadFile().then(() => {
-      this.user = this.registerUser.value;
-      let firstName = this.registerUser.controls.nameGroup.get('firstName').value;
-      let lastName = this.registerUser.controls.nameGroup.get('lastName').value;
-      this.user.name = firstName + ' ' + lastName;
-      this.user.avatar = this.avatarUrl;
-      this.userService.update(this.registerUser.value).subscribe(() => {
-      });
-    });
+   save() {
+      this.uploadFile().then(() => {
+        this.user = this.registerUser.value;
+        let firstName = this.registerUser.controls.nameGroup.get('firstName').value;
+        let lastName = this.registerUser.controls.nameGroup.get('lastName').value;
+        this.user.name = firstName + ' ' + lastName;
+        this.user.avatar = this.avatarUrl;
+      }).finally(() => {
+        this.userService.update(this.idUser, this.registerUser.value).subscribe(() => {
+          this.router.navigateByUrl('/user/newFeed')
+        })
+      })
+
+
   }
 
   uploadFile() {
@@ -101,6 +107,7 @@ export class CreateUserComponent implements OnInit {
               this.registerUser.patchValue({img: url});
               resolve(true);
               this.avatarUrl = url;
+              console.log(this.avatarUrl)
             });
           })
         ).subscribe();
@@ -110,6 +117,7 @@ export class CreateUserComponent implements OnInit {
 
   showAvatar($event: any) {
     this.imgs = $event.target.files[0];
+    console.log(this.imgs)
     if ($event.target.files && $event.target.files[0]) {
       this.imgLoad = $event.target.files[0];
       const reader = new FileReader();

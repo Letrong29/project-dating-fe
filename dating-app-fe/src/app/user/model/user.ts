@@ -5,6 +5,7 @@ import {Post} from './post';
 import {Invoice} from './invoice';
 import {UserTarget} from './user-target';
 import {GiftUser} from '../../friend/model/gift-user';
+import {Account} from "../../account/model/account";
 
 export interface User {
 

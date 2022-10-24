@@ -7,17 +7,22 @@ import {HttpClientModule} from "@angular/common/http";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {AccountCreateComponent} from "./component/account-create/account-create.component";
 import {ResetPasswordComponent} from "./component/reset-password/reset-password.component";
+import {ShareModule} from "../share/share.module";
 
 
 @NgModule({
-  declarations: [LoginComponent,AccountCreateComponent,ResetPasswordComponent],
+  declarations: [LoginComponent, AccountCreateComponent, ResetPasswordComponent],
   imports: [
     CommonModule,
     AccountRoutingModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ShareModule
   ],
+  exports: [
+    ResetPasswordComponent
+  ]
 })
 export class AccountModule {
 }

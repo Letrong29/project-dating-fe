@@ -61,3 +61,30 @@ tr.text-center {
     margin-top: 10px;
   }
 }
+
+button.btn.text-dark.redirect-user {
+  font-weight: 500;
+}
+
+button.btn.text-dark.redirect-user:hover {
+  text-decoration-line: underline;
+  border: none;
+  text-decoration-style: inherit;
+  text-decoration-color: blue;
+}
+
+button.btn.text-danger span:hover {
+  font-size: 20px;
+  transition: 2s;
+  width: 50px;
+  height: 50px;
+  color: white;
+  border-radius: 5px;
+  background-color: #a91c11;
+}
+
+button.name_member_bt {
+  border: none;
+  font-weight: bold;
+  background-color: whitesmoke;
+}

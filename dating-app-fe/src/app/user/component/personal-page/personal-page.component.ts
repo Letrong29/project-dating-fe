@@ -11,6 +11,7 @@ import {NewFeed} from "../../model/new-feed";
 import {SendRequestService} from "../../../friend/friend-service/send-request.service";
 import {TokenStorageService} from "../../../service/authentication/token-storage.service";
 import {UserServiceService} from "../../service/user-service.service";
+import { NgxUiLoaderService } from "ngx-ui-loader";
 
 
 @Component({
@@ -42,7 +43,8 @@ export class PersonalPageComponent implements OnInit {
               private activatedRoute: ActivatedRoute,
               @Inject(AngularFireStorage) private storage: AngularFireStorage,
               private postService: PostService,
-              private router: Router, private token: TokenStorageService) {
+              private router: Router, private token: TokenStorageService,
+              private ngxService: NgxUiLoaderService) {
     this.myIdUser = this.token.getUser().idAccount;
     this.activatedRoute.paramMap.subscribe((paraMap: ParamMap) => {
       this.idUser = +paraMap.get('id');
@@ -149,16 +151,18 @@ export class PersonalPageComponent implements OnInit {
   }
 
   savePost() {
+    this.ngxService.start();
     this.submitter = true;
     this.handleFiles().then(() => {
       this.postCreate.value.media = this.fileList
       this.postService.create(this.postCreate.value).subscribe(() => {
-        this.postCreate.reset();
         this.getListPost();
         document.getElementById("errDiv").hidden;
       });
     }).finally(() => {
-      // window.location.reload();
+      // this.postCreate.reset();
+      window.location.reload();
+      this.ngxService.stop();
     })
   }
 

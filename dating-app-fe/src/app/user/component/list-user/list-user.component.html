@@ -1,8 +1,8 @@
 
 <body>
 <app-header></app-header>
-<div class="container-fluid" style="margin-top: 20px;">
-  <h4 class="text-center">QUẢN LÝ THÀNH VIÊN</h4>
+<div class="container-fluid " style="margin-top: 150px;">
+  <h2 class="text-center">QUẢN LÝ THÀNH VIÊN</h2>
   <div class=" container-fluid mt-4">
     <div class="row">
       <div class="col-md-3">
@@ -47,14 +47,14 @@
       </thead>
       <tbody style="font-weight: 500">
       <tr *ngFor="let item of userList,index as i">
-        <td>{{(i + 1) + 10 * page}}</td>
-        <td><a [routerLink]="['/users', item.idUser]"></a>{{item.name}}</td>
+        <td>{{(i + 1) + 8 * page}}</td>
+        <td><button class="btn text-dark redirect-user" type = "submit" [routerLink]="['/users', item.idUser]">{{item.name}}</button></td>
         <td>{{item.typeUser}}</td>
         <td class="text-center">{{item.joinDay | date: 'dd-MM-yyyy'}}</td>
         <td class="text-center">{{item.coin}}</td>
         <td class="text-center">{{item.quantity}}</td>
         <td class="text-center">
-          <button class="btn text-danger" data-bs-toggle="modal" data-bs-target="#detail" (click)="getReportDetail(item.idUser)"><span class='bi bi-file-lock-fill' style="font-size:20px"></span></button>
+          <button class="btn text-danger" data-bs-toggle="modal" data-bs-target="#detail" (click)="getReportDetail(item.idUser)"><span class='bi bi-file-lock-fill' style="font-size:25px"></span></button>
         </td>
       </tr>
       </tbody>
@@ -84,7 +84,7 @@
         </div>
         <div class="modal-body scroller" style="background-color: #f7f4f4;">
           <div class="mb-3 ">
-            <div class="name_member" *ngIf="user != null"><p style=" color: slateblue;">Thành viên : {{user.name}}</p></div>
+            <div class="name_member" *ngIf="user != null"><button class="name_member_bt"  data-bs-dismiss="modal" type="submit" style=" color: slateblue;" [routerLink]="['/users', user.idUser]">Thành viên : {{user.name}}</button></div>
             <table class="table table-striped table-bordered mt-4 "
                    style="background-color: rgb(237 94 83);box-shadow: 5px -5px 5px 0px #778178;">
               <thead>
@@ -105,7 +105,7 @@
 
             <div class="col-md-12">
               <label for="form-warning">Chọn hình thức cảnh cáo :</label>
-              <select class="form-select" [(ngModel)]="selectWarning" (change) = "updateStatus()"
+              <select class="form-select" [(ngModel)]="selectWarning"
                       aria-label="Default select example" id="form-warning"
                       style="background-color: rgb(219 211 214);" >
                 <option value="14">Cảnh cáo</option>
@@ -119,7 +119,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Đóng</button>
-          <button type="submit" class="btn btn-danger" data-bs-dismiss="modal">Xác nhận</button>
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click) = "updateStatus()">Xác nhận</button>
         </div>
       </div>
     </div>

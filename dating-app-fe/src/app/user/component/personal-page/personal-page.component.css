@@ -37,9 +37,7 @@ p {
   padding: 0 10px;
 }
 
-.newsFeed {
-  margin-top: -25px;
-}
+
 
 .iconGroup {
   padding: 0 5px;
@@ -158,9 +156,6 @@ avatar:hover {
 /*    text-decoration: none;*/
 /*}*/
 
-.newsFeed {
-  padding: 10px;
-}
 
 .post {
   border-radius: 10px;

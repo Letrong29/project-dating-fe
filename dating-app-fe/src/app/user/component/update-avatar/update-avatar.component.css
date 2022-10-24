@@ -51,3 +51,16 @@ section{
 .button_tab{
   font-weight: bold;
 }
+
+.sidenav {
+  height: 100%;
+  width: 300px;
+  position: sticky;
+  z-index: 1;
+  top: 70px;
+  left: 0;
+  overflow-x: hidden;
+  padding-top: 20px;
+}
+
+/*-------------*/

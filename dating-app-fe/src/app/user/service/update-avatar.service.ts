@@ -12,12 +12,12 @@ export class UpdateAvatarService {
 
   }
 
-  getUpdateAvatar(user: User) {
-    return this.httpClient.patch('http://localhost:8080/api/users/update_avatar/' + 1, user,this.auth.getToken())
+  getUpdateAvatar( user: User) {
+    return this.httpClient.patch('http://localhost:8080/api/users/update_avatar/' + user.idUser, user,this.auth.getToken())
   }
 
-  getUpdateActive(user: User) {
-    return this.httpClient.patch('http://localhost:8080/api/users/update_active/' + 7, user,this.auth.getToken())
+  getUpdateActive( user: User) {
+    return this.httpClient.patch('http://localhost:8080/api/users/update_active/' + user.idUser, user,this.auth.getToken())
   }
 
 }

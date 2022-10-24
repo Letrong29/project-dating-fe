@@ -1,194 +1,204 @@
-
 <app-header></app-header>
-<div class=" row container-fluid" style="margin-top: 85px">
-  <div class="col-lg-3 mt-4"  >
-    <div style="text-align: left;position:fixed;" >
-      <div id="task_left">
-        <div class="d-flex p-2" >
-                 <span href=""><img class="avatar hoverCss" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPkBLFfRRAqhvBXaTLKR_AYOZinWVoeabDtA&usqp=CAU">
-                     </span> <h5 class="hoverCss" style="margin-top: 20px; font-size: 35px; margin-left: 20px; font-weight: bold; color: #0b5ed7">Lisa</h5>
-        </div>
-        <div class="d-flex p-3">
-          <a href=""><img class="hoverCss" src="https://static.xx.fbcdn.net/rsrc.php/v3/yU/r/D2y-jJ2C_hO.png" alt=""></a>
-          <h5 class="hoverCss" style="margin-top: 10px; margin-left: 20px; font-weight: bold; color: #0b5ed7">
-            <a routerLink="" style="text-decoration: none">Home</a></h5>
-        </div>
-        <div class="d-flex p-3 ">
-          <a href=""><img class="hoverCss" src="https://static.xx.fbcdn.net/rsrc.php/v3/y8/r/S0U5ECzYUSu.png" alt=""></a>
-          <h5 class="hoverCss" style="margin-top: 10px; margin-left: 20px; font-weight: bold; color: #0b5ed7">
-            Bạn bè</h5>
-        </div>
-        <div class="d-flex p-3" >
-          <a href=""><img class="hoverCss" src="https://static.xx.fbcdn.net/rsrc.php/v3/y5/r/PrjLkDYpYbH.png" alt="" ></a>
-          <h5 class="hoverCss" style="margin-top: 10px; margin-left: 20px; font-weight: bold; color: #0b5ed7" [routerLink]="['/friend/request',id]" >
-            Nhóm</h5>
-        </div>
-
-        <div  class="d-flex p-3">
-          <a href=""><img  class="hoverCss" src="https://static.xx.fbcdn.net/rsrc.php/v3/y5/r/duk32h44Y31.png" alt=""> </a>
-          <h5 class="hoverCss" style="margin-top: 10px; margin-left: 20px; font-weight: bold; color: #0b5ed7">
-            Watch</h5>
-        </div>
-        <div  class="d-flex p-3">
-          <a href=""><img class="hoverCss" src="https://static.xx.fbcdn.net/rsrc.php/v3/y8/r/he-BkogidIc.png" alt=""></a>
-          <h5 class="hoverCss" style="margin-top: 10px; margin-left: 20px; font-weight: bold; color: #0b5ed7">Kỉ
-            Niệm</h5>
-        </div>
-        <div  class="d-flex p-3">
-
-          <a href=""><img class="hoverCss" src="https://static.xx.fbcdn.net/rsrc.php/v3/yD/r/lVijPkTeN-r.png" alt=""></a>
-          <h5 class="hoverCss" style="margin-top: 10px; margin-left: 20px; font-weight: bold; color: #0b5ed7">Đã
-            lưu</h5>
-        </div>
-        <div  class="d-flex p-3">
-          <a href=""><img class="hoverCss"  src="https://static.xx.fbcdn.net/rsrc.php/v3/yH/r/kyCAf2jbZvF.png" alt=""></a>
-          <h5 class="hoverCss" style="margin-top: 10px; margin-left: 20px; font-weight: bold; color: #0b5ed7">
-            Trang</h5>
-        </div>
-        <div  class="d-flex p-3">
-          <a href=""><img class="hoverCss"  src="https://static.xx.fbcdn.net/rsrc.php/v3/yr/r/qfMB40PdgWb.png" alt=""></a>
-          <h5 class="hoverCss" style="margin-top: 10px; margin-left: 20px; font-weight: bold; color: #0b5ed7">Sự
-            kiện</h5>
-        </div>
-
-      </div>
+<div style="margin-top: 80px"></div>
+<!--body-->
+<div class="container-fluid">
+  <div class="row mt-3">
+    <!--menu-->
+    <div class="col-lg-3 sidenav">
+      <app-menu></app-menu>
     </div>
-  </div>
 
-  <div class="col-lg-6 p-2">
-    <div class=" row shadow p-3 "  style="border-radius: 15px">
-      <div class="row" style="border-radius: 15px">
-        <div class="col-lg-3" *ngFor="let s of suggestList">
-          <div class="cart1 shadow">
-            <div class="cart_img">
-              <img src="{{s.avatar}}"
-                   alt="">
+    <!--content-->
+    <!--DIV MOI -->
+    <div class="col-lg-9 p-2">
+
+      <div class="row">
+        <div class="col-lg-1"></div>
+
+        <div class="col-lg-10">
+
+
+            <div class="row" style="border-radius: 15px">
+              <div class="col-lg-3" *ngFor="let s of suggestList">
+                <div class="cart1 shadow">
+                  <div class="cart_img">
+                    <img src="{{s.avatar}}" width="100%" height="100%"
+                         alt="">
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-12">
+                      <h6 class="ten">{{s.name}}</h6>
+                    </div>
+
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-12">
+
+                      <p *ngIf="s.gender==true" class="gioitinh">Nam</p>
+                      <p *ngIf="s.gender==false" class="gioitinh">Nữ</p>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-12">
+                                      <button class="accept btn btn-sm btn-outline-primary" [routerLink]="['/users', s.idUser]" >Chi tiết</button>
+                    </div>
+                  </div>
+
+                  <div class="social">
+
+                    <a href="#" class="twitter"><i class="fa-brands fa-twitter"></i></a>
+                    <a href="#" class="facebook"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="#" class="instagram"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" class="tiktok"><i class="fa-brands fa-tiktok"></i></a>
+                  </div>
+                  <div>
+                    <!--            <button class="denied btn btn-sm btn-outline-danger" (click)="denied(myId,r.idUser)">Từ chối <i class="fa-solid fa-x"></i></button>-->
+                  </div>
+
+                </div>
+
+              </div>
+
             </div>
-            <div class="row">
-              <div class="col-lg-12">
-                <h6 class="ten">{{s.name}}</h6>
+
+
+
+<!--          -&#45;&#45;&#45;&#45;-->
+          <form [formGroup]="postCreate" (ngSubmit)="savePost()">
+            <div class=" row shadow-lg p-3 mt-4 " style="border-radius: 15px">
+              <div class="d-flex col-lg-12" *ngIf="idAcc">
+                <img class="avatar" src="{{idAcc.avatar}}">
+
+
+                <div class="w-100" style="margin-left: 5px; margin-top: 3px; border-radius: 22px">
+            <textarea formControlName="content" class="form-control text-capitalize"
+                      placeholder="Bạn đang nghĩ gì thế..."
+                      style="border-radius: 22px"></textarea>
+                </div>
+
+              </div>
+              <div class=" img-fluid">
+                <img width="25%" class=" m-1 hoverCss" *ngFor="let load of loadImage" src="{{load}}">
+              </div>
+              <div>
+                <hr class="p2 mt-3" style="width: 99%; margin-left: 10px">
+              </div>
+
+              <div class="row mt-3">
+                <div class="mt-3 iconGroup col-lg-4 col-sm-6 text-center hoverCss">
+                  <i class="fa-solid fa-video me-2 " style="font-size: 30px; color: hotpink"></i>
+                  <span style="color: plum; font-weight: bolder">Video Trực Tiếp</span>
+                </div>
+                <div class="mt-3 iconGroup col-lg-4 col-sm-6 text-center hoverCss">
+                  <label for="formFileMultiple" class="form-label">
+                    <i class="fa-solid fa-image me-2 " style="font-size: 30px ; color: #0b5ed7"></i>
+                  </label>
+                  <span class="m-0" style="color: plum; font-weight: bolder;">Ảnh/Video</span>
+                  <input style="display: none" class="form-control" type="file" id="formFileMultiple"
+                         (change)="show($event)"
+                         multiple/>
+                </div>
+                <div class="mt-3 iconGroup  col-lg-4 col-sm-12 text-center">
+                  <button type="submit" class="btn btn-success">Đăng
+                    <i class="fa-solid fa-check"></i>
+                  </button>
+                </div>
               </div>
             </div>
-            <div class="row">
-              <div class="col-lg-12">
+          </form>
+          <div class="row shadow-lg p-3 mt-4" *ngFor="let l of listShow" style="border-radius: 15px">
+            <div class="col-lg-1">
+              <img height="72px " width="72px" style="border-radius: 50%" class="avatar" src="{{l.avatar}}">
 
-                <p *ngIf="s.gender==true" class="gioitinh">Nam</p>
-                <p *ngIf="s.gender==false" class="gioitinh">Nữ</p>
+            </div>
+            <div class="col-lg-11">
+              <div class="ms-2">
+                <div class="row m-0">
+                  <div class="col-lg-6 m-0">
+                    <p style="font-size: 18px" class="m-0">{{l.userName}}</p>
+                  </div>
+                  <div class="col-lg-3"></div>
+                  <div class="col-lg-3 text-end">
+                    <div>
+                  <span style="font-size: 30px" [matMenuTriggerFor]="menu"
+                        aria-label="Example icon-button with a menu">
+                    ...
+                  </span>
+                      <mat-menu #menu="matMenu">
+                        <button mat-menu-item>
+                          <span [routerLink]="['/detailPost', l.idPost]">Chi tiet bai dang</span>
+                        </button>
+                        <button mat-menu-item disabled>
+                          <span>To cao </span>
+                        </button>
+                      </mat-menu>
+                    </div>
+                  </div>
+                </div>
+                <div class="row  m-0">
+                  <div class="col-lg-12 m-0 mb-3">
+                    <p class="hoverCss">{{l.time| date:"dd/MM/yyyy"}}</p>
+                  </div>
+                </div>
               </div>
             </div>
-            <div class="row">
-              <div class="col-lg-12">
-<!--                <button class="accept btn btn-sm btn-outline-primary" (click)="add(myId,s.idUser)">Thêm bạn {{s.idUser}}</button>-->
-              </div>
-            </div>
 
-            <div class="social">
-
-              <a href="#" class="twitter"><i class="fa-brands fa-twitter"></i></a>
-              <a href="#" class="facebook"><i class="fa-brands fa-facebook"></i></a>
-              <a href="#" class="instagram"><i class="fa-brands fa-instagram"></i></a>
-              <a href="#" class="tiktok"><i class="fa-brands fa-tiktok"></i></a>
-            </div>
             <div>
-              <!--            <button class="denied btn btn-sm btn-outline-danger" (click)="denied(myId,r.idUser)">Từ chối <i class="fa-solid fa-x"></i></button>-->
+              <p>{{l.content}}</p>
+            </div>
+            <div class="img-fluid d-inline-block m-auto" *ngIf="l.mediaArr">
+              <div *ngIf="l.mediaArr.length>1" class="d-inline-flex">
+                <div  *ngFor="let x of l.mediaArr">
+                  <a href="{{x}}"><img width="50%" class=" m-1  hoverCss"  src="{{x}}"></a>
+                </div>
+              </div>
+              <div class=" img-fluid" *ngIf="l.mediaArr.length==1">
+                <img width="100%" class=" m-1 hoverCss" *ngFor="let x of l.mediaArr" src="{{x}}">
+              </div>
+            </div>
+            <div class="text-end">
+              <span class="text-end p-2 m-0" style="font-size: 15px">2 bình luận</span>
+            </div>
+
+            <div class="row text-center">
+              <div>
+                <hr class="m-0 p-0">
+              </div>
+              <div class="col-lg-4 p-2">
+                <i class="fa-sharp fa-solid fa-thumbs-up hoverCss" style="font-size: 20px; color:#0b5ed7"></i>
+                <span class="hoverCss" style="font-size: 15px">Thích</span></div>
+              <div class="col-lg-4 p-2">
+                <i class="fa-regular fa-message hoverIcon hoverCss" style="font-size: 20px"></i>
+                <span style="font-size: 15px" class="hoverCss"><a style="text-decoration: none; color: black"
+                                                                  [routerLink]="['/detailPost', l.idPost]">Bình Luận</a></span>
+              </div>
+              <div class="col-lg-4 p-2">
+                <i class="fa-sharp fa-solid fa-arrow-up-right-from-square hoverCss"
+                   style="font-size: 20px"></i>
+                <span class="hoverCss" style="font-size: 15px">Gửi</span></div>
+              <div>
+                <hr class="m-0 p-0">
+              </div>
+            </div>
+            <div class="row text-center bg-gradient">
+              <div class="col-lg-12 p-1"><p style="font-weight: bold; font-size: 20px; margin-top: 15px">Bình luận bị
+                tắt cho bài viết này </p></div>
             </div>
 
           </div>
 
         </div>
-
+        <div class="col-lg-1 p-0 m-0"></div>
       </div>
-    </div>
-
-    <div class=" row shadow-lg p-3 mt-4 " style="border-radius: 15px">
-      <div class="d-flex col-lg-12">
-        <img class="avatar" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPkBLFfRRAqhvBXaTLKR_AYOZinWVoeabDtA&usqp=CAU">
-        <div class="w-100" style="margin-left: 5px; margin-top: 3px; border-radius: 22px">
-          <textarea class="form-control text-capitalize" placeholder="Bạn đang nghĩ gì thế..." style="border-radius: 22px"></textarea>
-        </div>
-      </div>
-      <div>
-        <hr class="p2 mt-3" style="width: 99%; margin-left: 10px">
-      </div>
-
-      <div class="row ">
-        <div class="col-lg-4 p-2 text-center ">
-          <i class="fa-solid m-1 fa-video hoverCss" style="font-size: 30px; color: hotpink"></i>
-          <span class="hoverCss" style="color: plum; font-weight: bolder">Video Trực Tiếp</span>
-        </div>
-        <div class="col-lg-4 p-2 text-center ">
-          <i class="fa-solid m-1 fa-image hoverCss" style="font-size: 30px ; color: #0b5ed7"></i>
-          <span class="m-0 hoverCss" style="color: plum; font-weight: bolder;">Ảnh/Video</span>
-        </div>
-        <div class="col-lg-4 p-2 text-center">
-          <i class="fa-solid m-1 fa-gift hoverCss" style="font-size: 30px; color: rebeccapurple"></i>
-          <span class="hoverCss" style="color: plum; font-weight: bolder; margin-bottom: 2px">Quà Tặng</span>
-        </div>
-
-      </div>
-    </div>
-
-    <div class="row shadow-lg p-3 mt-4" *ngFor="let l of listShow" style="border-radius: 15px">
-      <div class="col-lg-1">
-        <img class="avatar" src="{{l.avatar}}">
-
-      </div>
-      <div class="col-lg-11">
-        <div class="ms-2">
-          <div class="row m-0">
-            <div class="col-lg-6 m-0">
-              <p class="m-0">{{l.userName}}</p>
-            </div>
-            <div class="col-lg-3"></div>
-            <div class="col-lg-3 text-end">
-              <a [routerLink]="['/user/newFeed', l.idPost,l.idPost]" class="m-0 p-0"
-                 style="font-size: 25px; text-decoration: none">...</a>
-            </div>
-          </div>
-          <div class="row  m-0">
-            <div class="col-lg-12 m-0 mb-3">
-              <p class="hoverCss">{{l.time| date:"dd/MM/yyyy"}}</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div>
-        <p>{{l.content}}</p>
-      </div>
-      <div class="img-fluid d-inline-block m-auto" >
-        <div   *ngIf="l.mediaArr.length>1" >
-          <img  class=" m-1 cssImg hoverCss" *ngFor="let x of l.mediaArr" src="{{x}}"  >
-        </div>
-        <div class=" img-fluid" *ngIf="l.mediaArr.length==1"  >
-          <img width="100%" class=" m-1 hoverCss" *ngFor="let x of l.mediaArr" src="{{x}}"  >
-        </div>
-      </div>
-      <div class="text-end">
-        <span class="text-end p-2 m-0" style="font-size: 15px">2 bình luận</span>
-      </div>
-
-      <div class="row text-center">
-        <div><hr class="m-0 p-0"></div>
-        <div class="col-lg-4 p-2">
-          <i class="fa-sharp fa-solid fa-thumbs-up hoverCss" style="font-size: 20px; color:#0b5ed7"></i>
-          <span class="hoverCss" style="font-size: 15px">Thích</span></div>
-        <div class="col-lg-4 p-2">
-          <i class="fa-regular fa-message hoverIcon hoverCss" style="font-size: 20px" ></i>
-          <span style="font-size: 15px"  class="hoverCss" >Bình Luận</span></div>
-        <div class="col-lg-4 p-2">
-          <i class="fa-sharp fa-solid fa-arrow-up-right-from-square hoverCss"
-             style="font-size: 20px"></i>
-          <span class="hoverCss" style="font-size: 15px">Gửi</span></div>
-        <div><hr class="m-0 p-0"></div>
-      </div>
-      <div class="row text-center bg-gradient">
-        <div class="col-lg-12 p-1"><p style="font-weight: bold; font-size: 20px; margin-top: 15px">Bình luận bị tắt cho bài viết này </p></div>
-      </div>
-    </div>
+    </div>`
   </div>
-  <div class="col-lg-3"></div>
+
+
+
 </div>
+
+
+
 
 
 

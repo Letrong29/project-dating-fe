@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {User} from "../../model/user";
 import {UserServiceService} from "../../service/user-service.service";
 import {ToastrService} from "ngx-toastr";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-list-user',
@@ -18,7 +19,7 @@ export class ListUserComponent implements OnInit {
   selectWarning: "";
   user: User = null;
 
-  constructor(private userService: UserServiceService,private toast:ToastrService) {
+  constructor(private userService: UserServiceService,private toast:ToastrService, private router: Router) {
   }
 
   ngOnInit(): void {
@@ -34,6 +35,9 @@ export class ListUserComponent implements OnInit {
       // @ts-ignore
       this.totalPage = us.totalPages;
 
+    }, error => {
+      this.router.navigateByUrl('/share/error');
+      this.toast.error('Bạn không có quyền vào trang này', "Thông báo")
     })
   }
 
@@ -64,6 +68,9 @@ export class ListUserComponent implements OnInit {
         this.user = us;
         console.log(us)
       })
+    }, error => {
+      this.router.navigateByUrl('/share/error');
+      this.toast.error('Bạn không có quyền vào trang này', "Thông báo")
     });
   }
 
@@ -74,6 +81,9 @@ export class ListUserComponent implements OnInit {
     }
     this.userService.updateStatusWarrningUser(request).subscribe(() => {
       this.toast.success("Gửi cảnh cáo thành công!","Thông báo");
+    }, error => {
+      this.router.navigateByUrl('/share/error');
+      this.toast.error('Bạn không có quyền vào trang này', "Thông báo")
     });
   }
 

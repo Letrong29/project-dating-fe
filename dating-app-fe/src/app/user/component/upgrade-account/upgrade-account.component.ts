@@ -1,9 +1,12 @@
- import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {UpgradeAccountService} from "../../service/upgrade-account.service";
 import {User} from "../../model/user";
 import {render} from "creditcardpayments/creditCardPayments";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
+import {ToastrService} from "ngx-toastr";
+import {AuthenticationService} from "../../../service/authentication/authentication.service";
+import {TokenStorageService} from "../../../service/authentication/token-storage.service";
 
 
 @Component({
@@ -12,30 +15,24 @@ import {Router} from "@angular/router";
   styleUrls: ['./upgrade-account.component.css']
 })
 export class UpgradeAccountComponent implements OnInit {
-  idAccount: number = 1;
-  user: User
+   user: any
   flag = true;
   invoiceCreate: FormGroup;
   prices: any;
   checkPrice = new FormControl("", [Validators.required])
 
-  getErrorMessageCheckPrice(){
-    if (this.checkPrice.hasError('required')){
+  getErrorMessageCheckPrice() {
+    if (this.checkPrice.hasError('required')) {
       return "Không để trống"
     }
     return
   }
-  //
-  // checkRequiredPrice : any = false;
-  //
-  // submitButton(){
-  //   if (!this.checkPrice.valid){
-  //     this.checkRequiredPrice = true;
-  //     this.checkPrice.markAllAsTouched()
-  //     return;
-  //   }
-  // }
-  constructor(private upgradeAccountService: UpgradeAccountService, private router: Router) {
+
+
+  constructor(private upgradeAccountService: UpgradeAccountService, private router: Router, private toast: ToastrService,private  auth: AuthenticationService, private token: TokenStorageService) {
+    this.auth.getUserByAccount(this.token.getUser().idAccount).subscribe(n=>{
+      this.user =n;
+    })
   }
 
   ngOnInit(): void {
@@ -43,12 +40,12 @@ export class UpgradeAccountComponent implements OnInit {
   }
 
   findUserById() {
-    this.upgradeAccountService.findByUserById(this.idAccount).subscribe(n => {
-      this.user = n;
+    this.auth.getUserByAccount(this.token.getUser().idAccount).subscribe(n=>{
+      this.user =n;
     })
   }
 
-  invoice(){
+  invoice() {
     this.invoiceCreate = new FormGroup({
       id: new FormControl(""),
       price: new FormControl(this.prices),
@@ -60,8 +57,8 @@ export class UpgradeAccountComponent implements OnInit {
     })
   }
 
-  paypal(pricePaypal:any){
-    if(this.flag){
+  paypal(pricePaypal: any) {
+    if (this.flag) {
       document.getElementById('myPaypal').innerHTML = "";
       render(
         {
@@ -73,11 +70,13 @@ export class UpgradeAccountComponent implements OnInit {
             this.upgradeAccountService.saveInvoice(this.invoiceCreate.value).subscribe(n => {
               this.findUserById();
               this.hideModal();
+              this.toast.success('Thanh toán thành công', "Thông báo")
             })
           }
         }
       );
-    } this.flag = false
+    }
+    this.flag = false
 
   }
 

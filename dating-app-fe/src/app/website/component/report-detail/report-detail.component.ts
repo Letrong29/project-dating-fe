@@ -35,12 +35,11 @@ export class ReportDetailComponent implements OnInit {
 
   getReportDetailsList() {
     this.reportDetailService.getAllReportDetail(this.page).subscribe(data => {
-      // @ts-ignore
       this.reportDetailList = data.content;
-      // @ts-ignore
       this.pageTotal = data.totalPages;
     }, error => {
-      this.router.navigateByUrl("/share/error")
+      this.router.navigateByUrl('/share/error');
+      this.toast.error('Bạn không có quyền vào trang này', "Thông báo")
     });
   }
 
@@ -60,7 +59,8 @@ export class ReportDetailComponent implements OnInit {
     this.reportDetailService.deleteReportDetail(this.idModal).subscribe(() => {
       this.toast.success("Xoá thành công", "Thông báo")
     }, error => {
-      this.router.navigateByUrl("/share/error")
+      this.router.navigateByUrl('/share/error');
+      this.toast.error('Bạn không có quyền vào trang này', "Thông báo")
     });
   }
 
@@ -68,7 +68,8 @@ export class ReportDetailComponent implements OnInit {
     this.reportDetailService.confirmReportDetail(this.idModal).subscribe(() => {
       this.toast.success("Xác nhận thành công", "Thông báo")
     }, error => {
-      this.router.navigateByUrl("/share/error")
+      this.router.navigateByUrl('/share/error');
+      this.toast.error('Bạn không có quyền vào trang này', "Thông báo")
     });
   }
 
@@ -83,7 +84,8 @@ export class ReportDetailComponent implements OnInit {
       this.reportDetailList = data.content;
       this.pageTotal = data.totalPages;
     }, error => {
-      this.router.navigateByUrl("/share/error")
+      this.router.navigateByUrl('/share/error');
+      this.toast.error('Bạn không có quyền vào trang này', "Thông báo")
     });
   }
 
@@ -95,7 +97,8 @@ export class ReportDetailComponent implements OnInit {
     this.reportDetailService.getAllReportDetail(this.page).subscribe(data => {
       this.reportDetailList = data.content;
     }, error => {
-      this.router.navigateByUrl("/share/error")
+      this.router.navigateByUrl('/share/error');
+      this.toast.error('Bạn không có quyền vào trang này', "Thông báo")
     });
     this.nameSearch();
   }
@@ -108,7 +111,8 @@ export class ReportDetailComponent implements OnInit {
     this.reportDetailService.getAllReportDetail(this.page).subscribe(data => {
       this.reportDetailList = data.content;
     }, error => {
-      this.router.navigateByUrl("/share/error")
+      this.router.navigateByUrl('/share/error');
+      this.toast.error('Bạn không có quyền vào trang này', "Thông báo")
     });
     this.nameSearch();
   }

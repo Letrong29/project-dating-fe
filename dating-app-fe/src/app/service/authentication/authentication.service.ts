@@ -41,4 +41,12 @@ export class AuthenticationService {
     }
     return false;
   }
+
+  getUserByAccount(id: number): Observable<any> {
+    return this.httpClient.get(`http://localhost:8080/api/users/my-user/${id}`, this.getToken());
+  }
+
+  getUserByEmail(email: string): Observable<any> {
+    return this.httpClient.get(`http://localhost:8080/api/users/my-account/${email}`, this.getToken());
+  }
 }

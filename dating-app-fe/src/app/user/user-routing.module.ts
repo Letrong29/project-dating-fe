@@ -38,8 +38,8 @@ const routes: Routes = [{
   {path: "user/newFeed/:id/:id1", component: DetailPostComponent, canActivate: [AuthGuardService]},
 
   {path: "listUser", component: ListUserComponent, canActivate: [AuthGuardService]},
-  {path: "create-user", component: CreateUserComponent, canActivate: [AuthGuardService]},
-  {path: "detailPost", component: DetailPostComponent, canActivate: [AuthGuardService]},
+  {path: "create-user/:id", component: CreateUserComponent, canActivate: [AuthGuardService]},
+  {path: "detailPost/:idPost", component: DetailPostComponent, canActivate: [AuthGuardService]},
 ];
 
 @NgModule({

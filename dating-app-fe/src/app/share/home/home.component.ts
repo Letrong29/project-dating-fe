@@ -17,15 +17,12 @@ export class HomeComponent implements OnInit {
   constructor(private userService: UserService,private router :Router, private token: TokenStorageService) { }
 
   ngOnInit(): void {
-    console.log(this.checkLogin)
     this.isLogin()
   }
 
   isLogin() {
     if(this.token.getToken() != null) {
-      this.checkLogin = false;
-    } else {
-      this.checkLogin = true;
+      this.router.navigateByUrl('/user/newFeed');
     }
   }
 }

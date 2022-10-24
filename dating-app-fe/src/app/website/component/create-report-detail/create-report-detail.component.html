@@ -1,36 +1,4 @@
 
 <div class="row">
-  <form [formGroup]="reportDetailForm" (ngSubmit)="submit()">
-    <button type="button" data-bs-toggle="modal" class=" btn btn-success"
-            data-bs-target="#createContract">
-      Tố Cáo
-    </button>
-    <div class="modal fade" id="createContract" tabindex="-1" aria-labelledby="exampleModalLabel2"
-         aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h2 class="modal-title" id="exampleModalLabel2">Tố Cáo</h2>
-            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                    aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <div>
-              <div class="col-md-12">
-                <h5><label for="type" class="form-label">Thông Tin Tố Cáo: </label></h5>
-                <select id="type" class="form-select" formControlName="report">
-                  <option value="">---Chọn nội dung tố cáo---</option>
-                  <option *ngFor="let temp of reportList" [ngValue]="temp.idReport">{{temp.nameReport}}</option>
-                </select>
-              </div>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-              <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Tố Cáo</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </form>
+
 </div>

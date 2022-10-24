@@ -1,0 +1,48 @@
+<!--menu-->
+<div class="bg-light shadow ">
+  <table class="table table-hover">
+    <tbody class="text-start">
+    <tr>
+      <th>
+        <a [routerLink]="['/user/users', userId]" class=" text-decoration-none text-dark ps-3" href="">
+          <img class="avt"
+               src="{{user.avatar}}"
+               alt="ảnh đại diện">
+          <span class="ps-2">{{user.name}}</span>
+        </a>
+      </th>
+    </tr>
+    <tr>
+      <th>
+        <a class="text-decoration-none text-dark ps-3" href="">
+          <img src="../../../../assets/img/friend3.png" height="56" width="50"/>
+          <span class="ps-2">Bạn bè</span>
+        </a>
+      </th>
+    </tr>
+    <tr>
+      <th>
+        <a routerLink="/friend/request/{{userId}}" class="text-decoration-none text-dark ps-3" href="">
+          <img src="../../../../assets/img/add3.png" height="56" width="50"/>
+          <span class="ps-2">Lời mời kết bạn</span>
+        </a>
+      </th>
+    </tr>
+    <tr>
+      <th>
+        <a routerLink="/searchFriend" class="text-decoration-none text-dark " href="">
+          <img src="../../../../assets/img/search3.png" height="76" width="74"/>
+          <span>Tìm kiếm</span>
+        </a>
+      </th>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<div style="overflow-y: scroll; height:300px">
+  <app-chat-box></app-chat-box>
+</div>
+
+
+

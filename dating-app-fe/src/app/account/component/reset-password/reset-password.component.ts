@@ -3,6 +3,8 @@ import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {ResetPasswordService} from "../../service/reset-password.service";
 import {ToastrService} from "ngx-toastr";
 import {ActivatedRoute, Router} from "@angular/router";
+import {AuthenticationService} from "../../../service/authentication/authentication.service";
+import {TokenStorageService} from "../../../service/authentication/token-storage.service";
 
 
 @Component({
@@ -11,12 +13,13 @@ import {ActivatedRoute, Router} from "@angular/router";
   styleUrls: ['./reset-password.component.css']
 })
 export class ResetPasswordComponent implements OnInit {
-
   jwtRequestForm: FormGroup;
 
   constructor(private route: ActivatedRoute,
               private resetPasswordService: ResetPasswordService,
               private toastr: ToastrService,
+              private tokens: TokenStorageService,
+              private auth: AuthenticationService,
               private router: Router,
               private formBuilder: FormBuilder,
               private activatedRoute: ActivatedRoute) {
@@ -40,8 +43,8 @@ export class ResetPasswordComponent implements OnInit {
   }
 
   onSubmit() {
-    const a = this.jwtRequestForm.value;
-    this.resetPasswordService.doResetPassword( a, 9).subscribe(() => {
+    console.log(this.tokens.getUser().idAccount)
+    this.resetPasswordService.doResetPassword(this.jwtRequestForm.value, this.tokens.getUser().idAccount).subscribe(() => {
       this.jwtRequestForm.reset();
       this.toastr.success('Đổi mật khẩu thành công', 'Thông báo');
     }, () => {
