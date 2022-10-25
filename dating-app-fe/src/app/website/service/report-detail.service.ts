@@ -27,12 +27,12 @@ export class ReportDetailService {
 
   confirmReportDetail(id: number): Observable<any> {
     // @ts-ignore
-    return this.httpClient.patch<ReportDetail>(this.URL_CONNECT + '/admin/confirm/' + id, this.auth.getToken());
+    return this.httpClient.patch<ReportDetail>(this.URL_CONNECT + '/admin/confirm/' + id, '', this.auth.getToken());
   }
 
   deleteReportDetail(id: number): Observable<any> {
     // @ts-ignore
-    return this.httpClient.patch<ReportDetail>(this.URL_CONNECT + '/admin/delete/' + id, this.auth.getToken());
+    return this.httpClient.patch<ReportDetail>(this.URL_CONNECT + '/admin/delete/' + id,'', this.auth.getToken());
   }
 
 

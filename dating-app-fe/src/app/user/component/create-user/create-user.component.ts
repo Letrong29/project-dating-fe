@@ -45,7 +45,7 @@ export class CreateUserComponent implements OnInit {
       // console.log(this.idUser)
       this.registerUser = new FormGroup({
         idUser: new FormControl(this.idUser),
-        avatar: new FormControl(''),
+        avatar: new FormControl('', [Validators.required]),
 
         nameGroup: new FormGroup({
           firstName: new FormControl('', [Validators.required]),
@@ -84,6 +84,7 @@ export class CreateUserComponent implements OnInit {
    save() {
       this.uploadFile().then(() => {
         this.user = this.registerUser.value;
+        console.log("this user", this.user)
         let firstName = this.registerUser.controls.nameGroup.get('firstName').value;
         let lastName = this.registerUser.controls.nameGroup.get('lastName').value;
         this.user.name = firstName + ' ' + lastName;

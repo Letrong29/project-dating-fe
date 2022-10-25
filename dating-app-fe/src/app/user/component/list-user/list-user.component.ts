@@ -30,10 +30,17 @@ export class ListUserComponent implements OnInit {
   searchAndListUser() {
     this.page = 0;
     return this.userService.findByAllAndSearchNameUser(this.keyword, this.selectedMember, this.page).subscribe(us => {
-      // @ts-ignore
-      this.userList = us.content;
-      // @ts-ignore
-      this.totalPage = us.totalPages;
+     if(us){
+       // @ts-ignore
+       this.userList = us.content;
+       // @ts-ignore
+       this.totalPage = us.totalPages;
+     }
+     else {
+       this.toast.success("Tên bạn tìm không có trong danh sách","Thông báo")
+       this.userList = [];
+       this.totalPage = 0;
+     }
 
     }, error => {
       this.router.navigateByUrl('/share/error');
@@ -75,16 +82,18 @@ export class ListUserComponent implements OnInit {
   }
 
   updateStatus() {
-    const request = {
-      idUser: this.reportDetailList[0].idUser,
-      status: this.selectWarning
+    if(this.reportDetailList){
+      const request = {
+        idUser: this.reportDetailList[0].idUser,
+        status: this.selectWarning
+      }
+      this.userService.updateStatusWarrningUser(request).subscribe(() => {
+        this.toast.success("Gửi cảnh cáo thành công!","Thông báo");
+      }, error => {
+        this.router.navigateByUrl('/share/error');
+        this.toast.error('Bạn không có quyền vào trang này', "Thông báo")
+      });
     }
-    this.userService.updateStatusWarrningUser(request).subscribe(() => {
-      this.toast.success("Gửi cảnh cáo thành công!","Thông báo");
-    }, error => {
-      this.router.navigateByUrl('/share/error');
-      this.toast.error('Bạn không có quyền vào trang này', "Thông báo")
-    });
   }
 
 

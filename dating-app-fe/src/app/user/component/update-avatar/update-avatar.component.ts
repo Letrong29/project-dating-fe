@@ -81,17 +81,17 @@ export class UpdateAvatarComponent implements OnInit {
           console.log(url);
           this.createForm.patchValue(({avatar: url}));
           this.updateAvatarService.getUpdateAvatar(this.createForm.value).subscribe(next => {
-            this.ngxUiLoaderService.stop();
+              this.ngxUiLoaderService.stop();
             }, error => {
             }, () => {
               this.cancelAvatarUpload()
+              this.toats.success("Cập nhật thành công", "Thông báo")
             }
           );
         });
       })
     ).subscribe(() => {
-      this.toats.success("Cập nhật thành công", "Thông báo")
-      this.ngOnInit();
+
     });
   }
 

@@ -1,6 +1,6 @@
 <div ><app-header></app-header></div>
-<div style="margin-top:100px"></div>
 <div class="container-fluid section mt-5 mb-5">
+  <app-chat-box-only #chatbox></app-chat-box-only>
   <div class="row" *ngIf="user">
     <div class="col-12 col-sm-12 col-md-4 col-lg-3 infor">
       <div class="card-container ">
@@ -29,11 +29,11 @@
             HỦY LỜI MỜI
             <i class="fa-solid fa-user-xmark"></i>
           </button>
-          <a *ngIf="relationship == 52" href="#" class="disabled  btn btn-outline-success me-2 mt-1">
+          <a *ngIf="relationship == 52" routerLink="/friend/request" class=" btn btn-outline-success me-2 mt-1">
             PHẢN HỒI
             <i class="fa-solid fa-check"></i>
           </a>
-          <a href="#" class="addFrBtn btn btn-outline-primary me-2 mt-1">
+          <a (click)="chatbox.loadMessage(user.idUser,user.avatar,user.name)"  class="addFrBtn btn btn-outline-primary me-2 mt-1">
             NHẮN TIN
             <i class="fa-brands fa-facebook-messenger"></i>
           </a>

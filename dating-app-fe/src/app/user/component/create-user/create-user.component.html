@@ -23,6 +23,11 @@
               </label>
             </button>
           </div>
+          <div>
+            <span class="text-danger fw-light" *ngIf="registerUser.controls.avatar.hasError('required') ">
+                Hãy chọn một ảnh đại diện
+            </span>
+          </div>
         </div>
 
         <hr>
@@ -62,12 +67,12 @@
             <div id="gender">
               <div class="me-5 form-check form-check-inline">
                 <input formControlName="gender" class="form-check-input" type="radio" name="gender" id="inlineRadio2"
-                       value="false">
+                       value="true">
                 <label class="form-check-label" for="inlineRadio2">Nam</label>
               </div>
               <div class="me-5 form-check form-check-inline">
                 <input formControlName="gender" class="form-check-input" type="radio" name="gender" id="inlineRadio1"
-                       value="true">
+                       value="false">
                 <label class="form-check-label" for="inlineRadio1">Nữ</label>
               </div>
             </div>

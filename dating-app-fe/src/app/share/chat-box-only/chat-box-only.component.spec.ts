@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { GiveAGiftComponent } from './give-a-gift.component';
+import { ChatBoxOnlyComponent } from './chat-box-only.component';
 
-describe('GiveAGiftComponent', () => {
-  let component: GiveAGiftComponent;
-  let fixture: ComponentFixture<GiveAGiftComponent>;
+describe('ChatBoxOnlyComponent', () => {
+  let component: ChatBoxOnlyComponent;
+  let fixture: ComponentFixture<ChatBoxOnlyComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ GiveAGiftComponent ]
+      declarations: [ ChatBoxOnlyComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(GiveAGiftComponent);
+    fixture = TestBed.createComponent(ChatBoxOnlyComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -3,6 +3,7 @@ import {Router} from "@angular/router";
 import {User} from "../../../user/model/user";
 import {FriendService} from "../../friend-service/friend-service.service";
 import {TokenStorageService} from "../../../service/authentication/token-storage.service";
+import {AuthenticationService} from "../../../service/authentication/authentication.service";
 
 @Component({
   selector: 'app-friend-request',
@@ -12,11 +13,15 @@ import {TokenStorageService} from "../../../service/authentication/token-storage
 export class FriendRequestComponent implements OnInit {
   myId: number ;
   requestList: User[];
-
+user: User
   constructor(private friendService: FriendService,
               private router: Router,
-              private token: TokenStorageService) {
+              private token: TokenStorageService,
+              private  auth: AuthenticationService) {
     this.myId = this.token.getUser().idAccount;
+    this.auth.getUserByAccount(this.myId).subscribe(data=>{
+      this.user = data
+      this.myId = data.idUser;})
 
   }
 

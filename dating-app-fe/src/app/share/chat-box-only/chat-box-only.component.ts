@@ -1,25 +1,27 @@
-import {AfterViewChecked, Component, ElementRef, OnChanges, OnInit, ViewChild} from '@angular/core';
-
+import {AfterViewChecked, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {UserServiceService} from "../../user/service/user-service.service";
+import {FriendService} from "../../user/service/friend.service";
+import {SuggestService} from "../../friend/friend-service/suggest.service";
+import {FriendListService} from "../../friend/friend-service/friend-list.service";
+import {ToastrService} from "ngx-toastr";
+import {HttpClient} from "@angular/common/http";
+import {TokenStorageService} from "../../service/authentication/token-storage.service";
+import {AuthenticationService} from "../../service/authentication/authentication.service";
+import {AngularFirestore} from "@angular/fire/firestore";
+import {User} from "../../user/model/user";
 import firebase from "firebase/app";
 import "firebase/database";
-import {HttpClient, HttpEvent} from "@angular/common/http";
-import {AngularFirestore, fromCollectionRef} from '@angular/fire/firestore';
 import firestore = firebase.firestore;
 
-import {FriendListService} from "../../../friend/friend-service/friend-list.service";
-import {ToastrService} from "ngx-toastr";
-import {TokenStorageService} from "../../../service/authentication/token-storage.service";
-import {AuthenticationService} from "../../../service/authentication/authentication.service";
-import {User} from "../../../user/model/user";
-import {stringify} from "querystring";
-
-
 @Component({
-  selector: 'app-read-message',
-  templateUrl: './read-message.component.html',
-  styleUrls: ['./read-message.component.css']
+  selector: 'app-chat-box-only',
+  templateUrl: './chat-box-only.component.html',
+  styleUrls: ['./chat-box-only.component.css']
 })
-export class ReadMessageComponent implements OnInit, AfterViewChecked {
+export class ChatBoxOnlyComponent implements OnInit {
+
+  groups: any[] = [];
+  user: any;
   input: string = '';
   messages: any[] = [];
   user1;
@@ -27,33 +29,33 @@ export class ReadMessageComponent implements OnInit, AfterViewChecked {
   user2Avatar: string
   user1Avatar
   room: string
-  groups: any[] = [];
   flag = true
-  user: any
-  listUnreadMessage = []
   user2Name: string
-search: string
+
   @ViewChild('scrollMe') private myScrollContainer: ElementRef;
 
-  constructor(public database: AngularFirestore, private http: HttpClient, private friendListService: FriendListService, private toast: ToastrService,
-              private tokens: TokenStorageService, private auth: AuthenticationService) {
-    http.get<User>('http://localhost:8080/api/users/my-user/' + this.tokens.getUser().idAccount, this.auth.getToken()).subscribe(n => {
+  constructor(private service: UserServiceService,
+              private friendService: FriendService,
+              private suggestService: SuggestService,
+              private friendListService: FriendListService,
+              private toast: ToastrService, private http: HttpClient,
+              private tokens: TokenStorageService,
+              private auth: AuthenticationService,
+              public database: AngularFirestore,) {
+    this.http.get<User>('http://localhost:8080/api/users/my-user/' + this.tokens.getUser().idAccount, this.auth.getToken()).subscribe(n => {
       this.user = n
       this.user1 = this.user.idUser
       this.user1Avatar = this.user.avatar
       this.getAll(10)
     })
-
-
   }
 
   ngOnInit(): void {
-    this.scrollToBottom();
-    this.listObserver()
 
   }
 
   async sendMessages() {
+    console.log('1')
     if (this.input != "") {
       const ref = this.database.collection(`rooms/${this.room}/messages`);
       const sender = this.user1
@@ -76,7 +78,9 @@ search: string
         db.doc(docs.id).delete();
       })
     })
-    this.loadMessage(this.user2,this.user2Avatar,this.user2Name)
+
+
+    this.loadMessage(this.user2, this.user2Avatar,this.user2Name)
   }
 
   // event scroll
@@ -122,8 +126,11 @@ search: string
   }
 
   async loadMessage(user: any, avatar: string, name: string) {
+    this.input = ''
+    document.getElementById('viewChat').style.display = 'block'
     this.user2Name = name
     this.user2Avatar = avatar
+    console.log(this.user2Avatar)
     this.room = await this.chatRoomCheck(user)
     this.flag = true;
     this.messages = []
@@ -147,19 +154,6 @@ search: string
       })
   }
 
-  async listObserver() {
-    // firestore().collection('rooms')
-    //   .where('join','array-contains',this.user1)
-    //   .onSnapshot(n =>{
-    //     this.listUnreadMessage.push(n.docs[n.docs.length-1].data())
-    //   })
-    const roomts = await this.database.collection('rooms').get()
-
-    roomts.forEach(doc => {
-      console.log(doc)
-    })
-  }
-
   getAll(size: number) {
     return this.friendListService.getFriendList(this.user.idUser, 0, "", 5).subscribe(n => {
       if (n === null) {
@@ -171,11 +165,7 @@ search: string
     })
   }
 
-  searchUser(){
-    this.http.get("http://localhost:8080/api/public/searchPage?name="+this.search+"&size=1000",this.auth.getToken())
-      .subscribe(n=>{
-       // @ts-ignore
-        this.groups= n.content
-      })
+  closeChat() {
+    document.getElementById('viewChat').style.display = 'none'
   }
 }

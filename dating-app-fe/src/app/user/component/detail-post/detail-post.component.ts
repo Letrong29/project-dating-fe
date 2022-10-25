@@ -32,7 +32,6 @@ export class DetailPostComponent implements OnInit {
   createForm: FormGroup;
   listComment: CommentPost[]
   length: number;
-  commentElement
 
   constructor(private service: UserServiceService,
               private storage: AngularFireStorage, private router: Router,
@@ -74,8 +73,8 @@ export class DetailPostComponent implements OnInit {
         idUser: new FormControl(this.details.idUser)
       })
       this.createForm = new FormGroup({
-        idComment: new FormControl(),
-        content: new FormControl(),
+        idComment: new FormControl(''),
+        content: new FormControl(''),
         user: new FormGroup({
           idUser: new FormControl(this.idAcc.idUser)
         }),

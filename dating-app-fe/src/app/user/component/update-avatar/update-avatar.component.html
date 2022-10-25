@@ -1,14 +1,13 @@
 <app-header></app-header>
-
 <div class="container-fluid">
   <div class="row">
     <div class="col-lg-3 sidenav">
       <app-menu></app-menu>
     </div>
     <div class="col-lg-9">
-      <div class=" p-5" style="height: 100vh ; ">
+      <div class=" p-5" style="margin-left:50px ;height: 100vh ; box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;">
         <div class="row "
-             style="padding:20px 30px;text-align: center;margin-top: 100px; font-weight: bold;font-size: 27px; border-radius: 5px 5px 0 0; color: aliceblue ; background-color: #b30217!important;">
+             style="padding:20px 30px;text-align: center;margin-top: 60px; font-weight: bold;font-size: 27px; border-radius: 5px 5px 0 0; color: aliceblue ; background-color: #b30217!important;">
           <span>Quản lí trang cá nhân</span>
         </div>
         <div class="row">
@@ -19,12 +18,12 @@
                 ảnh đại diện
               </button>
             </li>
-            <li class="nav-item" role="presentation">
-              <button class="nav-link button_tab" id="profile-tab" (click)="cancelAvatarUpload()" style="font-size: 22px"
-                      data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile"
-                      aria-selected="false">Trạng thái hoạt động
-              </button>
-            </li>
+<!--            <li class="nav-item" role="presentation">-->
+<!--              <button class="nav-link button_tab" id="profile-tab" (click)="cancelAvatarUpload()" style="font-size: 22px"-->
+<!--                      data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile"-->
+<!--                      aria-selected="false">Trạng thái hoạt động-->
+<!--              </button>-->
+<!--            </li>-->
             <li class="nav-item" role="presentation">
               <button class="nav-link button_tab" id="contact-tab" (click)="cancelAvatarUpload()" style="font-size: 22px"
                       data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact"
@@ -72,7 +71,7 @@
                             <button class="btn btn-danger camera" *ngIf="stream"
                                     style=";color: aliceblue ;"
                                     (click)="cancelAvatarUpload()">
-                              <i class="fa-solid fa-camera-slash"></i>
+                              <i class="fa-solid fa-rectangle-xmark" style="font-size: 24px"></i>
                             </button>
 
                             <button *ngIf="!selectFile" style="display: none" type="reset"
@@ -93,9 +92,9 @@
                 </form>
               </div>
             </div>
-            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-              <app-update-status-active></app-update-status-active>
-            </div>
+<!--            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">-->
+<!--              <app-update-status-active></app-update-status-active>-->
+<!--            </div>-->
             <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
               <div style="margin-top: 50px">
                 <app-reset-password></app-reset-password>

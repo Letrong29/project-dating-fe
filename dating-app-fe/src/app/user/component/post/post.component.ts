@@ -10,7 +10,7 @@ import {TokenStorageService} from "../../../service/authentication/token-storage
 import {AuthenticationService} from "../../../service/authentication/authentication.service";
 import firebase from "firebase/app";
 import {AngularFirestore} from '@angular/fire/firestore';
-import {FormControl, FormGroup} from "@angular/forms";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {PostService} from "../../service/post.service";
 import {AngularFireStorage} from "@angular/fire/storage";
 import {finalize} from "rxjs/operators";
@@ -38,8 +38,19 @@ export class PostComponent implements OnInit {
   links: any[] = [];
   postCreate: FormGroup;
   myIdUser;
-
-
+  lengthComment : number;
+  idPost:number;
+  sendReport = []
+  reportDetailForm: FormGroup = new FormGroup({
+    id: new FormControl(''),
+    post: new FormControl(''),
+    reporter: new FormControl(''),
+    report: new FormControl('',[Validators.required]),
+    status: new FormControl(''),
+    timeReport: new FormControl('')
+  });
+  reportList: Report[] = [];
+  today= new Date()
 
   constructor(private service: UserServiceService,
               private friendService: FriendService,
@@ -51,14 +62,21 @@ export class PostComponent implements OnInit {
               private postService: PostService,
               @Inject(AngularFireStorage) private storage: AngularFireStorage,
               private ngxService: NgxUiLoaderService,
+              private reportDetailService: ReportDetailService,
+              private router: Router,
               ) {
 
     this.myIdUser = this.tokens.getUser().idAccount;
     this.auth.getUserByAccount(this.tokens.getUser().idAccount).subscribe(data => {
       this.idAcc = data;
-    }, () => {
-    }, () => {
 
+
+    }, () => {
+    }, () => {
+      console.log(this.idAcc.idPost)
+      this.service.getComment(this.idAcc.idPost).subscribe(data=>{
+        this.lengthComment = data;
+      })
       this.service.getListPost(this.idAcc.idUser).subscribe(async data => {
         console.log(data)
         this.listShow = data;
@@ -79,6 +97,12 @@ export class PostComponent implements OnInit {
         idUser: new FormControl(this.myIdUser)
       })
     })
+    this.reportDetailService.getAllReport().subscribe(data => {
+      console.log(data);
+      this.reportList = data;
+    }, error => {
+      this.router.navigateByUrl("/share/error404")
+    });
   }
   ngOnInit(): void {
     this.http.get<User>('http://localhost:8080/api/users/my-user/' + this.tokens.getUser().idAccount, this.auth.getToken()).subscribe(n => {
@@ -162,7 +186,35 @@ export class PostComponent implements OnInit {
       this.ngxService.stop()
     })
   }
+  elementReport(idPost: number) {
+    this.idPost = idPost;
+    console.log(idPost + "sdsassd")
+    this.reportDetailForm = new FormGroup({
+      id: new FormControl(''),
+      post: new FormControl(this.idPost),
+      reporter: new FormControl(this.myIdUser),
+      report: new FormControl('',Validators.required),
+      status: new FormControl(8),
+      timeReport: new FormControl(this.today)
+    });
+  }
 
+  submitReport() {
+    const reportDetail = this.reportDetailForm.value;
+    console.log(reportDetail)
+    if (this.reportDetailForm.valid){
+      this.reportDetailService.save(reportDetail).subscribe(() => {
+        this.toast.success("Tó cáo thành công","Thông báo")
+      }, e => {
+        this.router.navigateByUrl("/share/error")
+      });
+    }else {
+      this.toast.warning("Bạn chưa chọn nội dung tố cáo", "Thông báo");
+    }
+  }
+  resetModal() {
+    this.sendReport = [];
+  }
 
 
 }

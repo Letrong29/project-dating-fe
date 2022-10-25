@@ -25,28 +25,24 @@ export class ListSearchComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getAllPageSearch(this.page, this.searchValue);
+    this.getAllPageSearch();
 
   }
 
-  getAllPageSearch(page: number, name: string) {
-    if (name == "") {
-      this.getAllPageSearch(this.page, "");
-    }
-    if (name.length > 30) {
+  getAllPageSearch() {
+
+    if (this.searchValue.length > 30) {
       this.toastrService.success("Bạn đã nhập quá nhiều ký tự")
     }
-    if (name.match("^\\W+$")) {
+    if (this.searchValue.match("^\\W+$")) {
       this.toastrService.success("Không được nhập ký tự đặc biệt")
     }
     else{
-      this.userService.getAllSearchPage(page, name).subscribe(data => {
+      this.userService.getAllSearchPage(0,this.searchValue).subscribe(data => {
         if(data == null){
-          this.toastrService.success("Tên bận nhâp không có")
+          this.toastrService.warning("Không tìm thấy người dùng tương ứng")
         }else {
           this.user = data.content;
-          console.log(this.user)
-
           this.countTotalPages = new Array(data.totalPages)
           this.totalPages = data.totalPages;
         }
@@ -58,32 +54,14 @@ export class ListSearchComponent implements OnInit {
   nextPage() {
     if (this.page < this.totalPages) {
       this.page++;
-      console.log(this.page)
     }
-    this.getAllPageSearch(this.page, "");
+    this.getAllPageSearch();
   }
 
   previousPage() {
     if (this.page > 0) {
       this.page--;
     }
-    this.getAllPageSearch(this.page, "");
-  }
-
-  searchName($event: string) {
-    if ($event == "") {
-      this.getAllPageSearch(this.page, "");
-    }
-    if ($event.length > 30) {
-      this.toastrService.success("Bạn đã nhập quá nhiều ký tự")
-    }
-    if ($event.match("^\\W+$")) {
-      this.toastrService.success("Không được nhập ký tự đặc biệt")
-    } else {
-      this.userService.getAllSearchPage(this.page, $event).subscribe(data => {
-        this.user = data.content;
-      })
-    }
-
+    this.getAllPageSearch();
   }
 }

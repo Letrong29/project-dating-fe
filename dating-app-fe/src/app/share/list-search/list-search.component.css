@@ -140,6 +140,9 @@ img{
   background-color: #d40808;
   border-color: #d40808;
 }
+#friend {
+  text-decoration: none;
+}
  #friend:hover {
    font-size: 20px;
    color: #f8f7f7;

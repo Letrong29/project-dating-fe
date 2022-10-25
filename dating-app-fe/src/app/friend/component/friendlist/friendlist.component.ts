@@ -6,6 +6,9 @@ import {FormControl, FormGroup} from "@angular/forms";
 import {TokenStorageService} from "../../../service/authentication/token-storage.service";
 import {AuthenticationService} from "../../../service/authentication/authentication.service";
 import Swal from 'sweetalert2';
+import {Gift} from "../../model/gift";
+import {GiftService} from "../../friend-service/gift.service";
+import {GiftUserService} from "../../friend-service/gift-user.service";
 
 @Component({
   selector: 'app-friendlist',
@@ -27,10 +30,23 @@ export class FriendlistComponent implements OnInit {
     name: new FormControl('')
   });
 
+  gifList: Gift[] = [];
+  idGift: number;
+  quantity = 1;
 
-  constructor(private friendListService: FriendListService, private toast: ToastrService,
-              private tokens: TokenStorageService, private auth: AuthenticationService) {
+  idUserReceiver: number;
+  coin: number;
+  price: number;
+  gift: Gift;
 
+
+  constructor(private friendListService: FriendListService,
+              private toast: ToastrService,
+              private tokens: TokenStorageService,
+              private giftService: GiftService,
+              private giftUserService: GiftUserService,
+              private auth: AuthenticationService) {
+    this.myIdUser = this.tokens.getUser().idAccount;
 
   }
 
@@ -39,7 +55,9 @@ export class FriendlistComponent implements OnInit {
       this.myIdUser = data.idUser;
       console.log(this.myIdUser)
       this.getAll(this.size);
+      this.getAllGift();
     })
+
 
   }
 
@@ -48,7 +66,7 @@ export class FriendlistComponent implements OnInit {
     return this.friendListService.getFriendList(this.myIdUser, this.page, this.name, size).subscribe(n => {
       if (n === null) {
         this.listFriend = [];
-        this.toast.warning("Không có bạn bè", "Chú ý")
+        // this.toast.warning("Không có bạn bè", "Chú ý")
       } else {
         this.listFriend = n.content;
       }
@@ -159,5 +177,41 @@ export class FriendlistComponent implements OnInit {
     this.size = 4;
     this.name = this.searchForm.value.name.trim();
     this.getAll(this.size)
+  }
+
+  getAllGift() {
+    this.giftService.getAllGift().subscribe(gift => {
+      this.gifList = gift;
+    });
+  }
+
+  getUser(l: any) {
+    this.idUserReceiver = l.idUser;
+    console.log(this.idUserReceiver)
+  }
+
+  getGift(i: any) {
+    this.idGift = i.idGift
+    console.log(this.idGift)
+    this.auth.getUserByAccount(this.tokens.getUser().idAccount).subscribe(data => {
+      this.myIdUser = data.idUser;
+      console.log(this.myIdUser);
+      this.giftUserService.findByIdGift(this.idGift).subscribe((gift: any) => {
+        this.price = gift.price;
+        this.giftUserService.findByIdUser(this.idUserReceiver).subscribe((user: any) => {
+          console.log(user);
+          this.coin = user.coin;
+          console.log(this.price);
+          console.log(this.coin);
+          if (this.coin < this.price) {
+            this.toast.error("Số tiền không đủ ! Bạn cần nạp thêm !", "Thông báo !")
+          } else {
+            this.giftUserService.giveAGiftUser(this.idGift, this.idUserReceiver, this.myIdUser, this.quantity).subscribe(() => {
+              this.toast.success("Tặng quà thành công", "Thông báo !")
+            })
+          }
+        });
+      });
+    });
   }
 }

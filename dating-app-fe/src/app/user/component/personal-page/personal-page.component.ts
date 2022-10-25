@@ -12,6 +12,7 @@ import {SendRequestService} from "../../../friend/friend-service/send-request.se
 import {TokenStorageService} from "../../../service/authentication/token-storage.service";
 import {UserServiceService} from "../../service/user-service.service";
 import { NgxUiLoaderService } from "ngx-ui-loader";
+import {AuthenticationService} from "../../../service/authentication/authentication.service";
 
 
 @Component({
@@ -20,11 +21,11 @@ import { NgxUiLoaderService } from "ngx-ui-loader";
   styleUrls: ['./personal-page.component.css']
 })
 export class PersonalPageComponent implements OnInit {
-
   public loading = false;
-
   relationship: any;
   isOwn: boolean;
+  myUser;
+  myAccount
   myIdUser;
   idUser;
   user: User;
@@ -44,31 +45,42 @@ export class PersonalPageComponent implements OnInit {
               @Inject(AngularFireStorage) private storage: AngularFireStorage,
               private postService: PostService,
               private router: Router, private token: TokenStorageService,
-              private ngxService: NgxUiLoaderService) {
-    this.myIdUser = this.token.getUser().idAccount;
+              private ngxService: NgxUiLoaderService,
+              private auth: AuthenticationService) {
     this.activatedRoute.paramMap.subscribe((paraMap: ParamMap) => {
       this.idUser = +paraMap.get('id');
     })
 
-    console.log(this.myIdUser)
-    if (this.idUser == this.myIdUser) {
-      this.isOwn = true;
-      console.log('own: ' + this.isOwn)
-    } else {
-      this.sendRequestService.checkFriend(this.myIdUser, this.idUser).subscribe(result => {
-        this.relationship = result;
-      })
-    }
+    this.myAccount = this.token.getUser().idAccount;
+    this.auth.getUserByAccount(this.myAccount).subscribe(data=>{
+      this.myUser =  data;
+      this.myIdUser = this.myUser.idUser;
+      console.log(this.myIdUser)
+      if (this.idUser == this.myIdUser) {
+        this.isOwn = true;
+        console.log('own: ' + this.isOwn)
+      } else {
+        this.sendRequestService.checkFriend(this.myIdUser, this.idUser).subscribe(result => {
+          this.relationship = result;
+        })
+      }
 
-    this.postCreate = new FormGroup({
-      idPost: new FormControl(""),
-      content: new FormControl("", [Validators.required]),
-      media: new FormControl(""),
-      user: new FormGroup({
-        idUser: new FormControl(this.myIdUser)
+
+      this.postCreate = new FormGroup({
+        idPost: new FormControl(""),
+        content: new FormControl("", [Validators.required]),
+        media: new FormControl(""),
+        user: new FormGroup({
+          idUser: new FormControl(this.myIdUser)
+        })
       })
+
     })
   }
+
+
+
+
 
   ngOnInit(): void {
     this.userService.getUserById(this.idUser).subscribe((userDb) => {
@@ -160,7 +172,7 @@ export class PersonalPageComponent implements OnInit {
         document.getElementById("errDiv").hidden;
       });
     }).finally(() => {
-      // this.postCreate.reset();
+      this.postCreate.reset();
       window.location.reload();
       this.ngxService.stop();
     })

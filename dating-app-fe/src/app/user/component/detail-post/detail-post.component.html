@@ -1,5 +1,4 @@
 <app-header></app-header>
-<div style="margin-top: 100px"></div>
 <div class=" row container-fluid">
   <div class="col-3 sidenav">
     <app-menu></app-menu>
@@ -190,8 +189,8 @@
                 <div class="w-100" style="margin-left: 5px; margin-top: 3px; border-radius: 22px;width: 100%">
                   <form [formGroup]="createForm" (ngSubmit)="createComment()">
                     <div style="width: 100%" class="d-flex">
-                      <textarea id="comment" class="form-control" [(ngModel)]="commentElement" type="text" formControlName="content" style="margin-left: 30px;height: 70px;width:80% ; border-radius: 25px;font-size: 24px"></textarea>
-                      <button *ngIf="commentElement"  type="submit" style="border: none ; background: none;margin-left: 10px;width : 10% ; height: 70px"><i style="font-size: 30px;color: blue" class="fa-solid fa-paper-plane"></i></button>
+                      <textarea id="comment"  class="form-control" type="text" formControlName="content" style="margin-left: 30px;height: 70px;width:80% ; border-radius: 25px;font-size: 24px"></textarea>
+                      <button   type="submit" style="border: none ; background: none;margin-left: 10px;width : 10% ; height: 70px"><i style="font-size: 30px;color: blue" class="fa-solid fa-paper-plane"></i></button>
                     </div>
                   </form>
                 </div>

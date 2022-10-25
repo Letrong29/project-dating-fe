@@ -5,10 +5,10 @@ import {FriendlistComponent} from './component/friendlist/friendlist.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {FriendRequestComponent} from "./component/friend-request/friend-request.component";
 import {ShareModule} from "../share/share.module";
-import {GiveAGiftComponent} from "./component/give-a-gift/give-a-gift.component";
+
 
 @NgModule({
-  declarations: [FriendlistComponent, FriendRequestComponent,GiveAGiftComponent],
+  declarations: [FriendlistComponent, FriendRequestComponent],
   exports: [
     FriendlistComponent
   ],

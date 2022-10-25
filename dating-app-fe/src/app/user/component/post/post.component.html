@@ -1,5 +1,4 @@
 <app-header></app-header>
-<div style="margin-top: 80px"></div>
 <!--body-->
 <div class="container-fluid">
   <div class="row mt-3">
@@ -78,7 +77,7 @@
 
               </div>
               <div class=" img-fluid">
-                <img width="25%" class=" m-1 hoverCss" *ngFor="let load of loadImage" src="{{load}}">
+                <img width="50%" class=" m-1 hoverCss" *ngFor="let load of loadImage" src="{{load}}">
               </div>
               <div>
                 <hr class="p2 mt-3" style="width: 99%; margin-left: 10px">
@@ -128,8 +127,11 @@
                         <button mat-menu-item>
                           <span [routerLink]="['/detailPost', l.idPost]">Chi tiet bai dang</span>
                         </button>
-                        <button mat-menu-item disabled>
-                          <span>To cao </span>
+                        <button mat-menu-item >
+                          <span  data-bs-toggle="modal"
+                                 data-bs-target="#createReport" (click)="elementReport(l.idPost)">
+                            Tố Cáo
+                          </span>
                         </button>
                       </mat-menu>
                     </div>
@@ -146,20 +148,16 @@
             <div>
               <p>{{l.content}}</p>
             </div>
-            <div class="img-fluid d-inline-block m-auto" *ngIf="l.mediaArr">
+            <div class="img-fluid d-inline-block m-auto m-2" *ngIf="l.mediaArr">
               <div *ngIf="l.mediaArr.length>1" class="d-inline-flex">
-                <div  *ngFor="let x of l.mediaArr">
-                  <a href="{{x}}"><img width="50%" class=" m-1  hoverCss"  src="{{x}}"></a>
+                <div class="img-fluid"   *ngFor="let x of l.mediaArr">
+                  <a href="{{x}}"><img width="80%" class=" m-1  hoverCss"  src="{{x}}"></a>
                 </div>
               </div>
               <div class=" img-fluid" *ngIf="l.mediaArr.length==1">
                 <img width="100%" class=" m-1 hoverCss" *ngFor="let x of l.mediaArr" src="{{x}}">
               </div>
             </div>
-            <div class="text-end">
-              <span class="text-end p-2 m-0" style="font-size: 15px">2 bình luận</span>
-            </div>
-
             <div class="row text-center">
               <div>
                 <hr class="m-0 p-0">
@@ -180,10 +178,6 @@
                 <hr class="m-0 p-0">
               </div>
             </div>
-            <div class="row text-center bg-gradient">
-              <div class="col-lg-12 p-1"><p style="font-weight: bold; font-size: 20px; margin-top: 15px">Bình luận bị
-                tắt cho bài viết này </p></div>
-            </div>
 
           </div>
 
@@ -193,7 +187,37 @@
     </div>`
   </div>
 
-
+  <form [formGroup]="reportDetailForm" (ngSubmit)="submitReport()">
+    <div class="modal fade" id="createReport" tabindex="-1" aria-labelledby="exampleModalLabel2"
+         aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2 class="modal-title" id="exampleModalLabel2">Tố Cáo</h2>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div>
+              <div class="col-md-12">
+                <h5><label for="type" class="form-label">Thông Tin Tố Cáo: </label></h5>
+                <select id="type" class="form-select" formControlName="report">
+                  <option value="">---Chọn nội dung tố cáo---</option>
+                  <option *ngFor="let temp of reportList" [ngValue]="temp.idReport">{{temp.nameReport}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="resetModal()">
+                Close
+              </button>
+              <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Tố Cáo</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
 
 </div>
 
