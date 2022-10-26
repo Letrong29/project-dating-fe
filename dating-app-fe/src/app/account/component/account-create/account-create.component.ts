@@ -42,7 +42,7 @@ export class AccountCreateComponent implements OnInit {
       this.accountService.save(account).subscribe(next => {
         // this.router.navigateByUrl('')
       },error => {
-        this.errorList = error.error
+        alert('tài khoản đã tồn tại')
       })
     }
   }
