@@ -129,7 +129,7 @@ export class FriendlistComponent implements OnInit {
           console.log(id)
         }
         if (id.length > 0) {
-          this.friendListService.blockFriendList(1, id).subscribe(value => {
+          this.friendListService.blockFriendList(this.myIdUser, id).subscribe(value => {
             this.name = '';
             this.getAll(this.size);
             Swal.fire(
@@ -147,7 +147,6 @@ export class FriendlistComponent implements OnInit {
     })
 
   }
-
 
   checkbox(listFriend: number) {
     for (const item of this.informationDelete) {
@@ -192,13 +191,12 @@ export class FriendlistComponent implements OnInit {
 
   getGift(i: any) {
     this.idGift = i.idGift
-    console.log(this.idGift)
     this.auth.getUserByAccount(this.tokens.getUser().idAccount).subscribe(data => {
       this.myIdUser = data.idUser;
       console.log(this.myIdUser);
       this.giftUserService.findByIdGift(this.idGift).subscribe((gift: any) => {
         this.price = gift.price;
-        this.giftUserService.findByIdUser(this.idUserReceiver).subscribe((user: any) => {
+        this.giftUserService.findByIdUser(this.myIdUser).subscribe((user: any) => {
           console.log(user);
           this.coin = user.coin;
           console.log(this.price);
@@ -206,7 +204,7 @@ export class FriendlistComponent implements OnInit {
           if (this.coin < this.price) {
             this.toast.error("Số tiền không đủ ! Bạn cần nạp thêm !", "Thông báo !")
           } else {
-            this.giftUserService.giveAGiftUser(this.idGift, this.idUserReceiver, this.myIdUser, this.quantity).subscribe(() => {
+            this.giftUserService.giveAGiftUser(this.idGift, this.myIdUser, this.idUserReceiver,  this.quantity).subscribe(() => {
               this.toast.success("Tặng quà thành công", "Thông báo !")
             })
           }

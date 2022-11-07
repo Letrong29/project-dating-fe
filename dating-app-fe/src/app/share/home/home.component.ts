@@ -25,4 +25,8 @@ export class HomeComponent implements OnInit {
       this.router.navigateByUrl('/user/newFeed');
     }
   }
+
+  searchInHome(value: any) {
+    this.router.navigate(['/share/list/', value])
+  }
 }

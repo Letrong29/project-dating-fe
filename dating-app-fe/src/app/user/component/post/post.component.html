@@ -6,7 +6,6 @@
     <div class="col-lg-3 sidenav">
       <app-menu></app-menu>
     </div>
-
     <!--content-->
     <!--DIV MOI -->
     <div class="col-lg-9 p-2">
@@ -63,10 +62,10 @@
 
 
 <!--          -&#45;&#45;&#45;&#45;-->
-          <form [formGroup]="postCreate" (ngSubmit)="savePost()">
+          <form *ngIf="newUse" [formGroup]="postCreate" (ngSubmit)="savePost()">
             <div class=" row shadow-lg p-3 mt-4 " style="border-radius: 15px">
-              <div class="d-flex col-lg-12" *ngIf="idAcc">
-                <img class="avatar" src="{{idAcc.avatar}}">
+              <div class="d-flex col-lg-12" *ngIf="newUse">
+                <img class="avatar" src="{{newUse.avatar}}">
 
 
                 <div class="w-100" style="margin-left: 5px; margin-top: 3px; border-radius: 22px">
@@ -77,20 +76,20 @@
 
               </div>
               <div class=" img-fluid">
-                <img width="50%" class=" m-1 hoverCss" *ngFor="let load of loadImage" src="{{load}}">
+                <img width="20%" class=" m-1 hoverCss" *ngFor="let load of loadImage" src="{{load}}">
               </div>
               <div>
                 <hr class="p2 mt-3" style="width: 99%; margin-left: 10px">
               </div>
 
               <div class="row mt-3">
-                <div class="mt-3 iconGroup col-lg-4 col-sm-6 text-center hoverCss">
+                <div class="mt-3 iconGroup col-lg-4 col-sm-6 text-center">
                   <i class="fa-solid fa-video me-2 " style="font-size: 30px; color: hotpink"></i>
                   <span style="color: plum; font-weight: bolder">Video Trực Tiếp</span>
                 </div>
-                <div class="mt-3 iconGroup col-lg-4 col-sm-6 text-center hoverCss">
+                <div class="mt-3 iconGroup col-lg-4 col-sm-6 text-center ">
                   <label for="formFileMultiple" class="form-label">
-                    <i class="fa-solid fa-image me-2 " style="font-size: 30px ; color: #0b5ed7"></i>
+                    <i class="fa-solid fa-image me-2 " style="cursor: pointer;font-size: 30px ; color: #0b5ed7"></i>
                   </label>
                   <span class="m-0" style="color: plum; font-weight: bolder;">Ảnh/Video</span>
                   <input style="display: none" class="form-control" type="file" id="formFileMultiple"
@@ -119,13 +118,13 @@
                   <div class="col-lg-3"></div>
                   <div class="col-lg-3 text-end">
                     <div>
-                  <span style="font-size: 30px" [matMenuTriggerFor]="menu"
+                  <span style="font-size: 30px" [matMenuTriggerFor]="menu" class="hoverCss"
                         aria-label="Example icon-button with a menu">
                     ...
                   </span>
                       <mat-menu #menu="matMenu">
                         <button mat-menu-item>
-                          <span [routerLink]="['/detailPost', l.idPost]">Chi tiet bai dang</span>
+                          <span [routerLink]="['/detailPost', l.idPost]">Chi tiết bài đăng</span>
                         </button>
                         <button mat-menu-item >
                           <span  data-bs-toggle="modal"
@@ -148,29 +147,30 @@
             <div>
               <p>{{l.content}}</p>
             </div>
-            <div class="img-fluid d-inline-block m-auto m-2" *ngIf="l.mediaArr">
-              <div *ngIf="l.mediaArr.length>1" class="d-inline-flex">
-                <div class="img-fluid"   *ngFor="let x of l.mediaArr">
-                  <a href="{{x}}"><img width="80%" class=" m-1  hoverCss"  src="{{x}}"></a>
-                </div>
+            <div class=" img-fluid d-inline-block" *ngIf="l.mediaArr">
+              <div *ngIf="l.mediaArr.length>1" class="img-fluid">
+                  <img width="48%" class=" m-1  hoverCss"  *ngFor="let x of l.mediaArr"  src="{{x}}">
               </div>
-              <div class=" img-fluid" *ngIf="l.mediaArr.length==1">
-                <img width="100%" class=" m-1 hoverCss" *ngFor="let x of l.mediaArr" src="{{x}}">
+              <div class=" img-fluid"  *ngIf="l.mediaArr.length==1">
+                <img width="98%" class=" m-1 hoverCss" *ngFor="let x of l.mediaArr" src="{{x}}">
               </div>
             </div>
-            <div class="row text-center">
+
+            <div class="text-end p-2">
+
+            </div>
+            <div class="row">
               <div>
-                <hr class="m-0 p-0">
+                <hr style="margin-left: 200px" class="m-0 p-0">
               </div>
-              <div class="col-lg-4 p-2">
-                <i class="fa-sharp fa-solid fa-thumbs-up hoverCss" style="font-size: 20px; color:#0b5ed7"></i>
+              <div class="col-lg-4 p-2 text-center">
+                <i class="fa-sharp fa-solid fa-thumbs-up" style="font-size: 20px; color:#0b5ed7"></i>
                 <span class="hoverCss" style="font-size: 15px">Thích</span></div>
-              <div class="col-lg-4 p-2">
+              <div class="col-lg-4 p-2 text-center">
                 <i class="fa-regular fa-message hoverIcon hoverCss" style="font-size: 20px"></i>
-                <span style="font-size: 15px" class="hoverCss"><a style="text-decoration: none; color: black"
-                                                                  [routerLink]="['/detailPost', l.idPost]">Bình Luận</a></span>
+                <span style="font-size: 15px" class="hoverCss" [routerLink]="['/detailPost', l.idPost]"><a style="text-decoration: none; color: black" >Bình Luận</a></span>
               </div>
-              <div class="col-lg-4 p-2">
+              <div class="col-lg-4 p-2 text-center">
                 <i class="fa-sharp fa-solid fa-arrow-up-right-from-square hoverCss"
                    style="font-size: 20px"></i>
                 <span class="hoverCss" style="font-size: 15px">Gửi</span></div>
@@ -186,8 +186,7 @@
       </div>
     </div>`
   </div>
-
-  <form [formGroup]="reportDetailForm" (ngSubmit)="submitReport()">
+  <form *ngIf="reportDetailForm" [formGroup]="reportDetailForm" (ngSubmit)="submitReport()">
     <div class="modal fade" id="createReport" tabindex="-1" aria-labelledby="exampleModalLabel2"
          aria-hidden="true">
       <div class="modal-dialog">
@@ -218,9 +217,7 @@
       </div>
     </div>
   </form>
-
 </div>
-
 
 
 

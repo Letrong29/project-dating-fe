@@ -13,6 +13,9 @@ import {TokenStorageService} from "../../../service/authentication/token-storage
 import {UserServiceService} from "../../service/user-service.service";
 import { NgxUiLoaderService } from "ngx-ui-loader";
 import {AuthenticationService} from "../../../service/authentication/authentication.service";
+import {Report} from "../../../website/model/report";
+import {ReportDetailService} from "../../../website/service/report-detail.service";
+import {ToastrService} from "ngx-toastr";
 
 
 @Component({
@@ -37,6 +40,18 @@ export class PersonalPageComponent implements OnInit {
   submitter = false;
   listShow: NewFeed[] = [];
   loadImage: any[] = [];
+  idPost
+  sendReport = []
+  reportDetailForm: FormGroup = new FormGroup({
+    id: new FormControl(''),
+    post: new FormControl(''),
+    reporter: new FormControl(''),
+    report: new FormControl('',[Validators.required]),
+    status: new FormControl(''),
+    timeReport: new FormControl('')
+  });
+  reportList: Report[] = [];
+  today= new Date()
 
   constructor(private userService: UserServiceService,
               private hobbitService: HobbitService,
@@ -46,7 +61,9 @@ export class PersonalPageComponent implements OnInit {
               private postService: PostService,
               private router: Router, private token: TokenStorageService,
               private ngxService: NgxUiLoaderService,
-              private auth: AuthenticationService) {
+              private auth: AuthenticationService,
+              private reportDetailService: ReportDetailService,
+              private toastrService:ToastrService) {
     this.activatedRoute.paramMap.subscribe((paraMap: ParamMap) => {
       this.idUser = +paraMap.get('id');
     })
@@ -74,8 +91,14 @@ export class PersonalPageComponent implements OnInit {
           idUser: new FormControl(this.myIdUser)
         })
       })
-
     })
+
+    this.reportDetailService.getAllReport().subscribe(data => {
+      console.log(data);
+      this.reportList = data;
+    }, error => {
+      this.router.navigateByUrl("/share/error404")
+    });
   }
 
 
@@ -179,4 +202,34 @@ export class PersonalPageComponent implements OnInit {
   }
 
 
+  resetModal() {
+    this.sendReport = [];
+  }
+
+  submitReport() {
+    const reportDetail = this.reportDetailForm.value;
+    console.log(reportDetail)
+    if (this.reportDetailForm.valid){
+      this.reportDetailService.save(reportDetail).subscribe(() => {
+        this.toastrService.success("Tó cáo thành công","Thông báo")
+      }, e => {
+        this.router.navigateByUrl("/share/error")
+      });
+    }else {
+      this.toastrService.warning("Bạn chưa chọn nội dung tố cáo", "Thông báo");
+    }
+  }
+
+  elementReport(idPost: number) {
+    this.idPost = idPost;
+    console.log(idPost + "sdsassd")
+    this.reportDetailForm = new FormGroup({
+      id: new FormControl(''),
+      post: new FormControl(this.idPost),
+      reporter: new FormControl(this.myIdUser),
+      report: new FormControl('',Validators.required),
+      status: new FormControl(8),
+      timeReport: new FormControl(this.today)
+    });
+  }
 }

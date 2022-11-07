@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Observable} from "rxjs";
+import {BehaviorSubject, Observable} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 import {AuthenticationService} from "../../service/authentication/authentication.service";
 import {TokenStorageService} from "../../service/authentication/token-storage.service";
@@ -16,6 +16,12 @@ const SERVICE_URL = `${environment.apiUrl}`;
   providedIn: 'root'
 })
 export class UserServiceService {
+  private countSource = new BehaviorSubject('0');
+  countLength = this.countSource.asObservable();
+
+  takeLength(count: any){
+    this.countSource.next(count);
+  }
 
 
   constructor(private  httpClient: HttpClient, private auth: AuthenticationService,

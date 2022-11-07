@@ -1,7 +1,7 @@
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top " style="background-color: #b30217!important;">
   <div class="container-fluid">
-    <a class="navbar-brandb " style="margin-left: 30px" ><img src="assets\video\Untitled-1.png"
+    <a class="navbar-brandb " routerLink="" style="margin-left: 30px" ><img src="assets\video\Untitled-1.png"
                                                                       height="60px" width="180px"></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -25,7 +25,7 @@
       <div class="d-flex ">
         <input type="text" class="form-control searchInput  me-2" [(ngModel)]="name" style=" border-radius: 10px;height: 45px;padding: 0 10px;width: 350px;border-color: coral;margin-left: 5px"
                placeholder="Tìm kiếm tên">
-        <a id ="search" [routerLink]="['/share/list/',name]" style="font-size: 20px">
+        <a id ="search" (click)="load()" style="font-size: 25px">
           <i class="fa-solid fa-magnifying-glass"></i></a>
       </div>
       <div class="dropdown" *ngIf="myUser"style="float:right;">

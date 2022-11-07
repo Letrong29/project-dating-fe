@@ -18,8 +18,8 @@ export class GiftUserService {
 
   }
 
-  giveAGiftUser(idGift: number, idUserReceiver: number, idUserSender: number, quantity: number): Observable<any> {
-    return this.http.get<GiftUser>(`${API_URL}/api/users/gift/saveGiftUser?idGift=${idGift}&idUserReceiver=${idUserReceiver}&idUserSender=${idUserSender}&quantity=${quantity}`,this.auth.getToken());
+  giveAGiftUser(idGift: number, idUserSender : number, idUserReceiver : number, quantity: number): Observable<any> {
+    return this.http.get<GiftUser>(`${API_URL}/api/users/gift/saveGiftUser?idGift=${idGift}&idUserSender=${idUserSender}&idUserReceiver=${idUserReceiver}&quantity=${quantity}`,this.auth.getToken());
   }
 
   findByIdUser(idUser: number): Observable<any> {

@@ -61,6 +61,8 @@ export class ReportDetailComponent implements OnInit {
     }, error => {
       this.router.navigateByUrl('/share/error');
       this.toast.error('Bạn không có quyền vào trang này', "Thông báo")
+    },() => {
+      this.getReportDetailsList()
     });
   }
 
@@ -70,6 +72,8 @@ export class ReportDetailComponent implements OnInit {
     }, error => {
       this.router.navigateByUrl('/share/error');
       this.toast.error('Bạn không có quyền vào trang này', "Thông báo")
+    },() => {
+      this.getReportDetailsList()
     });
   }
 
@@ -79,41 +83,35 @@ export class ReportDetailComponent implements OnInit {
   }
 
   nameSearch() {
+    this.page = 0
     const name = this.searchForm.value.nameSearch;
     this.reportDetailService.searchByKeyWord(name, this.pageCurrent).subscribe(data => {
+      if(data == null) {
+        this.getReportDetailsList()
+        this.toast.success("Nội dung bạn cần tìm không có")
+      }else {
+        this.reportDetailList = data.content;
+        this.pageTotal = data.totalPages;
+      }
+    }, error => {
+      this.router.navigateByUrl('/share/error');
+      this.toast.error('Bạn không có quyền vào trang này', "Thông báo")
+    });
+  }
+
+  nextPage() {
+    this.page = this.page + 1
+    return this.reportDetailService.searchByKeyWord(name, this.page).subscribe(data => {
       this.reportDetailList = data.content;
       this.pageTotal = data.totalPages;
-    }, error => {
-      this.router.navigateByUrl('/share/error');
-      this.toast.error('Bạn không có quyền vào trang này', "Thông báo")
-    });
+    })
   }
 
-  nextPage(currentPage: number) {
-    this.page = currentPage
-    if (this.pageCurrent < this.pageTotal - 1) {
-      this.pageCurrent = this.pageCurrent + 1;
-    }
-    this.reportDetailService.getAllReportDetail(this.page).subscribe(data => {
+  previousPage() {
+    this.page = this.page -1;
+    return this.reportDetailService.searchByKeyWord(name, this.page).subscribe(data => {
       this.reportDetailList = data.content;
-    }, error => {
-      this.router.navigateByUrl('/share/error');
-      this.toast.error('Bạn không có quyền vào trang này', "Thông báo")
-    });
-    this.nameSearch();
-  }
-
-  previousPage(currentPage: number) {
-    this.page = currentPage;
-    if (this.pageCurrent > 0) {
-      this.pageCurrent = this.pageCurrent - 1;
-    }
-    this.reportDetailService.getAllReportDetail(this.page).subscribe(data => {
-      this.reportDetailList = data.content;
-    }, error => {
-      this.router.navigateByUrl('/share/error');
-      this.toast.error('Bạn không có quyền vào trang này', "Thông báo")
-    });
-    this.nameSearch();
+      this.pageTotal = data.totalPages;
+    })
   }
 }

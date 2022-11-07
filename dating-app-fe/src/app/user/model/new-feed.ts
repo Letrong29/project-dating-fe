@@ -7,4 +7,5 @@ export interface NewFeed {
   userName?: string,
   content?: string
   mediaArr?: string[];
+  arrContent?: string[];
 }

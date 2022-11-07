@@ -1,5 +1,4 @@
 <app-header></app-header>
-<div style="padding-top: 80px"></div>
 <div class="container-fluid ">
   <div style="padding: 50px 0 60px 0px" class="text-center row">
     <h1 style="color: #d92323 ;font-family: Alice;">Đây có phải là người bạn muốn tìm kiếm</h1>
@@ -12,7 +11,7 @@
                       <img src="" [src] = "item.avatar"alt="no">
           </div>
          <div style="height: 150px">
-           <h4 class="text-black">{{item.name}}</h4>
+           <h4 class="text-danger">{{item.name}}</h4>
            <b class="text-black">{{item.job}}</b><br><br>
            <p class="text-black">{{item.address}}</p><br>
          </div>
@@ -31,13 +30,13 @@
             </li>
           </div> <div *ngIf="page != 0">
             <li class="page-item">
-              <a class="page-link previous" (click)="previousPage()">Previous</a>
+              <a class="page-link previous btn" (click)="previousPage()">Previous</a>
             </li>
           </div>
           <div *ngFor="let count of countTotalPages; index as i">
             <div *ngIf="i == page">
               <li class="page-item active">
-                <a class="page-link numberPage" >{{i+1 +'/'+totalPages}}</a>
+                <p class="numberPage text-danger" >{{i+1 +'/'+totalPages}}</p>
               </li>
             </div>
           </div>
@@ -48,7 +47,7 @@
           </div>
           <div *ngIf="page != totalPages - 1">
             <li class="page-item">
-              <a class="page-link next" (click)="nextPage()">Next</a>
+              <a class="page-link next btn" (click)="nextPage()">Next</a>
             </li>
           </div>
         </ul>

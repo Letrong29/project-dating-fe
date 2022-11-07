@@ -30,15 +30,14 @@ export class ListSearchComponent implements OnInit {
   }
 
   getAllPageSearch() {
-
     if (this.searchValue.length > 30) {
-      this.toastrService.success("Bạn đã nhập quá nhiều ký tự")
+      this.toastrService.warning("Bạn đã nhập quá nhiều ký tự")
     }
     if (this.searchValue.match("^\\W+$")) {
-      this.toastrService.success("Không được nhập ký tự đặc biệt")
+      this.toastrService.warning("Không được nhập ký tự đặc biệt")
     }
     else{
-      this.userService.getAllSearchPage(0,this.searchValue).subscribe(data => {
+      this.userService.getAllSearchPage(this.page,this.searchValue).subscribe(data => {
         if(data == null){
           this.toastrService.warning("Không tìm thấy người dùng tương ứng")
         }else {

@@ -1,4 +1,4 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, Inject, Input, OnInit} from '@angular/core';
 import {User} from "../../model/user";
 import {NewFeed} from "../../model/new-feed";
 import {UserServiceService} from "../../service/user-service.service";
@@ -25,8 +25,8 @@ import {ReportDetailService} from "../../../website/service/report-detail.servic
   styleUrls: ['./post.component.css']
 })
 export class PostComponent implements OnInit {
-  suggestList : User[];
-  listShow : NewFeed[]=[];
+  suggestList: User[];
+  listShow: NewFeed[] = [];
   groups: any[] = [];
   user: any;
   input: string = '';
@@ -38,24 +38,26 @@ export class PostComponent implements OnInit {
   links: any[] = [];
   postCreate: FormGroup;
   myIdUser;
-  lengthComment : number;
-  idPost:number;
-  sendReport = []
+  lengthComment: number;
+  idPost: number;
+  sendReport = [];
+  newUse: User
+
   reportDetailForm: FormGroup = new FormGroup({
     id: new FormControl(''),
     post: new FormControl(''),
     reporter: new FormControl(''),
-    report: new FormControl('',[Validators.required]),
+    report: new FormControl('', [Validators.required]),
     status: new FormControl(''),
     timeReport: new FormControl('')
   });
   reportList: Report[] = [];
-  today= new Date()
+  today = new Date()
 
   constructor(private service: UserServiceService,
               private friendService: FriendService,
               private friendListService: FriendListService,
-              private toast: ToastrService,private http: HttpClient,
+              private toast: ToastrService, private http: HttpClient,
               private tokens: TokenStorageService,
               private auth: AuthenticationService,
               public database: AngularFirestore,
@@ -64,39 +66,50 @@ export class PostComponent implements OnInit {
               private ngxService: NgxUiLoaderService,
               private reportDetailService: ReportDetailService,
               private router: Router,
-              ) {
+  ) {
 
-    this.myIdUser = this.tokens.getUser().idAccount;
+
     this.auth.getUserByAccount(this.tokens.getUser().idAccount).subscribe(data => {
-      this.idAcc = data;
-
-
+      this.newUse = data;
     }, () => {
     }, () => {
-      console.log(this.idAcc.idPost)
-      this.service.getComment(this.idAcc.idPost).subscribe(data=>{
-        this.lengthComment = data;
-      })
-      this.service.getListPost(this.idAcc.idUser).subscribe(async data => {
+      // this.service.getComment(this.idAcc.idPost).subscribe(data=>{
+      //   this.lengthComment = data;
+      // })
+      this.service.getListPost(this.newUse.idUser).subscribe(async data => {
         console.log(data)
-        this.listShow = data;
+        if (data != null) {
+          this.listShow = data;
+
         for (let i = 0; i < this.listShow.length; i++) {
           this.listShow[i].mediaArr = this.listShow[i].media.split(",")
+          this.listShow[i].arrContent = this.listShow[i].content.split(' ')
           if (this.listShow[i].mediaArr.length > 1) {
             this.listShow[i].mediaArr.pop()
           }
         }
         console.log(this.listShow)
+        }
       })
+      this.postCreate = new FormGroup({
+        idPost: new FormControl(""),
+        content: new FormControl(""),
+        media: new FormControl(""),
+        user: new FormGroup({
+          idUser: new FormControl(this.newUse.idUser)
+        })
+      })
+
+      // thai suggestList
+      this.friendService.getSuggestRequest(this.newUse.idUser, this.newUse.gender).subscribe(suggest => {
+        console.log(suggest)
+        this.suggestList = suggest;
+      })
+
+      // end thai
+
     });
-    this.postCreate = new FormGroup({
-      idPost: new FormControl(""),
-      content: new FormControl(""),
-      media: new FormControl(""),
-      user: new FormGroup({
-        idUser: new FormControl(this.myIdUser)
-      })
-    })
+
     this.reportDetailService.getAllReport().subscribe(data => {
       console.log(data);
       this.reportList = data;
@@ -104,29 +117,10 @@ export class PostComponent implements OnInit {
       this.router.navigateByUrl("/share/error404")
     });
   }
+
   ngOnInit(): void {
-    this.http.get<User>('http://localhost:8080/api/users/my-user/' + this.tokens.getUser().idAccount, this.auth.getToken()).subscribe(n => {
-      this.user = n
-      this.userId= this.user.idUser
-         this.friendService.getSuggestRequest(this.userId,this.user.gender).subscribe(suggest=>{
-           console.log(suggest)
-        this.suggestList = suggest;
-      })
-      this.service.getListPost(this.userId).subscribe(data=>{
-        console.log(data)
-        this.listShow = data;
-
-        for (let i = 0; i <this.listShow.length-1 ; i++) {
-          this.listShow[i].mediaArr= this.listShow[i].media.split(",")
-          if(this.listShow[i].mediaArr.length>1){
-            this.listShow[i].mediaArr.pop()
-          }
-        }
-        console.log(this.listShow)
-      })
-    })
-
   }
+
 
   /*add(myId: any, idUser: number) {
     this.suggestService.addRequest(myId, idUser)
@@ -186,14 +180,15 @@ export class PostComponent implements OnInit {
       this.ngxService.stop()
     })
   }
+
   elementReport(idPost: number) {
     this.idPost = idPost;
     console.log(idPost + "sdsassd")
     this.reportDetailForm = new FormGroup({
       id: new FormControl(''),
       post: new FormControl(this.idPost),
-      reporter: new FormControl(this.myIdUser),
-      report: new FormControl('',Validators.required),
+      reporter: new FormControl(this.newUse.idUser),
+      report: new FormControl('', Validators.required),
       status: new FormControl(8),
       timeReport: new FormControl(this.today)
     });
@@ -202,16 +197,17 @@ export class PostComponent implements OnInit {
   submitReport() {
     const reportDetail = this.reportDetailForm.value;
     console.log(reportDetail)
-    if (this.reportDetailForm.valid){
+    if (this.reportDetailForm.valid) {
       this.reportDetailService.save(reportDetail).subscribe(() => {
-        this.toast.success("Tó cáo thành công","Thông báo")
+        this.toast.success("Tó cáo thành công", "Thông báo")
       }, e => {
         this.router.navigateByUrl("/share/error")
       });
-    }else {
+    } else {
       this.toast.warning("Bạn chưa chọn nội dung tố cáo", "Thông báo");
     }
   }
+
   resetModal() {
     this.sendReport = [];
   }

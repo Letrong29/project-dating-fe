@@ -49,4 +49,10 @@ export class HeaderComponent implements OnInit {
     })
 
   }
+
+  load() {
+    this.router.navigate(['/share/list',this.name]).then(n=>{
+      window.location.reload()
+    })
+  }
 }

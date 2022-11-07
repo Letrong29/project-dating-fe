@@ -27,9 +27,10 @@
       <!--Giới tính-->
       <div class="mb-3 d-flex">
         <div class="w-50 p-2">
-          <label class="form-label fw-bold">
+          <label class="form-label fw-bold" style="margin-left: 200px">
             Giới tính:
           </label>
+
         </div>
         <div class="w-50 p-2">
           <label *ngIf="user.gender" class="form-label">
@@ -43,8 +44,8 @@
 
       <!--Ngày sinh-->
       <div class="mb-3 d-flex">
-        <div class="w-50 p-2">
-          <label class="form-label fw-bold">
+        <div class="w-50 p-2 ">
+          <label class="form-label fw-bold" style="margin-left: 200px">
             Ngày sinh:
           </label>
         </div>
@@ -57,12 +58,12 @@
 
       <!--Địa chỉ-->
       <div class="mb-3 d-flex">
-        <div class="w-50 p-2">
-          <label class="form-label fw-bold">
+        <div class="w-50 p-2 ">
+          <label class="form-label fw-bold" style="margin-left: 200px">
             Địa chỉ:
           </label>
         </div>
-        <div class="w-50 p-2">
+        <div class="w-50 p-2 ">
           <label class="form-label">
             {{user.address}}
           </label>
@@ -72,7 +73,7 @@
       <!--Tình trạng-->
       <div class="mb-3 d-flex">
         <div class="w-50 p-2">
-          <label class="form-label fw-bold">
+          <label class="form-label fw-bold" style="margin-left: 200px">
             Tình trạng:
           </label>
         </div>
@@ -87,9 +88,9 @@
       </div>
 
       <!--Loại-->
-      <div class="mb-3 d-flex">
+      <div class="mb-3 d-flex ">
         <div class="w-50 p-2">
-          <label class="form-label fw-bold">
+          <label class="form-label fw-bold" style="margin-left: 200px">
             Loại thành viên:
           </label>
         </div>
@@ -102,8 +103,8 @@
 
       <!--Xu-->
       <div class="mb-3 d-flex">
-        <div class="w-50 p-2">
-          <label class="form-label fw-bold">
+        <div class="w-50 p-2 ">
+          <label class="form-label fw-bold" style="margin-left: 200px">
             Xu hiện có:
           </label>
         </div>
@@ -118,6 +119,9 @@
                         data-bs-target="#exampleModalPaypal">
                   Nạp thêm
                 </button>
+<!--                <button [routerLink]="['/user/create-user', user.idUser]" style="margin-left: 100px" type="button" class="btn btn-info" data-bs-toggle="modal">-->
+<!--                 Tạo thông tin tài khoản-->
+<!--                </button>-->
               </div>
             </div>
           </label>

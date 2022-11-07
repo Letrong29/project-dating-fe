@@ -44,8 +44,6 @@ export class UpdateAvatarComponent implements OnInit {
       });
       this.avatar = data.avatar;
     })
-
-
   }
 
   ngOnInit(): void {
@@ -81,6 +79,7 @@ export class UpdateAvatarComponent implements OnInit {
           console.log(url);
           this.createForm.patchValue(({avatar: url}));
           this.updateAvatarService.getUpdateAvatar(this.createForm.value).subscribe(next => {
+              window.location.reload();
               this.ngxUiLoaderService.stop();
             }, error => {
             }, () => {
@@ -90,9 +89,7 @@ export class UpdateAvatarComponent implements OnInit {
           );
         });
       })
-    ).subscribe(() => {
-
-    });
+    ).subscribe();
   }
 
   checkWebcam() {
@@ -124,7 +121,6 @@ export class UpdateAvatarComponent implements OnInit {
     const file: File = new File([u8arr], 'test', {type: 'image/jpeg'});
     this.previewImage = event.imageAsDataUrl;
     this.selectFile = file
-    // const img = new WebcamImage(event.imageAsDataUrl, 'image/jpeg' , event.imageData);
   }
 
   capture() {
@@ -132,6 +128,4 @@ export class UpdateAvatarComponent implements OnInit {
     this.stream = null;
     this.imageSrc = null;
   }
-
-
 }

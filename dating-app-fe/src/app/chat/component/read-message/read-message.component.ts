@@ -161,7 +161,7 @@ search: string
   }
 
   getAll(size: number) {
-    return this.friendListService.getFriendList(this.user.idUser, 0, "", 5).subscribe(n => {
+    return this.friendListService.getFriendList(this.user.idUser, 0, "", 10).subscribe(n => {
       if (n === null) {
         this.groups = [];
         this.toast.warning("Không có bạn bè", "Chú ý")

@@ -11,25 +11,27 @@ import {AuthenticationService} from "../../../service/authentication/authenticat
   styleUrls: ['./friend-request.component.css']
 })
 export class FriendRequestComponent implements OnInit {
+  myIdAccount: number;
   myId: number ;
   requestList: User[];
+
 user: User
   constructor(private friendService: FriendService,
               private router: Router,
               private token: TokenStorageService,
               private  auth: AuthenticationService) {
-    this.myId = this.token.getUser().idAccount;
-    this.auth.getUserByAccount(this.myId).subscribe(data=>{
+    this.myIdAccount = this.token.getUser().idAccount;
+    this.auth.getUserByAccount(this.myIdAccount).subscribe(data=>{
       this.user = data
-      this.myId = data.idUser;})
-
+      this.myId = this.user.idUser;},e=>{},()=> {
+      this.friendService.getRequest(this.myId).subscribe(data => {
+        this.requestList = data;
+      })
+    })
   }
 
   ngOnInit(): void {
-    this.friendService.getRequest(this.myId).subscribe(data => {
-      this.requestList = data;
 
-    })
   }
 
 

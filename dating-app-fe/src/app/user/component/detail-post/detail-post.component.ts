@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {NewFeed} from "../../model/new-feed";
 import {FormControl, FormGroup} from "@angular/forms";
 import {finalize} from "rxjs/operators";
@@ -14,12 +14,12 @@ import {FriendService} from "../../service/friend.service";
 
 
 @Component({
-  selector: 'app-detail-post',
-  templateUrl: './detail-post.component.html',
-  styleUrls: ['./detail-post.component.css']
+    selector: 'app-detail-post',
+    templateUrl: './detail-post.component.html',
+     styleUrls: ['./detail-post.component.css']
 })
+
 export class DetailPostComponent implements OnInit {
-  suggestList : User[];
   details: NewFeed = null;
   img: string[];
   arrayImg: any[] = [];
@@ -32,6 +32,10 @@ export class DetailPostComponent implements OnInit {
   createForm: FormGroup;
   listComment: CommentPost[]
   length: number;
+  element: string;
+  loadArr: any[] = [];
+
+
 
   constructor(private service: UserServiceService,
               private storage: AngularFireStorage, private router: Router,
@@ -50,11 +54,8 @@ export class DetailPostComponent implements OnInit {
     this.auth.getUserByAccount(this.tokens.getUser().idAccount).subscribe(data => {
       this.idAcc = data;
       this.idCheck = this.idAcc.idUser
-      console.log(this.idAcc)
-      console.log(this.idCheck)
       this.callForm()
     })
-
   }
 
   ngOnInit(): void {
@@ -76,9 +77,8 @@ export class DetailPostComponent implements OnInit {
         idComment: new FormControl(''),
         content: new FormControl(''),
         user: new FormGroup({
-          idUser: new FormControl(this.idAcc.idUser)
+          idUser: new FormControl(this.idCheck)
         }),
-
         post: new FormGroup({
           idPost: new FormControl(this.details.idPost)
         })
@@ -91,7 +91,19 @@ export class DetailPostComponent implements OnInit {
 
   showMany(event: any) {
     this.arrayImg = event.target.files
-    console.log(this.arrayImg)
+    if (event.target.files.length > 0) {
+      for (let i = 0; i < event.target.files.length; i++) {
+        if (event.target.files && event.target.files[i]) {
+          var reader = new FileReader();
+          reader.onload = (event: any) => {
+            this.loadArr.push(event.target.result);
+            console.log(this.loadArr)
+          }
+          reader.readAsDataURL(event.target.files[i]);
+        }
+      }
+    }
+
   }
 
   async takeImg() {
@@ -119,24 +131,6 @@ export class DetailPostComponent implements OnInit {
     })
   }
 
-
-  updatePost() {
-    this.takeImg().then(() => {
-      if (this.linkUp == "") {
-        this.formUpdate.value.media = this.details.media
-        console.log('thiss one')
-      } else {
-        this.formUpdate.value.media = this.linkUp
-        console.log('thiss 2')
-      }
-      console.log(this.formUpdate.value)
-      this.service.updatePost(this.formUpdate.value).subscribe(() => {
-        this.ngOnInit()
-      });
-    })
-  }
-
-
   modalTakeInfo(details: NewFeed) {
     this.modalInfo = details;
     console.log(this.modalInfo)
@@ -144,8 +138,21 @@ export class DetailPostComponent implements OnInit {
 
   onSubmit() {
     this.ngxUiLoaderService.start()
-    this.updatePost()
-    this.ngxUiLoaderService.stop()
+    this.takeImg().then(() => {
+      if (this.linkUp == "") {
+        this.formUpdate.value.media = this.details.media
+      } else {
+        this.formUpdate.value.media = this.linkUp
+      }
+      console.log(this.formUpdate.value)
+      this.service.updatePost(this.formUpdate.value).subscribe(() => {
+        this.ngOnInit()
+      });
+    }).finally(() => {
+      this.ngxUiLoaderService.stop()
+    })
+
+
   }
 
   createComment() {
@@ -163,7 +170,7 @@ export class DetailPostComponent implements OnInit {
       idComment: new FormControl(),
       content: new FormControl(),
       user: new FormGroup({
-        idUser: new FormControl(this.idAcc.idUser)
+        idUser: new FormControl(this.idCheck)
       }),
       post: new FormGroup({
         idPost: new FormControl(this.details.idPost)
@@ -179,7 +186,13 @@ export class DetailPostComponent implements OnInit {
     }, () => {
       if (this.listComment) {
         this.length = this.listComment.length;
+
       }
     });
+  }
+
+
+  resetIng() {
+    this.loadArr  = [];
   }
 }
