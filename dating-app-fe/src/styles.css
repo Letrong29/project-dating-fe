@@ -1,5 +1,17 @@
+<<<<<<< HEAD
 /* You can add global styles to this file, and also import other style files */
 @import "~bootstrap/dist/css/bootstrap.css";
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+=======
+body{
+
+  background-color: #FFDEFF;
+  /*display: flex;*/
+  /*justify-content: center;*/
+  /*align-items: center;*/
+  font-family: "Poppin";
+  color: white;
+}
+>>>>>>> 837a7259821805991205a53ebe16b717b4a82283

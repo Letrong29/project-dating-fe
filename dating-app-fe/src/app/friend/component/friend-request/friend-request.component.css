@@ -16,7 +16,11 @@ body{
 .cart1{
   background: linear-gradient(to top, #FEF5F3 ,#FEF5F3);
   width: 200px;
+<<<<<<< HEAD
   height: 300px;
+=======
+  height: 310px;
+>>>>>>> 837a7259821805991205a53ebe16b717b4a82283
   border-radius: 14px;
   text-align: center;
   overflow: hidden;
@@ -79,6 +83,7 @@ img{
 }
 
 .cart1 button{
+<<<<<<< HEAD
   /*  width: 80px;*/
   /*  height: 35px;*/
   /*  background-color: #FF416C;*/
@@ -87,6 +92,16 @@ img{
   transition: 0.5s;
   /*  border: transparent;*/
   /*  padding-right: 5px;*/
+=======
+/*  width: 80px;*/
+/*  height: 35px;*/
+/*  background-color: #FF416C;*/
+/*  color: white;*/
+/*  border-radius: 10px;*/
+  transition: 0.5s;
+/*  border: transparent;*/
+/*  padding-right: 5px;*/
+>>>>>>> 837a7259821805991205a53ebe16b717b4a82283
 }
 .accept{
   margin-right: 5px;
@@ -167,6 +182,7 @@ body{
   border-radius: 15px;
 }
 
+<<<<<<< HEAD
 @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 
 
@@ -346,3 +362,5 @@ body{
   overflow-x: hidden;
   padding-top: 20px;
 }
+=======
+>>>>>>> 837a7259821805991205a53ebe16b717b4a82283
